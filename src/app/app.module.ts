@@ -1,16 +1,19 @@
-import { SharedModule } from './shared/shared.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { HttpService } from './core/http/interceptor/http-service.service';
 import { LoaderService } from './core/services/loader/loader.service';
 import { LoginService } from './core/services/login/login.service';
 import { SharedService } from './core/services/shared/shared.service';
-import { HttpClientModule } from '@angular/common/http';
-import { LayoutComponent } from './components/layout/layout.component';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -23,9 +26,16 @@ import { LayoutComponent } from './components/layout/layout.component';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [LoaderService, LoginService, SharedService],
+  providers: [LoaderService, LoginService, SharedService,
+    ConfirmationService,
+    {
+      provide: HttpClient,
+      useClass: HttpService
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

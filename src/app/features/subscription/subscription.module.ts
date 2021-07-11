@@ -5,6 +5,7 @@ import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription.component';
 
 
+
 @NgModule({
   declarations: [
     SubscriptionComponent

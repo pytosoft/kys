@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
           });
           localStorage.setItem('userID', res.data._id)
           this._shared.setUserInfo(res.data);
-          this._router.navigate(['dashboard'])
+          this._router.navigate(['app/dashboard'])
         }
         this._loader.hide();
 

@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ApiPrefixInterceptor } from '../core/http/interceptor/api-prefix.interceptor';
 import { UiFeaturesModule } from './ui-features/ui-features.module';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -31,7 +32,7 @@ import { UiFeaturesModule } from './ui-features/ui-features.module';
   ],
   providers: [
     ApiHeaderInterceptor, ApiPrefixInterceptor,
-    ErrorHandlerInterceptor
+    ErrorHandlerInterceptor, MessageService
   ]
 })
 export class SharedModule { }
