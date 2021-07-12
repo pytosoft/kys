@@ -1,0 +1,40 @@
+<div class="stepsdemo-content">
+  <p-card>
+    <ng-template pTemplate="title"> Subscriber Type </ng-template>
+    <ng-template pTemplate="subtitle">
+      Please select type of subcriber.
+    </ng-template>
+    <ng-template pTemplate="content">
+      <form [formGroup]="userInformationForm">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="firstname">User Type</label>
+            <p-selectButton [options]="users" formControlName="userType"></p-selectButton>
+          </div>
+          <div *ngIf="isExisting" class="p-field">
+            <label for="lastname">Mobile</label>
+            <input
+              id="lastname"
+              type="text"
+              pInputText formControlName="mobile"
+            />
+            <!-- <small
+              class="p-error"
+              *ngIf="">User Not Found</small
+            > -->
+          </div>
+        </div>
+      </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div class="p-grid p-nogutter p-justify-end">
+        <p-button
+          label="Next"
+          (onClick)="nextPage()"
+          icon="pi pi-angle-right"
+          iconPos="right"
+        ></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

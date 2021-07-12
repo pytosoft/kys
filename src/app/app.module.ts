@@ -26,7 +26,6 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule
   ],
   providers: [LoaderService, LoginService, SharedService,

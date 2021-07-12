@@ -1,0 +1,57 @@
+<div class="stepsdemo-content">
+  <p-card>
+    <ng-template pTemplate="title"> Subscriber Information </ng-template>
+    <ng-template pTemplate="subtitle">
+      Please fill all the fields.
+    </ng-template>
+    <ng-template pTemplate="content">
+      <form [formGroup]="userInformationForm">
+        <div class="p-fluid p-formgrid p-grid">
+         <div class="row">
+          <div class="col-4">
+            <label for="firstname">Name</label>
+            <input id="firstname" formControlName="name" type="text" pInputText>
+        </div>
+        <div class="col-4">
+            <label for="lastname">Father's Name</label>
+            <input id="lastname" type="text" formControlName="fatherName" pInputText>
+        </div>
+        <div class="col-4">
+          <label for="mobile">Mobile</label>
+          <input id="mobile" maxlength="10" type="text" formControlName="mobile" pInputText>
+      </div>
+         </div>
+         <div class="row">
+           <div class="col-4">
+              <label for="city">City</label>
+              <input id="city" type="text" formControlName="city" pInputText>
+           </div>
+           <div class="col-4">
+            <label for="state">State</label>
+            <p-dropdown inputId="state" [options]="states" [filter]="true" formControlName="state" placeholder="Select"></p-dropdown>
+           </div>
+           <div class="col-4">
+              <label for="zip">Zip</label>
+              <input id="zip" type="text" formControlName="pinCode" pInputText>
+           </div>
+         </div>
+          <div class="p-field p-col-12">
+              <label for="address">Address</label>
+              <textarea id="address" type="text" formControlName="address" rows="4" pInputTextarea></textarea>
+          </div>
+               </div>
+      </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div class="row">
+        <div class="col" >
+          <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+        </div>
+        <div class="col" style="text-align: end;">
+          <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+        </div>
+
+      </div>
+  </ng-template>
+  </p-card>
+</div>

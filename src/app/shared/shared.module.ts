@@ -1,14 +1,15 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ApiPrefixInterceptor } from '../core/http/interceptor/api-prefix.interceptor';
 import { ApiHeaderInterceptor } from './../core/http/interceptor/api-header.interceptor';
 import { ErrorHandlerInterceptor } from './../core/http/interceptor/error-handler.interceptor';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 import { LoaderComponent } from './loader/loader.component';
-import { ApiPrefixInterceptor } from '../core/http/interceptor/api-prefix.interceptor';
 import { UiFeaturesModule } from './ui-features/ui-features.module';
-import { MessageService } from 'primeng/api';
 
 
 
@@ -22,13 +23,15 @@ import { MessageService } from 'primeng/api';
   imports: [
     CommonModule,
     UiFeaturesModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     LoaderComponent,
-    UiFeaturesModule
+    UiFeaturesModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApiHeaderInterceptor, ApiPrefixInterceptor,
