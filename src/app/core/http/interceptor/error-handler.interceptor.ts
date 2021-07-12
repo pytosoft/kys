@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
 import {MessageService} from 'primeng/api';
 import { catchError } from 'rxjs/operators';
-
+import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -9,18 +8,22 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoaderService } from '../../services/loader/loader.service';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
 
-  constructor(private messageService: MessageService) {}
+  constructor(private _loader: LoaderService, private messageService: MessageService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(catchError(error => this.customErrorHandler(error)));;
+    return next.handle(request).pipe(catchError(error => this.customErrorHandler(error)));
   }
 
+  /**
+   * customErrorHandler
+   */
   private customErrorHandler(_res: HttpEvent<any>): Observable<HttpEvent<any>>{
-    // this._loader.hide();
+    this._loader.hide();
     const status = _res.type;
 
     if(status === 404){

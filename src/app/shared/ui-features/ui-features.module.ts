@@ -1,35 +1,36 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { AccordionModule } from 'primeng/accordion';
+import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { MessageModule } from 'primeng/message';
-import { SidebarModule } from 'primeng/sidebar';
-import { TableModule } from 'primeng/table';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { SharedModule, MenuItem } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
-import { MenubarModule } from 'primeng/menubar';
-import { ListboxModule } from 'primeng/listbox';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { PanelModule } from 'primeng/panel';
-import { CalendarModule } from 'primeng/calendar';
-import { AccordionModule } from 'primeng/accordion';
-import { TabViewModule } from 'primeng/tabview';
+import { FileUploadModule } from 'primeng/fileupload';
 import { FocusTrapModule } from 'primeng/focustrap';
-import { CheckboxModule } from 'primeng/checkbox';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeModule } from 'primeng/tree';
-import { ToolbarModule } from 'primeng/toolbar';
-import { StepsModule } from 'primeng/steps';
-import {CardModule} from 'primeng/card';
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ListboxModule } from 'primeng/listbox';
+import { MenubarModule } from 'primeng/menubar';
+import { MessageModule } from 'primeng/message';
+import { PanelModule } from 'primeng/panel';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SidebarModule } from 'primeng/sidebar';
+import { StepsModule } from 'primeng/steps';
+import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TreeModule } from 'primeng/tree';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   imports: [
@@ -63,7 +64,31 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     CardModule,
     SelectButtonModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+   SidebarModule,
+   TableModule,
+   FileUploadModule,
+   ToastModule,
+   DropdownModule,
+   MenubarModule,
+   ListboxModule,
+   RadioButtonModule,
+   PanelModule,
+   AccordionModule,
+   CalendarModule,
+   TabViewModule,
+   FocusTrapModule,
+   CheckboxModule,
+   TreeTableModule,
+   TreeModule,
+   MessageModule,
+   ToolbarModule,
+   SharedModule,
+   ReactiveFormsModule,
+   FormsModule
+   
+
+    
   ],
   exports: [
     MatButtonModule,
@@ -96,8 +121,33 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     CardModule,
     SelectButtonModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+   SidebarModule,
+   TableModule,
+   FileUploadModule,
+   ToastModule,
+	DropdownModule,
+	MenubarModule,
+	ListboxModule,
+	RadioButtonModule,
+	PanelModule,
+	AccordionModule,
+	CalendarModule,
+	TabViewModule,
+	FocusTrapModule,
+	CheckboxModule,
+	TreeTableModule,
+	TreeModule,
+  MessageModule,
+  ToolbarModule,
+  SharedModule,
+  ReactiveFormsModule,
+  FormsModule
+
   ],
-  providers: [],
+  providers: [
+  
+  ],
+
 })
 export class UiFeaturesModule {}

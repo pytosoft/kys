@@ -1,136 +1,246 @@
 <p-toast></p-toast>
 
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="right">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
-           
-        </ng-template>
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="right">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="openNew()"></button>
 
-      
-    </p-toolbar>
+    </ng-template>
 
-    <p-table #dt [value]="UserDetails" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
-        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Manage Subscribers</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
-                </span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="fatherName">FatherName <p-sortIcon field="fatherName"></p-sortIcon></th>
-                <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon></th>
-                <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon></th>
-                <th pSortableColumn="createDate">CreateDate <p-sortIcon field="createDate"></p-sortIcon></th>
-                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-                <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon></th>
-                <th>Action</th>
-            </tr>
-        </ng-template>
 
-        <ng-template pTemplate="body" let-UserDetails>
-            <tr>
-                <td>
-                    <p-tableCheckbox [value]="UserDetails"></p-tableCheckbox>
-                </td>
+  </p-toolbar>
 
-                <td>{{UserDetails.name}}</td>
-                <td>{{UserDetails.fatherName}}</td>
-                <td>{{UserDetails.address}}</td>
-                <td>{{UserDetails.city}}</td>
-                <td>{{UserDetails.createDate}}</td>
-                <td>{{UserDetails.email}}</td>
-                <td>{{UserDetails.mobile}}</td>
+  <p-table #dt  [value]="UserDetails" [rows]="10" [paginator]="true" [responsive]="true"
+  reso [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Subscribers</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+     
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fatherName">FatherName <p-sortIcon field="fatherName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
+        </th>
+        <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon>
+        </th>
+        <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
+        </th>
+        <th pSortableColumn="pinCode">PinCode <p-sortIcon field="pinCode"></p-sortIcon>
+          <th pSortableColumn="state">State <p-sortIcon field="state"></p-sortIcon>
+        </th>
+        
+        
+       
+        <th>Action</th>
+      </tr>
+    </ng-template>
 
-                <!-- <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+    <ng-template pTemplate="body" let-UserDetails>
+      <tr>
+    
+        <td>{{UserDetails.name}}</td>
+        <td>{{UserDetails.email}}</td>
+        <td>{{UserDetails.fatherName}}</td>
+        <td>{{UserDetails.address}}</td>
+        <td>{{UserDetails.city}}</td>
+        <td>{{UserDetails.mobile}}</td>
+        <td>{{UserDetails.pinCode}}</td>
+        <td>{{UserDetails.state}}</td>
+       
+        
+
+        <!-- <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td> -->
 
 
-                <!-- <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
+        <!-- <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
 
 
-                <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+        <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
                 <td> -->
-                  <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
-                   
-                </td>
-            </tr>
-        </ng-template>
-      
-    </p-table>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+            (click)="UserEdit(UserDetails)"></button>
+
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
 </div>
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form action="" [formGroup]="userForm" (ngSubmit)='userAddClick()'>
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" name="name" placeholder="User Name" formControlName="name">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image">
-        <div class="p-field">
-            <label for="name">Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
-            <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
+            <div *ngIf="name.errors?.required">
+              Name is required.
+            </div>
+            <div *ngIf="name.errors?.minlength">
+              Name must be at least 4 characters long.
+            </div>
+          </div>
         </div>
-        <div class="p-field">
-            <label for="description">Description</label>
-            <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
-        </div>
-        <div class="p-field">
-            <label for="inventoryStatus">Inventory Status</label>
-            <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" placeholder="Select">
-                <ng-template let-option pTemplate="item">
-                    <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
-                </ng-template>
-            </p-dropdown>
-        </div>
+      </div>
 
-        <div class="p-field">
-            <label class="p-mb-3">Category</label>
-            <div class="p-formgrid p-grid">
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category1">Accessories</label>
-                </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category2">Clothing</label>
-                </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category3">Electronics</label>
-                </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category4">Fitness</label>
-                </div>
-            </div>
-        </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="email" name="email" placeholder="Email" formControlName="email">
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
 
-        <div class="p-formgrid p-grid">
-            <div class="p-field p-col">
-                <label for="price">Price</label>
-                <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            <div *ngIf="email.errors?.required">
+              email is required.
             </div>
-            <div class="p-field p-col">
-                <label for="quantity">Quantity</label>
-                <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+            <div *ngIf="email.errors?.minlength">
+              email must be at least 4 characters long.
             </div>
+          </div>
         </div>
-    </ng-template>
-    
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-    </ng-template>
+      </div>
+
+      <!--  
+  <div class=""
+  *ngIf="!name?.valid && (name?.dirty ||name?.touched)" class="alert">
+  <div [hidden]="!name.errors.required">
+    First Name is required
+  </div>
+  <div [hidden]="!name.errors.minlength">
+    Min Length is 10
+  </div>
+ 
+</div> -->
+
+
+      <div class="form-group row">
+        <label for="fatherName" class="col-sm-2 col-form-label">Father Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="fatherName" name="fatherName" placeholder="Father Name"
+            formControlName="fatherName">
+          <div *ngIf="fatherName.invalid && (fatherName.dirty || fatherName.touched)" class="alert alert-danger">
+            <div *ngIf="fatherName.errors?.required">
+              father Name is required.
+            </div>
+            <div *ngIf="fatherName.errors?.minlength">
+              father Name must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="address" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="address" name="address" placeholder="Address"
+            formControlName="address">
+          <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+            <div *ngIf="address.errors?.required">
+              address is required.
+            </div>
+            <div *ngIf="address.errors?.minlength">
+              address must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="city" class="col-sm-2 col-form-label">City</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="city" name="city" placeholder="city" formControlName="city">
+          <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+            <div *ngIf="city.errors?.required">
+              city is required.
+            </div>
+            <div *ngIf="city.errors?.minlength">
+              city must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="mobile"
+            formControlName="mobile">
+          <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+
+            <div *ngIf="mobile.errors?.required">
+              mobile is required.
+            </div>
+            <div *ngIf="mobile.errors?.minlength">
+              mobile must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="pinCode" class="col-sm-2 col-form-label">pinCode</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="pinCode" name="pinCode" placeholder="pinCode"
+            formControlName="pinCode">
+          <div *ngIf="pinCode.invalid && (pinCode.dirty || pinCode.touched)" class="alert alert-danger">
+            <div *ngIf="pinCode.errors?.required">
+              address is required.
+            </div>
+            <div *ngIf="pinCode.errors?.minlength">
+              address must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="state" class="col-sm-2 col-form-label">state</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="pinCode" name="state" placeholder="state"
+            formControlName="state">
+          <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
+            <div *ngIf="state.errors?.required">
+              address is required.
+            </div>
+            <div *ngIf="state.errors?.minlength">
+              address must be at least 4 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+  
+   
+      <br>
+
+      <!-- [disabled]="!userForm.valid" -->
+
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pRipple class="btn btn-danger" (click)="hideDialog()">Cancel</button>
+    <button pRipple label="Save" [disabled]="!userForm.valid" (click)="UserDataAdd() " type="submit"
+      class="btn btn-success">Submit</button>
+  </ng-template>
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -1,10 +1,10 @@
 export interface UserDetail {
     name: string;
+    email: string;
     fatherName:string;
     address:string;
     city:string;
-    createDate:number;
-    email: string;
     mobile:number;
-    pinCode:number;
+    pinCode:any;
+    state:string;
 }
