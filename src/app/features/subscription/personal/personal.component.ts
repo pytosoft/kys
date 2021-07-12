@@ -1,5 +1,5 @@
 import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { stateList } from './../../../model/states-list';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -12,12 +12,19 @@ import { SelectItem } from 'primeng/api';
 })
 export class PersonalComponent implements OnInit {
   userInformationForm!: FormGroup;
-  constructor(private _fb: FormBuilder, private _router: Router,
+  constructor(private _fb: FormBuilder, private _router: Router, private activeRoute: ActivatedRoute,
     private _service: SubcriptionService) { }
   states: SelectItem[] = [];
+  subscriberId: string = '';
   ngOnInit(): void {
   this.initlization();
   this.states = stateList;
+  this.activeRoute.params.subscribe(query => {
+    if(query.id){
+      this.subscriberId = query.id;
+      this.getSubcriberInfoById(query.id)
+    }
+  })
   }
 
   initlization(): void{
@@ -35,11 +42,16 @@ export class PersonalComponent implements OnInit {
   nextPage(){
     this._service.saveSubscriber(this.userInformationForm.value)
     .subscribe(res => {
-      console.log(res)
-      this._router.navigate(['app/subscription/plan'])
+      this._router.navigate(['app/subscription/plan/'+this.subscriberId])
     })
   }
   prevPage(){
     this._router.navigate(['app/subscription/user'])
+  }
+  getSubcriberInfoById(id: string){
+    this._service.getSubcriberInfoById(id)
+    .subscribe(res => {
+      this.userInformationForm.patchValue(res.data)
+    })
   }
 }

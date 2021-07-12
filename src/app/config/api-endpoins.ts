@@ -5,5 +5,7 @@
  export const apiEndpointUrl = {
   login: () => `login`,
   subcriber: () => `subscriber`,
-  plans: () =>  `plan/list`
+  plans: () =>  `plan/list`,
+  subscriberById: (id: string) => `subscriber/getUserProfile/${id}`,
+  saveSubcription: () => `subscription`
  }

@@ -4,50 +4,107 @@
           Confirmation
       </ng-template>
       <ng-template pTemplate="subtitle">
-          Enter your card details
+         Please verify your deatils
       </ng-template>
       <ng-template pTemplate="content">
-          <div class="p-field p-col-12">
-              <label for="class">Name</label>
-              <b>{{subcriberInfo?.firstname ? subcriberInfo?.firstname : '-'}} {{subcriberInfo?.lastname ? subcriberInfo?.lastname : '-'}}</b>
+        <div class="row">
+        <div class="col">
+
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.name">
+    </div>
+    </div>
+
+        </div>
+        <div class="col">
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Father`s Name</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.fatherName">
+            </div>
+            </div>
+
+
+        </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Mobile</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.mobile">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Age</label>
-              <b>{{subcriberInfo?.age ? subcriberInfo?.age : '-'}}</b>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">City</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.city">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Seat Class</label>
-              <b>{{subcriberInfo?.class ? subcriberInfo?.class.name : '-'}}</b>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">State</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.state">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Wagon Number</label>
-              <b>{{subcriberInfo?.wagon ? subcriberInfo?.wagon.wagon : '-'}}</b>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.address">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Seat</label>
-              <b>{{subcriberInfo?.seat ? subcriberInfo?.seat.seat : '-'}}</b>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">ZIP</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="subcriberInfo.pinCode">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Cardholder Name</label>
-              <b>{{subcriberInfo?.cardholderName ? subcriberInfo?.cardholderName : '-'}}</b>
+
+        </div>
+        <h3>Plans</h3>
+        <div class="row" *ngFor="let item of seletedPlans">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Plan</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="item.name">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Card Number</label>
-              <b>{{subcriberInfo?.cardholderNumber ? subcriberInfo?.cardholderNumber : '-'}}</b>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Price</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="item.price">
+              </div>
+              </div>
           </div>
-          <div class="p-field p-col-12">
-              <label for="Age">Date</label>
-              <b>{{subcriberInfo?.date ? subcriberInfo?.date : '-'}}</b>
-          </div>
-          <div class="p-field p-col-12">
-              <label for="Age">CVV</label>
-              <b>{{subcriberInfo?.cvv && subcriberInfo?.cvv.length === 3  ? '**' + subcriberInfo?.cvv[2] : '-'}}</b>
-          </div>
-      </ng-template>
+        </div>
+        <h4>Total Amount to be paid: {{totalAmount}}</h4>
+        </ng-template>
       <ng-template pTemplate="footer">
-          <div class="p-grid p-nogutter p-justify-between">
+          <div class="row">
+            <div class="col">
               <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+            </div>
+            <div class="col" style="text-align: end;">
               <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+            </div>
           </div>
       </ng-template>
   </p-card>

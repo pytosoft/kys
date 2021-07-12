@@ -1,3 +1,4 @@
+import { ListComponent } from './list/list/list.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { PlanComponent } from './plan/plan.component';
 import { PersonalComponent } from './personal/personal.component';
@@ -10,11 +11,14 @@ const routes: Routes = [
   { path: '', component: SubscriptionComponent,
 children: [
   { path: 'user', component: UserTypeComponent },
+  { path: 'personal/:id', component: PersonalComponent },
   { path: 'personal', component: PersonalComponent },
-  { path: 'plan', component: PlanComponent },
-  { path: 'confirm', component: ConfirmComponent }
+  { path: 'plan/:subsId', component: PlanComponent },
+  { path: 'confirm/:subsId', component: ConfirmComponent },
 ]
-}
+},
+{ path: 'list', component: ListComponent }
+
 ];
 
 @NgModule({

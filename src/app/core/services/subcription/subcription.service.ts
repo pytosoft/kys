@@ -37,4 +37,20 @@ public saveSubscriber(data: any){
       catchError(() => throwError('Sorry something went wrong in api'))
     )
   }
+  getSubcriberInfoById(id: string){
+    return this._http
+    .get(apiEndpointUrl.subscriberById(id))
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
+  saveSubcription(data: any){
+    return this._http
+    .post(apiEndpointUrl.saveSubcription(), data)
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
 }

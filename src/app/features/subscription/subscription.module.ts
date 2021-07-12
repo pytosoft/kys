@@ -8,7 +8,8 @@ import { UserTypeComponent } from './user-type/user-type.component';
 import { PersonalComponent } from './personal/personal.component';
 import { PlanComponent } from './plan/plan.component';
 import { ConfirmComponent } from './confirm/confirm.component';
-import { SharedModule } from '../../shared/shared.module'
+import { SharedModule } from '../../shared/shared.module';
+import { ListComponent } from './list/list/list.component'
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedModule } from '../../shared/shared.module'
     UserTypeComponent,
     PersonalComponent,
     PlanComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
