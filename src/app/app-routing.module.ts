@@ -42,6 +42,14 @@ path:'login', component:LoginComponent
           import('./features/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
+      },
+      
+      {
+        path: 'plains',
+        loadChildren: () =>
+          import('./features/plains/plains.module').then(
+            (m) => m.PlainsModule
+          ),
       }
     ]
   }
