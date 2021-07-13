@@ -24,6 +24,14 @@ public saveSubscriber(data: any){
     catchError(() => throwError('Sorry something went wrong in api'))
   )
 }
+updateSubscriber(data: any){
+  return this._http
+  .post(apiEndpointUrl.updayteSubcriber(), data)
+  .pipe(
+    map((body: any) => body),
+    catchError(() => throwError('Sorry something went wrong in api'))
+  )
+}
   /**
  * @Name plans
  * @purpose this is  used to  verify user
@@ -40,6 +48,14 @@ public saveSubscriber(data: any){
   getSubcriberInfoById(id: string){
     return this._http
     .get(apiEndpointUrl.subscriberById(id))
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
+  getSubcriberInfoByMobile(id: string){
+    return this._http
+    .get(apiEndpointUrl.subscriberByMobile(id))
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))

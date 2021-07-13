@@ -29,17 +29,27 @@ export class ConfirmComponent implements OnInit {
     this.totalAmount = 0;
     this.seletedPlans.forEach(element => {
       this.totalAmount += element.price;
+      var dt = new Date();
+      dt.setMonth( dt.getMonth() + element.duration );
+      element.new = true;
+      element.startDate = this.today;
+      element.endDate = dt; ​
+      element.active = true;
     });
   })
   }
   complete(){
+    if(this.subcriberInfo.subcriptions && this.subcriberInfo.subcriptions.length > 0){
+      this.subcriberInfo.subcriptions.forEach((element: { new: boolean; }) => {
+        element.new = false;
+      });
+    } else {
+      this.subcriberInfo.subcriptions = [];
+    }
     const reqData = {
       "subscriberId": this.subscriberId,
       "givenBy": localStorage.getItem('userID'),
-      "startDate": this.today.getTime(),
-      "endDate": 0,
-      "active": true,
-      "plans": this.seletedPlans
+      "plans": [...this.subcriberInfo.subcriptions, ...this.seletedPlans]
     }
     this._service.saveSubcription(reqData)
     .subscribe(res => {

@@ -1,3 +1,4 @@
+import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -17,27 +18,28 @@ export class UserTypeComponent implements OnInit {
     {label: 'Existing User', value: 'Existing'},
     ]
 
-  constructor(private router: Router, private _fb: FormBuilder) { }
+  constructor(private router: Router, private _fb: FormBuilder, private _service: SubcriptionService) { }
 
   ngOnInit() {
     this.initlization();
     }
 
   nextPage() {
-      // if (this.personalInformation.firstname && this.personalInformation.lastname && this.personalInformation.age) {
-      //     // this.ticketService.ticketInformation.personalInformation = this.personalInformation;
-          this.router.navigate(['app/subscription/personal']);
-
-      //     return;
-      // }
-
+    if(this.userInformationForm.value && this.userInformationForm.value.mobile){
+      this._service.getSubcriberInfoByMobile(this.userInformationForm.value.mobile)
+      .subscribe(res => {
+        this.router.navigate(['app/subscription/personal/'+res.data.id]);
+      })
+    } else{
+      this.router.navigate(['app/subscription/personal']);
       this.submitted = true;
+    }
   }
 
   initlization(): void{
     this.userInformationForm = this._fb.group({
       userType: [ 'New', Validators.required],
-      mobileNumber: ['']
+      mobile: ['']
     })
   }
 

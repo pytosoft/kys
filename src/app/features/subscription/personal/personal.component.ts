@@ -40,10 +40,20 @@ export class PersonalComponent implements OnInit {
     })
   }
   nextPage(){
-    this._service.saveSubscriber(this.userInformationForm.value)
+    if(this.subscriberId){
+      let reqData = this.userInformationForm.value;
+      reqData['_id'] = this.subscriberId;
+      this._service.updateSubscriber(reqData)
+      .subscribe(res => {
+        this._router.navigate(['app/subscription/plan/'+this.subscriberId])
+      })
+    } else{
+      this._service.saveSubscriber(this.userInformationForm.value)
     .subscribe(res => {
-      this._router.navigate(['app/subscription/plan/'+this.subscriberId])
+      this._router.navigate(['app/subscription/plan/'+res.data.id])
     })
+    }
+
   }
   prevPage(){
     this._router.navigate(['app/subscription/user'])
