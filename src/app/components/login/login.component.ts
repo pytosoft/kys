@@ -37,29 +37,11 @@ export class LoginComponent implements OnInit {
         "password" : this.loginForm.value.password
       }
       this._service.login(reqData).subscribe(res => {
-        if(res.status === 0){
-          this._message.add({
-            severity: 'error',
-            summary: 'Error',
-            key: 'myToast',
-            detail: res.message
-          });
-        } else{
-          this._message.add({
-            severity: 'success',
-            summary: 'Success',
-            key: 'myToast',
-            detail: res.message
-          });
-          localStorage.setItem('userID', res.data._id)
-          this._shared.setUserInfo(res.data);
+          localStorage.setItem('userID', res.userId)
+          localStorage.setItem('token', res.token)
           this._router.navigate(['app/dashboard'])
-        }
-        this._loader.hide();
-
-        setTimeout(function () {
-       }, 2000);
-      })
+          this._loader.hide();
+        })
     }
 
 

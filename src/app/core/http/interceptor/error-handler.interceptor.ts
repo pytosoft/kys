@@ -34,16 +34,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       detail:  "Resource not found"
     });
     }
-    //  else{
-    //   if(!(status instanceof Blob)){
-    //   this.messageService.add({
-    //     severity: 'error',
-    //     summary: 'Error',
-    //     key: 'myToast',
-    //     detail: _res['error']
-    //   });
-    //       }
-    // }
     throw _res;
   }
 }
