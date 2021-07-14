@@ -1,3 +1,4 @@
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
@@ -22,11 +23,11 @@ export class UserComponent implements OnInit {
 
 
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
-    private UserService:UserService, private fb: FormBuilder
+    private UserService:UserService, private fb: FormBuilder,  private _loader: LoaderService,
     ) { }
 
   ngOnInit(): void {
-    this.UserAdd() 
+    this.UserAdd()
     this.addUserForm()
     // this.productService.getProducts().then(data => this.products = data);
 
@@ -89,11 +90,12 @@ userAddClick(){
 
   UserAdd() {
     this.productDialog = false;
+    this._loader.show();
     this.UserService.UserGet().subscribe(user =>{
-    console.log(user)
-    this.UserDetails  = user.data
-    
-    }) 
+      this._loader.hide();
+      this.UserDetails  = user.data
+
+    })
   }
 
   UserDataAdd() {
@@ -113,7 +115,7 @@ userAddClick(){
       this.productDialog = false;
       this.UserAdd();
     });
-    
+
   }
 
   UserEdit(data: any) {
@@ -156,14 +158,14 @@ deleteSelectedProducts() {
       }
   });
 }
-    
+
 
 deleteProduct(product: any) {
   this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + product.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
-      
+
       // accept: () => {
       //     this.products = this.products.filter(val => val.id !== product.id);
       //     this.product = {};
