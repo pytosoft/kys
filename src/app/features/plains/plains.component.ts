@@ -51,19 +51,21 @@ export class PlainsComponent implements OnInit {
 
   }
   planAdd() {
+    debugger
 
-   const addData = {
+//    const addData = {
 
-"planId" : this.product.value.planId,
-"name" : this.product.value.name,
-"createdBy" : this.product.value.createdBy,
-"price" : this.product.value.price,
-"duration" : this.product.value.duration,
-"description" : this.product.value.description,
-"active" : this.product.value.active
+// "planId" : this.product.value.planId,
+// "name" : this.product.value.name,
+// "createdBy" : this.product.value.createdBy,
+// "price" : this.product.value.price,
+// "duration" : this.product.value.duration,
+// "description" : this.product.value.description,
+// "active" : this.product.value.active
 
-   }
-   this.PlanService.planAdd(addData).subscribe(arg => {
+//    }
+   this.PlanService.planGet().subscribe(arg => {
+     console.log(this.planGet())
      this.planGet();
    });
    
@@ -71,7 +73,7 @@ export class PlainsComponent implements OnInit {
 
   }
 
-  openNew() {
+  addPlan(product:any) {
     this.product = {};
     this.submitted = false;
     this.productDialog = true;
@@ -134,7 +136,17 @@ saveProduct() {
   //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
   //     }
 if(this.product && this.product._id){
+
   this.PlanService.planUpdate(this.product)
+  .subscribe(res => {
+    
+    this.productDialog =  false
+    alert('updated')
+  })
+  
+}
+else{
+  this.PlanService.planAdd(this.product)
   .subscribe(res => {
     this.productDialog =  false
     alert('updated')
