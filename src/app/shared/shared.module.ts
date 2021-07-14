@@ -1,3 +1,5 @@
+import { HttpService } from './../core/http/interceptor/http-service.service';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,7 +37,10 @@ import { UiFeaturesModule } from './ui-features/ui-features.module';
   ],
   providers: [
     ApiHeaderInterceptor, ApiPrefixInterceptor,
-    ErrorHandlerInterceptor
+    ErrorHandlerInterceptor, {
+      provide: HttpClient,
+      useClass: HttpService
+    },
   ]
 })
 export class SharedModule { }
