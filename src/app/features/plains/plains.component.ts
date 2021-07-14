@@ -22,8 +22,9 @@ export class PlainsComponent implements OnInit {
     private PlanService:PlanService) { }
 
   ngOnInit(): void {
-    this.UserAdd() 
-    // this.productService.getProducts().then(data => this.products = data);
+    this.planGet(); 
+    this.planUpdate();
+    this.planAdd()
 
     this.statuses = [
       {label: 'INSTOCK', value: 'instock'},
@@ -33,12 +34,40 @@ export class PlainsComponent implements OnInit {
   }
 
 
-  UserAdd() {
+  planGet() {
     debugger
-    this.PlanService.PlanGet().subscribe(user =>{
+    this.PlanService.planGet().subscribe(user =>{
     console.log(user.data)
     this.PlanDetails  = user.data
     })
+
+  }
+  planUpdate() {
+    debugger
+    this.PlanService.planGet().subscribe(user =>{
+    console.log(user.data)
+    this.planGet();
+    })
+
+  }
+  planAdd() {
+
+   const addData = {
+
+"planId" : this.product.value.planId,
+"name" : this.product.value.name,
+"createdBy" : this.product.value.createdBy,
+"price" : this.product.value.price,
+"duration" : this.product.value.duration,
+"description" : this.product.value.description,
+"active" : this.product.value.active
+
+   }
+   this.PlanService.planAdd(addData).subscribe(arg => {
+     this.planGet();
+   });
+   
+ 
 
   }
 
@@ -62,7 +91,7 @@ deleteSelectedProducts() {
 }
 
 
-editProduct(product: any) {
+editPlan(product: any) {
   this.product = {...product};
   this.productDialog = true;
 }
@@ -81,12 +110,16 @@ deleteProduct(product: any) {
   });
 }
 
+
+
+
 hideDialog() {
   this.productDialog = false;
   this.submitted = false;
 }
 
 saveProduct() {
+  
   this.submitted = true;
 
   // if (this.product.name.trim()) {
@@ -100,7 +133,13 @@ saveProduct() {
   //         this.products.push(this.product);
   //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
   //     }
-
+if(this.product && this.product._id){
+  this.PlanService.planUpdate(this.product)
+  .subscribe(res => {
+    this.productDialog =  false
+    alert('updated')
+  })
+}
       this.products = [...this.products];
       this.productDialog = false;
       this.product = {};

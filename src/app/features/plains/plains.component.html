@@ -14,15 +14,15 @@
     <p-table #dt [value]="PlanDetails" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Manage Subscribers</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
+        <!-- <ng-template pTemplate="caption"> -->
+            <!-- <div class="p-d-flex p-ai-center p-jc-between"> -->
+                <!-- <h5 class="p-m-0">Manage Subscribers</h5> -->
+                <!-- <span class="p-input-icon-left"> -->
+                    <!-- <i class="pi pi-search"></i> -->
                     <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
-                </span>
-            </div>
-        </ng-template>
+                <!-- </span> -->
+            <!-- </div> -->
+        <!-- </ng-template> -->
         <ng-template pTemplate="header">
             <tr>
                 <!-- <th style="width: 3rem">
@@ -73,7 +73,7 @@
                 <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
                 <td> -->
                   <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(PlanDetails)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editPlan(PlanDetails)"></button>
                    
                 </td>
             </tr>
@@ -83,9 +83,9 @@
 </div>
 
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Plan Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image">
+        <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
         <div class="p-field">
             <label for="name">PlanId</label>
             <input type="number" pInputText id="planId" [(ngModel)]="product.planId" required autofocus />
@@ -109,7 +109,7 @@
         <div class="p-field">
             <label for="name">Duration</label>
             <input type="text" pInputText id="duration" [(ngModel)]="product.duration" required autofocus />
-            <small class="p-error" *ngIf="submitted && !product.Duration">Duration is required.</small>
+            <small class="p-error" *ngIf="submitted && !product.duration">Duration is required.</small>
         </div>
         <div class="p-field">
             <label for="name">Book</label>
