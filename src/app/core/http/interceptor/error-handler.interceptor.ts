@@ -50,6 +50,15 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       localStorage.removeItem('token');
       localStorage.removeItem('userID');
       this._router.navigate(['/login']);
+    } else if (res.status === 500) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: res.error.message
+      });
+      localStorage.removeItem('token');
+      localStorage.removeItem('userID');
+      this._router.navigate(['/login']);
     } else {
       this.messageService.add({
         severity: 'error',

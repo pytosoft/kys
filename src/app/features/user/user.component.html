@@ -1,88 +1,88 @@
-<p-toast></p-toast>
-
-<div class="card">
-  <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="right">
+<nav class="navbar navbar-light header-page">
+  <div class="container-fluid">
+    <a class="navbar-brand">Manage Subscribers
+    </a>
+  </div>
+</nav>
+<main class="container-fluid">
+  <div class="d-flex align-items-center p-1 my-1 text-white rounded shadow-sm bg-primary">
+    <div class="lh-1">
+      <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
+        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+    <div class="btn-group me-1 ml-auto">
       <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="openNew()"></button>
+      (click)="openNew()"></button>
+    </div>
+  </div>
 
-    </ng-template>
+  <div class="my-1 p-1 bg-body rounded shadow-sm">
+    <p-table #dt  [value]="UserDetails" [rows]="10" [paginator]="true" [responsive]="true"
+    reso [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+      [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true">
+      <ng-template pTemplate="header">
+        <tr>
 
-
-  </p-toolbar>
-
-  <p-table #dt  [value]="UserDetails" [rows]="10" [paginator]="true" [responsive]="true"
-  reso [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
-    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true">
-    <ng-template pTemplate="caption">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Manage Subscribers</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
-        </span>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-     
-        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-        </th>
-          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
-        </th>
-        <th pSortableColumn="fatherName">FatherName <p-sortIcon field="fatherName"></p-sortIcon>
-        </th>
-        <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
-        </th>
-        <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon>
-        </th>
-        <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
-        </th>
-        <th pSortableColumn="pinCode">PinCode <p-sortIcon field="pinCode"></p-sortIcon>
-          <th pSortableColumn="state">State <p-sortIcon field="state"></p-sortIcon>
-        </th>
-        
-        
-       
-        <th>Action</th>
-      </tr>
-    </ng-template>
-
-    <ng-template pTemplate="body" let-UserDetails>
-      <tr>
-    
-        <td>{{UserDetails.name}}</td>
-        <td>{{UserDetails.email}}</td>
-        <td>{{UserDetails.fatherName}}</td>
-        <td>{{UserDetails.address}}</td>
-        <td>{{UserDetails.city}}</td>
-        <td>{{UserDetails.mobile}}</td>
-        <td>{{UserDetails.pinCode}}</td>
-        <td>{{UserDetails.state}}</td>
-       
-        
-
-        <!-- <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
-                <td>{{product.price | currency:'USD'}}</td>
-                <td>{{product.category}}</td> -->
+          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+          </th>
+            <th pSortableColumn="email">Email
+          </th>
+          <th pSortableColumn="fatherName">FatherName
+          </th>
+          <th pSortableColumn="address">Address
+          </th>
+          <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon>
+          </th>
+          <th pSortableColumn="mobile">Mobile
+          </th>
+          <th pSortableColumn="pinCode">PinCode <p-sortIcon field="pinCode"></p-sortIcon>
+            <th pSortableColumn="state">State <p-sortIcon field="state"></p-sortIcon>
+          </th>
 
 
-        <!-- <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
+
+          <th>Action</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-UserDetails>
+        <tr>
+
+          <td>{{UserDetails.name}}</td>
+          <td>{{UserDetails.email}}</td>
+          <td>{{UserDetails.fatherName}}</td>
+          <td>{{UserDetails.address}}</td>
+          <td>{{UserDetails.city}}</td>
+          <td>{{UserDetails.mobile}}</td>
+          <td>{{UserDetails.pinCode}}</td>
+          <td>{{UserDetails.state}}</td>
 
 
-        <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
-                <td> -->
-        <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
-            (click)="UserEdit(UserDetails)"></button>
 
-        </td>
-      </tr>
-    </ng-template>
+          <!-- <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                  <td>{{product.price | currency:'USD'}}</td>
+                  <td>{{product.category}}</td> -->
 
-  </p-table>
-</div>
+
+          <!-- <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
+
+
+          <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+                  <td> -->
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+              (click)="UserEdit(UserDetails)"></button>
+
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  </main>
+
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
@@ -119,7 +119,7 @@
         </div>
       </div>
 
-      <!--  
+      <!--
   <div class=""
   *ngIf="!name?.valid && (name?.dirty ||name?.touched)" class="alert">
   <div [hidden]="!name.errors.required">
@@ -128,7 +128,7 @@
   <div [hidden]="!name.errors.minlength">
     Min Length is 10
   </div>
- 
+
 </div> -->
 
 
@@ -227,8 +227,8 @@
           </div>
         </div>
       </div>
-  
-   
+
+
       <br>
 
       <!-- [disabled]="!userForm.valid" -->
@@ -242,5 +242,4 @@
       class="btn btn-success">Submit</button>
   </ng-template>
 </p-dialog>
-
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
