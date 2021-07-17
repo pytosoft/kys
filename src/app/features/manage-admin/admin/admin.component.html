@@ -1,0 +1,94 @@
+<nav class="navbar navbar-light header-page">
+  <div class="container-fluid">
+    <a class="navbar-brand">Manage Admin
+    </a>
+  </div>
+</nav>
+<main class="container-fluid">
+  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
+    <div class="lh-1">
+      <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
+        <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+    <div class="btn-group me-1 ml-auto">
+      <button type="button" (click)="adminDialog=true" class="btn btn-primary btn-sm">Add New</button>
+    </div>
+  </div>
+
+  <div class="my-1 p-1 bg-body rounded shadow-sm">
+
+    <p-table #dt [value]="data" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
+        [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="AdminId">Id <p-sortIcon field="AdminId"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="fatherName">Father's Name</th>
+                <th pSortableColumn="city">Village/City </th>
+                <th pSortableColumn="mobile">Phone </th>
+                <th pSortableColumn="mobile">Region </th>
+                <th pSortableColumn="active">Active <p-sortIcon field="active"></p-sortIcon></th>
+
+                <th>Action</th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-adminDetails>
+            <tr>
+
+                <td>{{adminDetails.id}}</td>
+                <td>{{adminDetails.name}}</td>
+
+                <td>{{adminDetails.fatherName}}</td>
+                <td>{{adminDetails.city}} </td>
+                <td>{{adminDetails.phone}}</td>
+                <td>{{adminDetails.region}}</td>
+                <td>
+                  <span *ngIf="adminDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
+                  <span *ngIf="!adminDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
+                </td>
+                  <td>
+                    <button pButton pRipple icon="pi pi-pencil" style="    margin-right: 15px;" class="p-button-rounded p-button-success p-mr-2" (click)="editAdmin()"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="deleteAdmin()"></button>
+
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+  </div>
+  </main>
+
+<p-dialog [(visible)]="adminDialog" [style]="{width: '450px'}" header="Admin Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <form [formGroup]="adminForm">
+        <div class="p-field">
+          <label for="name">Name</label>
+          <input type="text" pInputText id="name" formControlName="name" required autofocus />
+          <small class="p-error" *ngIf="submitted && adminForm.controls['name'].invalid">Name is required.</small>
+      </div>
+
+      <div class="p-field">
+          <label for="name">Father's Name</label>
+          <input type="number" pInputText id="price" formControlName="fatherName" required autofocus />
+          <small class="p-error" *ngIf="submitted && adminForm.controls['fatherName'].invalid">Price is required.</small>
+      </div>
+      <div class="p-field">
+          <label for="name">City/Village</label>
+          <input type="text" pInputText id="duration" formControlName="city" required autofocus />
+          <small class="p-error" *ngIf="submitted && adminForm.controls['city'].invalid">Duration is required.</small>
+      </div>
+     </form>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="adminDialog=false"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveAdmin()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

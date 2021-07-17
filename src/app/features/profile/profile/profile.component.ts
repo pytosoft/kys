@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { ProfileService } from './../../../core/services/profile/profile.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  profile: any;
+  constructor(private _service: ProfileService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getProfile();
   }
 
+  getProfile(){
+    const id  = localStorage.getItem('userID');
+    if (typeof id === 'string') {
+    this._service.getProfileById(id)
+    .subscribe(res => {
+      this.profile = res.data
+    })
+  }
+}
 }

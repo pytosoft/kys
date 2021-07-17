@@ -9,5 +9,7 @@
   plans: () =>  `plan/list`,
   subscriberById: (id: string) => `subscriber/getUserProfile/${id}`,
   saveSubcription: () => `subscription`,
-  subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`
+  subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`,
+  adminList: () => `user/list`,
+  getProfileId: (id: string) => `user/getUserProfile/${id}`
  }
