@@ -16,7 +16,7 @@ import { apiEndpointUrl } from 'src/app/config/api-endpoins';
 export class PlanService {
 
   constructor( private _http: HttpClient) { }
-  
+
   public planGet(){
     return this._http
     .get("plan/list")
@@ -36,6 +36,14 @@ export class PlanService {
   public planAdd(data: any){
     return this._http
     .post("plan", data)
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
+  deletePlan(id: string){
+    return this._http
+    .get("plan/deleteById?id="+id)
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))

@@ -1,3 +1,4 @@
+import { ManageAdminModule } from './features/manage-admin/manage-admin.module';
 import { LayoutComponent } from './components/layout/layout.component';
 
 import { LoginComponent } from './components/login/login.component';
@@ -49,6 +50,30 @@ path:'login', component:LoginComponent
         loadChildren: () =>
           import('./features/plains/plains.module').then(
             (m) => m.PlainsModule
+          ),
+      },
+
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./features/account/account.module').then(
+            (m) => m.AccountModule
+          ),
+      },
+
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./features/manage-admin/manage-admin.module').then(
+            (m) => m.ManageAdminModule
+          ),
+      },
+
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./features/profile/profile.module').then(
+            (m) => m.ProfileModule
           ),
       }
     ]
