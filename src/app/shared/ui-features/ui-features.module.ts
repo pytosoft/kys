@@ -31,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { TreeTableModule } from 'primeng/treetable';
    ToolbarModule,
    SharedModule,
    ReactiveFormsModule,
-   FormsModule
+   FormsModule,
+   MatExpansionModule
    
 
     
@@ -142,7 +144,8 @@ import { TreeTableModule } from 'primeng/treetable';
   ToolbarModule,
   SharedModule,
   ReactiveFormsModule,
-  FormsModule
+  FormsModule,
+  MatExpansionModule
 
   ],
   providers: [

@@ -20,6 +20,8 @@ export class UserComponent implements OnInit {
   productDialog?: boolean;
   selectedProducts:any;
    userForm!:any;
+   panelOpenState = false;
+   selected!: number;
 
 
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
@@ -181,26 +183,26 @@ hideDialog() {
 
 
 
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].id === id) {
-            index = i;
-            break;
-        }
-    }
+//   findIndexById(id: string): number {
+//     let index = -1;
+//     for (let i = 0; i < this.products.length; i++) {
+//         if (this.products[i].id === id) {
+//             index = i;
+//             break;
+//         }
+//     }
 
-    return index;
-}
+//     return index;
+// }
 
-createId(): string {
-    let id = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for ( var i = 0; i < 5; i++ ) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-}
+// createId(): string {
+//     let id = '';
+//     var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//     for ( var i = 0; i < 5; i++ ) {
+//         id += chars.charAt(Math.floor(Math.random() * chars.length));
+//     }
+//     return id;
+// }
 updateUserData(){
  this.UserService.UserUpdate(this.userForm.value).subscribe(arg => {
    this.productDialog = false;
