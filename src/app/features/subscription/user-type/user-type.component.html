@@ -2,16 +2,18 @@
   <p-card>
     <ng-template pTemplate="title"> Subscriber Type </ng-template>
     <ng-template pTemplate="subtitle">
-      Please select type of subcriber.
+      Please select type of subscriber.
     </ng-template>
     <ng-template pTemplate="content">
       <form [formGroup]="userInformationForm">
-        <div class="p-fluid">
-          <div class="p-field">
+        <div class="row p-fluid">
+          <div class="p-field col-md-6">
             <label for="firstname">User Type</label>
             <p-selectButton [options]="users" formControlName="userType"></p-selectButton>
           </div>
-          <div *ngIf="isExisting" class="p-field">
+
+          <div class="col-md-2"></div>
+          <div *ngIf="isExisting" class="p-field col-md-4">
             <label for="mobile">Mobile</label>
             <input
               id="mobile"
@@ -24,10 +26,13 @@
             > -->
           </div>
         </div>
+        <div class="p-fluid ">
+
+        </div>
       </form>
     </ng-template>
     <ng-template pTemplate="footer">
-      <div class="p-grid p-nogutter p-justify-end">
+      <div class="p-grid p-nogutter p-justify-end" style="    text-align: end;">
         <p-button
           label="Next"
           (onClick)="nextPage()"

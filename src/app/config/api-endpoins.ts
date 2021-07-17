@@ -11,5 +11,6 @@
   saveSubcription: () => `subscription`,
   subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`,
   adminList: () => `user/list`,
+  saveAdmin: () => `user`,
   getProfileId: (id: string) => `user/getUserProfile/${id}`
  }

@@ -5,76 +5,68 @@
     </a>
   </div>
 </nav>
-<main class="container-fluid">
-  <div class="d-flex align-items-center p-1 my-1 text-white rounded shadow-sm bg">
-    <div class="lh-1">
-      <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
-     <input type="search" class="form-control " placeholder="Search..." aria-label="Search">
-     <!-- <i class="fa fa-search"></i>   -->
-      </form>
-    </div>
-    <div class="btn-group me-1 ml-auto">
-      
+  <main class="container-fluid" style="margin-top: -8px;">
+    <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
+      <div class="lh-1">
+        <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
+          <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
+        </form>
+      </div>
+      <div class="btn-group me-1 ml-auto">
+        <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
 
-      <button class="btn btn-primary mr-4" (click)="openNew()">Add New</button>
-      <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="bColor p-mr-2"
-      (click)="openNew()"></button> -->
+        <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="addPlan(planDetails)"></button> -->
+      </div>
     </div>
-  </div>
-
  <div class="mt-4 mb-4">
   <div class="row">
     <div class="col-2">Subscriber Name</div>
     <div class="col-2"> Subscriber Email </div>
     <div class="col-2">Father Name</div>
     <div class="col-2">Mobile</div>
-    <div class="col-2">City</div>
-    <div class="col-2">Date</div>
+    <div class="col-2">City/Village</div>
+    <div class="col-2">Status</div>
   </div>
  </div>
 
   <div class="my-1 p-1 bg-body rounded shadow-sm">
-    
-
-
-
-    
-
     <mat-accordion>
       <mat-expansion-panel *ngFor="let item of UserDetails; index as i;" (opened)="selected=i"
                            (closed)="panelOpenState = false">
-                          
+
         <mat-expansion-panel-header *ngIf="selected!==i">
           <div class="row">
-      
+
               <div class="col-md-2">{{item.name}}</div>
               <div class="col-md-2"> {{item.email}} </div>
               <div class="col-md-2"> {{item.fatherName}} </div>
               <div class="col-md-2">{{item.mobile}}</div>
               <div class="col-md-2">{{item.city}}</div>
-              <div class="col-md-2">date</div>
+              <div class="col-md-2">
+                <div class="status-toggle">
+                  <input type="checkbox" id="status_1" class="check" checked>
+                  <label for="status_1" class="checktoggle">checkbox</label>
+                </div>
+              </div>
            </div>
 
-
-
-          
-        
         </mat-expansion-panel-header>
-    
+
         <p> {{item.address}}</p>
         <p>{{item.pinCode}}</p>
         <p>{{item.state}}</p>
 
-        
+
        <div class="sher">
-        <button class="btn btn-primary  rounded-circle mr-2" (click)="  UserEdit(item) "> <i class="fa fa-pencil text-light"></i></button>
+        <button class="btn btn-primary  rounded-circle mr-2" (click)="UserEdit(item) "> <i class="fa fa-pencil text-light"></i></button>
         <button class="btn btn-success" >Active</button>
         <hr>
 
 
        </div>
-    
-     
+
+
       </mat-expansion-panel>
     </mat-accordion>
 
@@ -124,14 +116,14 @@
 
 
 
-          <!-- <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
+           <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
 
 
           <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
                   <td> -->
 
 
-          <td>
+          <!-- <td>
             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
               (click)="UserEdit(UserDetails)"></button>
 
@@ -139,10 +131,9 @@
         </tr>
       </ng-template>
 
-    </p-table> -->
+    </p-table>  -->
   </div>
-  </main>
-
+</main>
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">

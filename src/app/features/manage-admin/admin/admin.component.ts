@@ -30,8 +30,9 @@ export class AdminComponent implements OnInit {
        this._spinner.hide();
      })
    }
-  addAdmin(){
-
+  showAddAdmin(){
+    this.adminDialog = true;
+    this.adminForm.reset();
   }
   filterByName(val: string){
 
@@ -46,7 +47,15 @@ export class AdminComponent implements OnInit {
 
   }
   saveAdmin(){
+    this.submitted = true;
+    if(this.adminForm.invalid)
+      return
 
+    this._spinner.show();
+    this._service.saveAdmin(this.adminForm.value)
+    .subscribe(() => {
+      this.getAllAdmin();
+    })
   }
   /**
    * initilization
@@ -54,11 +63,14 @@ export class AdminComponent implements OnInit {
    initilization(){
      this.adminForm = this._fb.group({
        name: ['', Validators.required],
+       email: ['', Validators.required],
+       password: ['', Validators.required],
        fatherName: ['', Validators.required],
        mobile: ['', Validators.required],
        city: ['', Validators.required],
        address: ['', Validators.required],
-       region: ['', Validators.required]
+       region: ['', Validators.required],
+       state: ['', Validators.required]
      })
    }
 }

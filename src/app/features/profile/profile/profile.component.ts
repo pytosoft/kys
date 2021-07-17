@@ -13,16 +13,26 @@ export class ProfileComponent implements OnInit {
   constructor(private _service: ProfileService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getProfile();
+    let id = ''
+    this._route.params.subscribe(res => {
+      if(res && res.id){
+        id = res.id
+      } else{
+        const userId  = localStorage.getItem('userID');
+        if (typeof userId === 'string') {
+          id = userId
+        }
+      }
+      this.getProfile(id)
+    })
+
+
   }
 
-  getProfile(){
-    const id  = localStorage.getItem('userID');
-    if (typeof id === 'string') {
+  getProfile(id: string){
     this._service.getProfileById(id)
     .subscribe(res => {
       this.profile = res.data
     })
-  }
 }
 }

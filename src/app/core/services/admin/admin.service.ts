@@ -30,4 +30,12 @@ public getAllAdmin(){
     catchError(() => throwError('Sorry something went wrong in api'))
   )
 }
+saveAdmin(data: any){
+  return this._http
+  .post(apiEndpointUrl.saveAdmin(),data, httpOptions)
+  .pipe(
+    map((body: any) => body),
+    catchError(() => throwError('Sorry something went wrong in api'))
+  )
+}
 }

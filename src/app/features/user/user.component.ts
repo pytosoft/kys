@@ -56,7 +56,9 @@ this.userForm = this.fb.group({
 })
 }
 
+filterByName(val: string){
 
+}
 get name() {
   return this.userForm.get('name');
 }

@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
@@ -14,7 +15,8 @@ export class ConfirmComponent implements OnInit {
   seletedPlans: any[] = [];
   totalAmount: number = 0;
   today = new Date();
-  constructor(private _router: Router,  private activeRoute: ActivatedRoute,  private _service: SubcriptionService) { }
+  constructor(private _router: Router,  private activeRoute: ActivatedRoute,
+     private _service: SubcriptionService, private messageService: MessageService) { }
 
   ngOnInit(): void {
         this.activeRoute.params.subscribe(query => {
@@ -53,9 +55,13 @@ export class ConfirmComponent implements OnInit {
     }
     this._service.saveSubcription(reqData)
     .subscribe(res => {
-      alert(res.message);
-
-      this._router.navigate(['app/subscription/list'])
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: res.message,
+        life: 3000,
+      });
+      this._router.navigate(['app/user'])
 
     })
   }

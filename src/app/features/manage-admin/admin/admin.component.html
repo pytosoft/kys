@@ -12,14 +12,14 @@
       </form>
     </div>
     <div class="btn-group me-1 ml-auto">
-      <button type="button" (click)="adminDialog=true" class="btn btn-primary btn-sm">Add New</button>
+      <button type="button" (click)="showAddAdmin()" class="btn btn-primary btn-sm">Add New</button>
     </div>
   </div>
 
   <div class="my-1 p-1 bg-body rounded shadow-sm">
 
     <p-table #dt [value]="data" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
-        [rowHover]="true" dataKey="id"
+        [rowHover]="true" dataKey="id" styleClass="p-datatable-striped"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
@@ -40,19 +40,28 @@
             <tr>
 
                 <td>{{adminDetails.id}}</td>
-                <td>{{adminDetails.name}}</td>
+                <td>
+                  <button class="link" routerLink="/app/profile/{{adminDetails._id}}">
+                    {{adminDetails.name}}
+                  </button>
+
+                </td>
 
                 <td>{{adminDetails.fatherName}}</td>
                 <td>{{adminDetails.city}} </td>
-                <td>{{adminDetails.phone}}</td>
+                <td>{{adminDetails.mobile}}</td>
                 <td>{{adminDetails.region}}</td>
                 <td>
-                  <span *ngIf="adminDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
-                  <span *ngIf="!adminDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
+                  <div *ngIf="adminDetails.active" class="status-toggle">
+                    <input type="checkbox" id="status_1" class="check" checked>
+                    <label for="status_1" class="checktoggle">checkbox</label>
+                  </div>
+                  <!-- <span *ngIf="adminDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
+                  <span *ngIf="!adminDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span> -->
                 </td>
                   <td>
                     <button pButton pRipple icon="pi pi-pencil" style="    margin-right: 15px;" class="p-button-rounded p-button-success p-mr-2" (click)="editAdmin()"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="deleteAdmin()"></button>
+                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="deleteAdmin()"></button> -->
 
                 </td>
             </tr>
@@ -70,17 +79,46 @@
           <input type="text" pInputText id="name" formControlName="name" required autofocus />
           <small class="p-error" *ngIf="submitted && adminForm.controls['name'].invalid">Name is required.</small>
       </div>
-
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input type="text" pInputText id="email" formControlName="email" required autofocus />
+        <small class="p-error" *ngIf="submitted && adminForm.controls['email'].invalid">Email is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="email">Password</label>
+      <input type="text" pInputText id="password" formControlName="password" required autofocus />
+      <small class="p-error" *ngIf="submitted && adminForm.controls['password'].invalid">Password is required.</small>
+  </div>
       <div class="p-field">
           <label for="name">Father's Name</label>
-          <input type="number" pInputText id="price" formControlName="fatherName" required autofocus />
+          <input type="text" pInputText id="price" formControlName="fatherName" required autofocus />
           <small class="p-error" *ngIf="submitted && adminForm.controls['fatherName'].invalid">Price is required.</small>
       </div>
       <div class="p-field">
+        <label for="name">Region</label>
+        <input type="text" pInputText id="region" formControlName="region" required autofocus />
+        <small class="p-error" *ngIf="submitted && adminForm.controls['region'].invalid">Region is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="name">Contact No.</label>
+      <input type="text" maxlength="10" pInputText id="mobile" formControlName="mobile" required autofocus />
+      <small class="p-error" *ngIf="submitted && adminForm.controls['mobile'].invalid">Mobile is required.</small>
+  </div>
+      <div class="p-field">
           <label for="name">City/Village</label>
           <input type="text" pInputText id="duration" formControlName="city" required autofocus />
-          <small class="p-error" *ngIf="submitted && adminForm.controls['city'].invalid">Duration is required.</small>
+          <small class="p-error" *ngIf="submitted && adminForm.controls['city'].invalid">City/Village is required.</small>
       </div>
+      <div class="p-field">
+        <label for="name">State</label>
+        <input type="text" pInputText id="state" formControlName="state" required autofocus />
+        <small class="p-error" *ngIf="submitted && adminForm.controls['state'].invalid">State is required.</small>
+    </div>
+  <div class="p-field">
+    <label for="description">Address</label>
+    <textarea id="description" pInputTextarea formControlName="address" required rows="3" cols="20"></textarea>
+    <small class="p-error" *ngIf="submitted && adminForm.controls['address'].invalid">Address is required.</small>
+</div>
      </form>
 
     </ng-template>
