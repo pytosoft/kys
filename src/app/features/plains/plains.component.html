@@ -5,15 +5,17 @@
   </div>
 </nav>
 <main class="container-fluid">
-  <div class="d-flex align-items-center p-1 my-1 text-white rounded shadow-sm bg-primary">
+  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
     <div class="lh-1">
       <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
         <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
       </form>
     </div>
     <div class="btn-group me-1 ml-auto">
-      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-      (click)="addPlan(planDetails)"></button>
+      <button type="button" (click)="addPlan(planDetails)" class="btn btn-primary btn-sm">Add New</button>
+
+      <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+      (click)="addPlan(planDetails)"></button> -->
     </div>
   </div>
 
