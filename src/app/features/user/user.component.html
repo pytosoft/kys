@@ -1,147 +1,107 @@
-
 <nav class="navbar navbar-light header-page">
   <div class="container-fluid">
     <a class="navbar-brand">Manage Subscribers
     </a>
   </div>
 </nav>
-  <main class="container-fluid" style="margin-top: -8px;">
-    <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
-      <div class="lh-1">
-        <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
-          <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
-        </form>
-      </div>
-      <div class="btn-group me-1 ml-auto">
-        <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
-
-        <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="addPlan(planDetails)"></button> -->
-      </div>
+<main class="container-fluid" style="margin-top: -8px;">
+  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg">
+    <div class="lh-1">
+      <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
+        <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height"
+          placeholder="Search..." aria-label="Search">
+      </form>
     </div>
- <div class="mt-4 mb-4">
-  <div class="row">
-    <div class="col-2">Subscriber Name</div>
-    <div class="col-2"> Subscriber Email </div>
-    <div class="col-2">Father Name</div>
-    <div class="col-2">Mobile</div>
-    <div class="col-2">City/Village</div>
-    <div class="col-2">Status</div>
+    <div class="btn-group me-1 ml-auto">
+      <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
+
+  
+    </div>
   </div>
- </div>
+  <div class="mt-4 mb-4">
+    <div class="row">
+      <div class="col-2"><strong>Subscriber Name</strong></div>
+      <div class="col-2"> <strong>Subscriber Email </strong></div>
+      <div class="col-2"><strong>Father Name</strong></div>
+      <div class="col-2"><strong>Mobile</strong></div>
+      <div class="col-2"><strong>City/Village</strong></div>
+      <div class="col-2"><strong>Status</strong></div>
+    </div>
+  </div>
 
   <div class="my-1 p-1 bg-body rounded shadow-sm">
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let item of UserDetails; index as i;" (opened)="selected=i"
-                           (closed)="panelOpenState = false">
+      <mat-expansion-panel *ngFor="let item of subscriberDetails; index as i;" (opened)="selected=i"
+        (closed)="panelOpenState = false">
 
         <mat-expansion-panel-header *ngIf="selected!==i">
           <div class="row">
 
-              <div class="col-md-2">{{item.name}}</div>
-              <div class="col-md-2"> {{item.email}} </div>
-              <div class="col-md-2"> {{item.fatherName}} </div>
-              <div class="col-md-2">{{item.mobile}}</div>
-              <div class="col-md-2">{{item.city}}</div>
-              <div class="col-md-2">
-                <div class="status-toggle">
-                  <input type="checkbox" id="status_1" class="check" checked>
-                  <label for="status_1" class="checktoggle">checkbox</label>
-                </div>
+            <div class="col-md-2">{{item.name}}</div>
+            <div class="col-md-2"><i class="fa fa-envelope-open-text"></i> {{item.email}} </div>
+            <div class="col-md-2"> {{item.fatherName}} </div>
+            <div class="col-md-2">{{item.mobile}}</div>
+            <div class="col-md-2">{{item.city}}</div>
+            <div class="col-md-2">
+              <div class="status-toggle">
+              
+
+
+                <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(item) "> <i
+                  class="fa fa-pencil text-light"></i></button>
+              <button *ngIf="item.active" class="badge badge-pill bg-success inv-badge p-2">Active</button>
+              <button *ngIf="!item.active" class="badge badge-pill bg-danger inv-badge  p-2">Active</button>
               </div>
-           </div>
+            </div>
+          </div>
+          <hr >
 
         </mat-expansion-panel-header>
+        <div class="row mt-4">
+          <div class="col-1">
+            <div class="numberCircle mb-2">100</div>
+          </div>
+          <div class="col-md-2">
+            <h5> <i class="fa fa-map-marker mr-2"></i> {{item.address}}</h5>
+          </div>
+        </div>
 
-        <p> {{item.address}}</p>
-        <p>{{item.pinCode}}</p>
-        <p>{{item.state}}</p>
-
-
-       <div class="sher">
-        <button class="btn btn-primary  rounded-circle mr-2" (click)="UserEdit(item) "> <i class="fa fa-pencil text-light"></i></button>
-        <button class="btn btn-success" >Active</button>
         <hr>
 
+        <div class="row">
+          <div class="col-md-4">
 
-       </div>
+          </div>
+          <div class="col-md-4">
+
+            <h6> <i class="fa fa-building mr-2"></i> {{item.city}}</h6>
+
+            <h6> <i class="fa fa-flag mr-2"></i> {{item.state}}</h6>
 
 
+            <h6> <i class="fa fa-map-pin mr-2"></i>{{item.pinCode}}</h6>
+          </div>
+        </div>
+
+        <div class="btn-left">
+          <input type="checkbox" id="status_1" class="check" checked>
+          <label for="status_1" class="checktoggle">checkbox</label>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
 
 
-
-    <!-- <p-table #dt  [value]="UserDetails" [rows]="10" [paginator]="true" [responsive]="true"
-    reso [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
-      [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true">
-      <ng-template pTemplate="header">
-        <tr>
-
-          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-          </th>
-            <th pSortableColumn="email">Email
-          </th>
-          <th pSortableColumn="fatherName">FatherName
-          </th>
-          <th pSortableColumn="address">Address
-          </th>
-          <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon>
-          </th>
-          <th pSortableColumn="mobile">Mobile
-          </th>
-          <th pSortableColumn="pinCode">PinCode <p-sortIcon field="pinCode"></p-sortIcon>
-            <th pSortableColumn="state">State <p-sortIcon field="state"></p-sortIcon>
-          </th>
-
-
-
-          <th>Action</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-UserDetails>
-        <tr>
-
-          <td>{{UserDetails.name}}</td>
-          <td>{{UserDetails.email}}</td>
-          <td>{{UserDetails.fatherName}}</td>
-          <td>{{UserDetails.address}}</td>
-          <td>{{UserDetails.city}}</td>
-          <td>{{UserDetails.mobile}}</td>
-          <td>{{UserDetails.pinCode}}</td>
-          <td>{{UserDetails.state}}</td>
-
-
-
-
-           <td><p-rating [ngModel]="product.rating"></p-rating></td> -->
-
-
-          <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
-                  <td> -->
-
-
-          <!-- <td>
-            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
-              (click)="UserEdit(UserDetails)"></button>
-
-          </td>
-        </tr>
-      </ng-template>
-
-    </p-table>  -->
   </div>
 </main>
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+<p-dialog [(visible)]="subscriberDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
-    <form action="" [formGroup]="userForm" (ngSubmit)='userAddClick()'>
+    <form action="" [formGroup]="subscriberForm" (ngSubmit)='subscriberAddClick()'>
       <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" name="name" placeholder="User Name" formControlName="name">
+          <input type="text" class="form-control" id="name" name="name" placeholder="subscriber Name"
+            formControlName="name">
           <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
 
             <div *ngIf="name.errors?.required">
@@ -254,8 +214,7 @@
       <div class="form-group row">
         <label for="state" class="col-sm-2 col-form-label">state</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="pinCode" name="state" placeholder="state"
-            formControlName="state">
+          <input type="text" class="form-control" id="pinCode" name="state" placeholder="state" formControlName="state">
           <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
             <div *ngIf="state.errors?.required">
               address is required.
@@ -266,7 +225,7 @@
           </div>
         </div>
       </div>
-     <br>
+      <br>
 
 
 
@@ -275,7 +234,7 @@
 
   <ng-template pTemplate="footer">
     <button pRipple class="btn btn-danger" (click)="hideDialog()">Cancel</button>
-    <button pRipple label="Save" [disabled]="!userForm.valid" (click)="UserDataAdd() " type="submit"
+    <button pRipple label="Save" [disabled]="!subscriberForm.valid" (click)="subscriberDataAdd() " type="submit"
       class="btn btn-success">Submit</button>
   </ng-template>
 </p-dialog>

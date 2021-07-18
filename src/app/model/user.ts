@@ -1,4 +1,4 @@
-export interface UserDetail {
+export interface subscriberDetail {
     name: string;
     email: string;
     fatherName:string;
@@ -7,4 +7,5 @@ export interface UserDetail {
     mobile:number;
     pinCode:any;
     state:string;
+    active:boolean;
 }

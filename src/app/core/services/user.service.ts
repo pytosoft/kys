@@ -13,11 +13,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class subscriberService {
 
   constructor( private _http: HttpClient ) { }
 
-  public UserGet(){
+  public subscriberGet(){
     return this._http
     .get("subscriber/list")
     .pipe(
@@ -26,7 +26,7 @@ export class UserService {
     )
   }
 
-  public UserPost(data:any){
+  public subscriberPost(data:any){
     return this._http
     .post("subscriber", data, httpOptions)
     .pipe(
@@ -35,7 +35,7 @@ export class UserService {
     )
   }
 
-  public UserUpdate(data:any){
+  public subscriberUpdate(data:any){
     return this._http
     .post("subscriber/update", data, httpOptions)
     .pipe(

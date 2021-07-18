@@ -1,11 +1,23 @@
-// :host ::ng-deep .p-dialog .product-image {
-//     width: 150px;
-//     margin: 0 auto 2rem auto;
-//     display: block;
-// }
+mat-expansion-panel-header {
+    padding: 23px;
+    /* height: 40px; */
+    padding-top: 88px;
+    padding-bottom: 88px;
+}
+
+:host ::ng-deep .p-dialog .product-image {
+    width: 150px;
+    margin: 0 auto 2rem auto;
+    display: block;
+}
+
+
 
 .bg {
-background-color: #ffa66e;
+background-color: #e9c4af;
+text-shadow: 4px 5px;
+
+
 }
 
 .bColor {
@@ -24,7 +36,29 @@ background-color: #ffa66e;
   }
 
 
-  .sher{
+  .btn-left{
       float: right;
       display: flex;
   }
+
+
+  .numberCircle {
+      color: #fff;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    background-color: #2b2626;
+}
+
+i {
+color:rgb(222, 101, 26)
+}
+
+hr {
+    background-color: rgba(204, 204, 204, 0.863);
+}
+
+
+
