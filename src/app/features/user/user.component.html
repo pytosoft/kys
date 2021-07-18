@@ -36,7 +36,6 @@
 
         <mat-expansion-panel-header *ngIf="selected!==i">
           <div class="row">
-
             <div class="col-md-2">{{item.name}}</div>
             <div class="col-md-2"><i class="fa fa-envelope-open-text"></i> {{item.email}} </div>
             <div class="col-md-2"> {{item.fatherName}} </div>
@@ -44,17 +43,14 @@
             <div class="col-md-2">{{item.city}}</div>
             <div class="col-md-2">
               <div class="status-toggle">
-              
-
-
                 <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(item) "> <i
                   class="fa fa-pencil text-light"></i></button>
               <button *ngIf="item.active" class="badge badge-pill bg-success inv-badge p-2">Active</button>
-              <button *ngIf="!item.active" class="badge badge-pill bg-danger inv-badge  p-2">Active</button>
+              <button *ngIf="!item.active" class="badge badge-pill bg-danger inv-badge  p-2">InActive</button>
               </div>
             </div>
           </div>
-          <hr >
+          <hr>
 
         </mat-expansion-panel-header>
         <div class="row mt-4">
@@ -65,20 +61,13 @@
             <h5> <i class="fa fa-map-marker mr-2"></i> {{item.address}}</h5>
           </div>
         </div>
-
         <hr>
-
         <div class="row">
           <div class="col-md-4">
-
           </div>
           <div class="col-md-4">
-
             <h6> <i class="fa fa-building mr-2"></i> {{item.city}}</h6>
-
             <h6> <i class="fa fa-flag mr-2"></i> {{item.state}}</h6>
-
-
             <h6> <i class="fa fa-map-pin mr-2"></i>{{item.pinCode}}</h6>
           </div>
         </div>
@@ -93,7 +82,7 @@
 
   </div>
 </main>
-<p-dialog [(visible)]="subscriberDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+<p-dialog [(visible)]="subscriberDialog" [style]="{width: '450px'}" header="Subscriber Details" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <form action="" [formGroup]="subscriberForm" (ngSubmit)='subscriberAddClick()'>
@@ -107,9 +96,7 @@
             <div *ngIf="name.errors?.required">
               Name is required.
             </div>
-            <div *ngIf="name.errors?.minlength">
-              Name must be at least 4 characters long.
-            </div>
+          
           </div>
         </div>
       </div>
@@ -123,9 +110,7 @@
             <div *ngIf="email.errors?.required">
               email is required.
             </div>
-            <div *ngIf="email.errors?.minlength">
-              email must be at least 4 characters long.
-            </div>
+   
           </div>
         </div>
       </div>
@@ -140,9 +125,7 @@
             <div *ngIf="fatherName.errors?.required">
               father Name is required.
             </div>
-            <div *ngIf="fatherName.errors?.minlength">
-              father Name must be at least 4 characters long.
-            </div>
+      
           </div>
         </div>
       </div>
@@ -156,11 +139,9 @@
             <div *ngIf="address.errors?.required">
               address is required.
             </div>
-            <div *ngIf="address.errors?.minlength">
-              address must be at least 4 characters long.
-            </div>
-          </div>
+       
         </div>
+      </div>
       </div>
 
       <div class="form-group row">
@@ -171,9 +152,7 @@
             <div *ngIf="city.errors?.required">
               city is required.
             </div>
-            <div *ngIf="city.errors?.minlength">
-              city must be at least 4 characters long.
-            </div>
+         
           </div>
         </div>
       </div>
@@ -181,7 +160,7 @@
       <div class="form-group row">
         <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="mobile"
+          <input type="number" class="form-control" id="mobile" name="mobile" placeholder="mobile"
             formControlName="mobile">
           <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert alert-danger">
 
@@ -189,7 +168,7 @@
               mobile is required.
             </div>
             <div *ngIf="mobile.errors?.minlength">
-              mobile must be at least 4 characters long.
+              mobile must be at least 10 characters long.
             </div>
           </div>
         </div>
@@ -202,11 +181,9 @@
             formControlName="pinCode">
           <div *ngIf="pinCode.invalid && (pinCode.dirty || pinCode.touched)" class="alert alert-danger">
             <div *ngIf="pinCode.errors?.required">
-              address is required.
+              Pin Code is required.
             </div>
-            <div *ngIf="pinCode.errors?.minlength">
-              address must be at least 4 characters long.
-            </div>
+        
           </div>
         </div>
       </div>
@@ -219,9 +196,7 @@
             <div *ngIf="state.errors?.required">
               address is required.
             </div>
-            <div *ngIf="state.errors?.minlength">
-              address must be at least 4 characters long.
-            </div>
+           
           </div>
         </div>
       </div>
