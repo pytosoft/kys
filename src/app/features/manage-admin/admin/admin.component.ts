@@ -1,3 +1,4 @@
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { AdminService } from './../../../core/services/admin/admin.service';
@@ -13,7 +14,9 @@ export class AdminComponent implements OnInit {
   adminDialog: boolean = false;
   submitted: boolean = false;
   adminForm!: FormGroup;
-  constructor(private _service: AdminService, private _spinner: LoaderService, private _fb: FormBuilder) { }
+  constructor(private _service: AdminService, private _spinner: LoaderService,
+     private _fb: FormBuilder, private confirmationService: ConfirmationService,
+     private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.initilization();
@@ -26,7 +29,7 @@ export class AdminComponent implements OnInit {
      this._spinner.show();
      this._service.getAllAdmin()
      .subscribe(res => {
-       this.data = res.data;
+       this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
        this._spinner.hide();
      })
    }
@@ -37,8 +40,23 @@ export class AdminComponent implements OnInit {
   filterByName(val: string){
 
   }
-  deleteAdmin(){
+  deleteAdmin(admin: any) {
+    this.confirmationService.confirm({
+      message: `Are you sure you want to ${admin.active ? 'deactivate'+ admin.name : 'activate'+ admin.name} ?`,
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
 
+      accept: () => {
+        this._service.deleteAdmin(admin).subscribe((res) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: res.message,
+            life: 3000,
+          });
+        });
+      },
+    });
   }
   editAdmin(){
 
@@ -54,6 +72,9 @@ export class AdminComponent implements OnInit {
     this._spinner.show();
     this._service.saveAdmin(this.adminForm.value)
     .subscribe(() => {
+      this.adminDialog = false;
+      this.submitted = false;
+      this.adminForm.reset();
       this.getAllAdmin();
     })
   }

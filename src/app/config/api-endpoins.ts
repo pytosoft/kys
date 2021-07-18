@@ -12,5 +12,7 @@
   subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`,
   adminList: () => `user/list`,
   saveAdmin: () => `user`,
-  getProfileId: (id: string) => `user/getUserProfile/${id}`
+  deleteAdmin: (admin: any) => `user/deleteById?id=${admin._id}&active=${admin.active}`,
+  getProfileId: (id: string) => `user/getUserProfile/${id}`,
+  getDashboardId: (id: string) => `dashboard/${id}`
  }

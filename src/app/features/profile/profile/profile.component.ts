@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from './../../../core/services/profile/profile.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit {
 
   profile: any;
+  depositAmount: FormControl = new FormControl('', Validators.required);
+  
   constructor(private _service: ProfileService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -35,4 +38,15 @@ export class ProfileComponent implements OnInit {
       this.profile = res.data
     })
 }
+deposit(){
+
+}
+
+public get amount() : boolean {
+  if(this.depositAmount.value && Number(this.depositAmount.value) && Number(this.depositAmount.value) > 0){
+    return false;
+  }
+  return true;
+}
+
 }

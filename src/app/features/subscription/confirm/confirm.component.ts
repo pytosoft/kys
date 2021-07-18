@@ -50,7 +50,8 @@ export class ConfirmComponent implements OnInit {
     }
     const reqData = {
       "subscriberId": this.subscriberId,
-      "givenBy": localStorage.getItem('userID'),
+      "createdBy": localStorage.getItem('userID'),
+      "totalAmount": this.totalAmount,
       "plans": [...this.subcriberInfo.subcriptions, ...this.seletedPlans]
     }
     this._service.saveSubcription(reqData)

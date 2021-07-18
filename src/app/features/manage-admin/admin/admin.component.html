@@ -52,13 +52,11 @@
                 <td>{{adminDetails.mobile}}</td>
                 <td>{{adminDetails.region}}</td>
                 <td>
-                  <div *ngIf="adminDetails.active" class="status-toggle">
-                    <input type="checkbox" id="status_1" class="check" checked>
-                    <label for="status_1" class="checktoggle">checkbox</label>
+                  <div  class="status-toggle">
+                    <input  type="checkbox" [(ngModel)]="adminDetails.active" id="status_1" class="check" checked>
+                    <label (click)="deleteAdmin(adminDetails)" for="status_1" class="checktoggle">checkbox</label>
                   </div>
-                  <!-- <span *ngIf="adminDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
-                  <span *ngIf="!adminDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span> -->
-                </td>
+                  </td>
                   <td>
                     <button pButton pRipple icon="pi pi-pencil" style="    margin-right: 15px;" class="p-button-rounded p-button-success p-mr-2" (click)="editAdmin()"></button>
                     <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="deleteAdmin()"></button> -->

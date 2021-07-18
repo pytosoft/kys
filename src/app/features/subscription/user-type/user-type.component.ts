@@ -25,7 +25,7 @@ export class UserTypeComponent implements OnInit {
     }
 
   nextPage() {
-    if(this.userInformationForm.value && this.userInformationForm.value.mobile){
+    if(this.userInformationForm.value && this.userInformationForm.value.mobile && this.userInformationForm.value.mobile.length ===10){
       this._service.getSubcriberInfoByMobile(this.userInformationForm.value.mobile)
       .subscribe(res => {
         this.router.navigate(['app/subscription/personal/'+res.data.id]);

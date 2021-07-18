@@ -38,4 +38,12 @@ saveAdmin(data: any){
     catchError(() => throwError('Sorry something went wrong in api'))
   )
 }
+deleteAdmin(admin: any){
+  return this._http
+  .get(apiEndpointUrl.deleteAdmin(admin), httpOptions)
+  .pipe(
+    map((body: any) => body),
+    catchError(() => throwError('Sorry something went wrong in api'))
+  )
+}
 }

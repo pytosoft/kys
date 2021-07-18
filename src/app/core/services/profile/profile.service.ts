@@ -23,4 +23,18 @@ public getProfileById(id: string){
     catchError(() => throwError('Sorry something went wrong in api'))
   )
 }
+
+    /**
+ * @Name getProfileById
+ * @purpose this is  used getProfileById
+ * @param no
+ */
+     public getDashboardById(id: string){
+      return this._http
+      .get(apiEndpointUrl.getDashboardId(id))
+      .pipe(
+        map((body: any) => body),
+        catchError(() => throwError('Sorry something went wrong in api'))
+      )
+    }
 }

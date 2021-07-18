@@ -16,7 +16,7 @@
           <div *ngIf="isExisting" class="p-field col-md-4">
             <label for="mobile">Mobile</label>
             <input
-              id="mobile"
+              id="mobile" maxlength="10"
               type="text"
               pInputText formControlName="mobile"
             />
@@ -33,7 +33,7 @@
     </ng-template>
     <ng-template pTemplate="footer">
       <div class="p-grid p-nogutter p-justify-end" style="    text-align: end;">
-        <p-button
+        <p-button [disabled]="isExisting && userInformationForm.controls['mobile'].value < 10"
           label="Next"
           (onClick)="nextPage()"
           icon="pi pi-angle-right"

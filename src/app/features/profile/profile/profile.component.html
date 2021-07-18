@@ -34,6 +34,9 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#account_tab">Account</a>
+      </li>
     </ul>
   </div>
   <div class="tab-content profile-tab-cont">
@@ -200,6 +203,33 @@
       </div>
     </div>
     <!-- /Change Password Tab -->
+      <!-- Change Password Tab -->
+      <div id="account_tab" class="tab-pane fade">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Account</h5>
+            <div class="row">
+              <div class="col-md-10 col-lg-10">
+                <form class="row">
+                  <div class="col form-group">
+                    <label>Pending Amount</label>
+                    <input type="text" [value]="profile?.pendingAmount" class="form-control" disabled>
+                  </div>
+                  <div class="col form-group">
+                    <label>Deposit Amount</label>
+                    <input type="text" name="depositAmount" formControlName="depositAmount" class="form-control">
+                  </div>
+                  
+                </form>
+                <button class="btn btn-primary" [disabled]="amount" (click)="deposit()" type="submit">Save Changes</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Change Password Tab -->
 
   </div>
 </div>

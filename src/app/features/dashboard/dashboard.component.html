@@ -16,7 +16,7 @@
           <i class="fe fe-users"></i>
         </span>
         <div class="dash-count">
-          <h3>168</h3>
+          <h3>{{data?.subsCount}}</h3>
         </div>
       </div>
       <div class="dash-widget-info">
@@ -36,7 +36,7 @@
           <i class="fe fe-credit-card"></i>
         </span>
         <div class="dash-count">
-          <h3>487</h3>
+          <h3>{{data?.planCount}}</h3>
         </div>
       </div>
       <div class="dash-widget-info">
@@ -57,12 +57,12 @@
           <i class="fe fe-money"></i>
         </span>
         <div class="dash-count">
-          <h3>485</h3>
+          <h3>₹ {{currentUser?.depositAmount}}</h3>
         </div>
       </div>
       <div class="dash-widget-info">
 
-        <h6 class="text-muted">Books</h6>
+        <h6 class="text-muted">Deposit Amount</h6>
         <div class="progress progress-sm">
           <div class="progress-bar bg-danger w-50"></div>
         </div>
@@ -78,12 +78,12 @@
           <i class="fe fe-folder"></i>
         </span>
         <div class="dash-count">
-          <h3>$62523</h3>
+          <h3>₹ {{totalAmount}}</h3>
         </div>
       </div>
       <div class="dash-widget-info">
 
-        <h6 class="text-muted">Revenue</h6>
+        <h6 class="text-muted">Pending Amount</h6>
         <div class="progress progress-sm">
           <div class="progress-bar bg-warning w-50"></div>
         </div>
@@ -108,135 +108,31 @@
             <tr>
               <th>Admin Name</th>
               <th>Region</th>
-              <th>Subscribers</th>
-              <!-- <th>Apointment Time</th> -->
+              <th>City/Village</th>
               <th>Status</th>
               <th class="text-right">Pending Amount</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of data?.admins">
               <td>
                 <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Dr. Ruby Perrin</a>
+                  <a href="profile.html">{{item?.name}}</a>
                 </h2>
               </td>
-              <td>Dental</td>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Charlene Reed </a>
-                </h2>
-              </td>
+              <td>{{item?.region}}</td>
+              <td>{{item?.city}}</td>
               <td>
                 <div class="status-toggle">
-                  <input type="checkbox" id="status_1" class="check" checked>
+                  <input type="checkbox" [(ngModel)]="item.active"  id="status_1" class="check" checked>
                   <label for="status_1" class="checktoggle">checkbox</label>
                 </div>
               </td>
               <td class="text-right">
-                $200.00
+                {{item.pendingAmount}}
               </td>
             </tr>
-            <tr>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Dr. Darren Elder</a>
-                </h2>
-              </td>
-              <td>Dental</td>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Travis Trimble </a>
-                </h2>
-              </td>
-
-              <td>
-                <div class="status-toggle">
-                  <input type="checkbox" id="status_2" class="check" checked>
-                  <label for="status_2" class="checktoggle">checkbox</label>
-                </div>
-              </td>
-              <td class="text-right">
-                $300.00
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Dr. Deborah Angel</a>
-                </h2>
-              </td>
-              <td>Cardiology</td>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Carl Kelly</a>
-                </h2>
-              </td>
-              <td>
-                <div class="status-toggle">
-                  <input type="checkbox" id="status_3" class="check" checked>
-                  <label for="status_3" class="checktoggle">checkbox</label>
-                </div>
-              </td>
-              <td class="text-right">
-                $150.00
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Dr. Sofia Brient</a>
-                </h2>
-              </td>
-              <td>Urology</td>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html"> Michelle Fairfax</a>
-                </h2>
-              </td>
-              <td>
-                <div class="status-toggle">
-                  <input type="checkbox" id="status_4" class="check" checked>
-                  <label for="status_4" class="checktoggle">checkbox</label>
-                </div>
-              </td>
-              <td class="text-right">
-                $150.00
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Dr. Marvin Campbell</a>
-                </h2>
-              </td>
-              <td>Orthopaedics</td>
-              <td>
-                <h2 class="table-avatar">
-                  <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="../../../assets/img/profiles/tansingh-ji.jpg" alt="User Image"></a>
-                  <a href="profile.html">Gina Moore</a>
-                </h2>
-              </td>
-
-              <td>
-                <div class="status-toggle">
-                  <input type="checkbox" id="status_5" class="check" checked>
-                  <label for="status_5" class="checktoggle">checkbox</label>
-                </div>
-              </td>
-              <td class="text-right">
-                $200.00
-              </td>
-            </tr>
+            
           </tbody>
         </table>
       </div>
