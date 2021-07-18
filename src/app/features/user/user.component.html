@@ -12,76 +12,70 @@
           placeholder="Search..." aria-label="Search">
       </form>
     </div>
+    
     <div class="btn-group me-1 ml-auto">
       <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
-
-  
     </div>
-  </div>
-  <div class="mt-4 mb-4">
-    <div class="row">
-      <div class="col-2"><strong>Subscriber Name</strong></div>
-      <div class="col-2"> <strong>Subscriber Email </strong></div>
-      <div class="col-2"><strong>Father Name</strong></div>
-      <div class="col-2"><strong>Mobile</strong></div>
-      <div class="col-2"><strong>City/Village</strong></div>
-      <div class="col-2"><strong>Status</strong></div>
-    </div>
-  </div>
-
-  <div class="my-1 p-1 bg-body rounded shadow-sm">
-    <mat-accordion>
-      <mat-expansion-panel *ngFor="let item of subscriberDetails; index as i;" (opened)="selected=i"
-        (closed)="panelOpenState = false">
-
-        <mat-expansion-panel-header *ngIf="selected!==i">
-          <div class="row">
-            <div class="col-md-2">{{item.name}}</div>
-            <div class="col-md-2"><i class="fa fa-envelope-open-text"></i> {{item.email}} </div>
-            <div class="col-md-2"> {{item.fatherName}} </div>
-            <div class="col-md-2">{{item.mobile}}</div>
-            <div class="col-md-2">{{item.city}}</div>
-            <div class="col-md-2">
-              <div class="status-toggle">
-                <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(item) "> <i
-                  class="fa fa-pencil text-light"></i></button>
-              <button *ngIf="item.active" class="badge badge-pill bg-success inv-badge p-2">Active</button>
-              <button *ngIf="!item.active" class="badge badge-pill bg-danger inv-badge  p-2">InActive</button>
-              </div>
-            </div>
-          </div>
-          <hr>
-
-        </mat-expansion-panel-header>
-        <div class="row mt-4">
-          <div class="col-1">
-            <div class="numberCircle mb-2">100</div>
-          </div>
-          <div class="col-md-2">
-            <h5> <i class="fa fa-map-marker mr-2"></i> {{item.address}}</h5>
-          </div>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-md-4">
-          </div>
-          <div class="col-md-4">
-            <h6> <i class="fa fa-building mr-2"></i> {{item.city}}</h6>
-            <h6> <i class="fa fa-flag mr-2"></i> {{item.state}}</h6>
-            <h6> <i class="fa fa-map-pin mr-2"></i>{{item.pinCode}}</h6>
-          </div>
-        </div>
-
-        <div class="btn-left">
-          <input type="checkbox" id="status_1" class="check" checked>
-          <label for="status_1" class="checktoggle">checkbox</label>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-
 
   </div>
+
+  <p-table #dt [value]="subscriberDetails" [rows]="10" [paginator]="true" [responsive]="true" reso
+    [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fatherName">FatherName <p-sortIcon field="fatherName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
+        </th>
+        <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon>
+        </th>
+        <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
+        </th>
+        <th pSortableColumn="pinCode">PinCode <p-sortIcon field="pinCode"></p-sortIcon>
+        
+        <th pSortableColumn="state">State <p-sortIcon field="state"></p-sortIcon>
+        </th>
+        <th pSortableColumn="active">Active <p-sortIcon field="active"></p-sortIcon>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-subscriberDetails>
+      <tr>
+        <td>{{subscriberDetails.name}}</td>
+        <td>{{subscriberDetails.email}}</td>
+        <td>{{subscriberDetails.fatherName}}</td>
+        <td>{{subscriberDetails.address}}</td>
+        <td>{{subscriberDetails.city}}</td>
+        <td>{{subscriberDetails.mobile}}</td>
+        <td>{{subscriberDetails.pinCode}}</td>
+        <td>{{subscriberDetails.state}}</td>
+        <td>
+          <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
+          <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
+        </td>
+        <td>
+
+            <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(subscriberDetails) "> <i
+              class="fa fa-pencil text-light"></i></button>
+
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
 </main>
+
 <p-dialog [(visible)]="subscriberDialog" [style]="{width: '450px'}" header="Subscriber Details" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
@@ -114,8 +108,6 @@
           </div>
         </div>
       </div>
-
-
       <div class="form-group row">
         <label for="fatherName" class="col-sm-2 col-form-label">Father Name</label>
         <div class="col-sm-10">
@@ -129,7 +121,6 @@
           </div>
         </div>
       </div>
-
       <div class="form-group row">
         <label for="address" class="col-sm-2 col-form-label">Address</label>
         <div class="col-sm-10">
@@ -143,7 +134,6 @@
         </div>
       </div>
       </div>
-
       <div class="form-group row">
         <label for="city" class="col-sm-2 col-form-label">City</label>
         <div class="col-sm-10">
@@ -156,7 +146,6 @@
           </div>
         </div>
       </div>
-
       <div class="form-group row">
         <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
         <div class="col-sm-10">
@@ -173,7 +162,6 @@
           </div>
         </div>
       </div>
-
       <div class="form-group row">
         <label for="pinCode" class="col-sm-2 col-form-label">pinCode</label>
         <div class="col-sm-10">
@@ -209,7 +197,7 @@
 
   <ng-template pTemplate="footer">
     <button pRipple class="btn btn-danger" (click)="hideDialog()">Cancel</button>
-    <button pRipple label="Save" [disabled]="!subscriberForm.valid" (click)="subscriberDataAdd() " type="submit"
+    <button pRipple label="Save" [disabled]="!subscriberForm.valid" (click)="subscriberDataAdd()" type="submit"
       class="btn btn-success">Submit</button>
   </ng-template>
 </p-dialog>

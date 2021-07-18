@@ -58,8 +58,21 @@ export class AdminComponent implements OnInit {
       },
     });
   }
-  editAdmin(){
 
+
+  editAdmin(data: any){
+  
+      this.adminDialog = true;
+      // this.adminForm.addControl['_id'];
+      this.adminForm.patchValue(data);
+    
+  }
+
+  updatesubscriberData() {
+    this._service.editAdmin(this.adminForm.value).subscribe(arg => {
+      this.adminDialog = false;
+      this.getAllAdmin();
+    })
   }
   hideDialog(){
 
@@ -91,7 +104,8 @@ export class AdminComponent implements OnInit {
        city: ['', Validators.required],
        address: ['', Validators.required],
        region: ['', Validators.required],
-       state: ['', Validators.required]
+       state: ['', Validators.required],
+     
      })
    }
 }
