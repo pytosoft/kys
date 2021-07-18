@@ -63,11 +63,15 @@
         <td>
           <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
           <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
+       
         </td>
         <td>
 
             <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(subscriberDetails) "> <i
               class="fa fa-pencil text-light"></i></button>
+
+             
+              <button class="btn btn-success" (click)="profileInfo() "><i class="fa fa-info rounded-circle" ></i></button>
 
         </td>
       </tr>

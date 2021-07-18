@@ -5,6 +5,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { subscriberService } from 'src/app/core/services/user.service';
 import { subscriberDetail } from '../../model/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -20,13 +21,15 @@ export class UserComponent implements OnInit {
   subscriberForm!: any;
   panelOpenState = false;
   selected!: number;
-
+  userId: string = '';
 
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
+  
     this.subscriberAdd()
     this.addsubscriberForm()
   }
@@ -91,6 +94,12 @@ export class UserComponent implements OnInit {
       this.subscriberDetails = subscriber.data
 
     })
+  }
+
+  profileInfo() {
+    
+    
+this.router.navigate(["app/user/Profile"])
   }
 
   subscriberDataAdd() {
