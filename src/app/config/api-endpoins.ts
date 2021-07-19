@@ -17,5 +17,6 @@
   getDashboardId: (id: string) => `dashboard/${id}`,
   editAdmin: () => `user/update`,
   depositAmountRequest: () => `user/depositAmountRequest`,
-  verifyAmount: () => `user/verifyAmount`
+  verifyAmount: () => `user/verifyAmount`,
+  profile: (id: string) => `subscriber/list/${id}`
  }

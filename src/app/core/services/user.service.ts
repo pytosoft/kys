@@ -52,4 +52,12 @@ export class subscriberService {
     )
   }
 
+  public profileGet(id:any) {
+    return this._http.get(apiEndpointUrl.profile(id)).pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
+  
+
 }
