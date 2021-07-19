@@ -1,10 +1,10 @@
+import { stateList } from './../../model/states-list';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {  FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { subscriberService } from 'src/app/core/services/user.service';
-import { subscriberDetail } from '../../model/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  subscriberDetails: subscriberDetail[] = []
+  subscriberDetails: any[] = []
   submitted?: boolean;
   statuses?: any[];
   subscriberDialog?: boolean;
@@ -22,15 +22,19 @@ export class UserComponent implements OnInit {
   panelOpenState = false;
   selected!: number;
   userId: string = '';
-
+  states: any[] = stateList;
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-  
-    this.subscriberAdd()
+   
+    const id = localStorage.getItem('userID');
+    if(typeof id === 'string'){
+      this.userId =  id;   
+    }
+    this.getAllsubscriber()
     this.addsubscriberForm()
   }
 
@@ -45,8 +49,7 @@ export class UserComponent implements OnInit {
       city: ['', [Validators.required]],
       mobile: ['', [Validators.required, Validators.minLength(10)]],
       pinCode: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      "_id": "60ea65423dcb02066fcdcc36"
+      state: ['', [Validators.required]]
     })
   }
 
@@ -86,20 +89,20 @@ export class UserComponent implements OnInit {
 
 
 
-  subscriberAdd() {
+  getAllsubscriber() {
     this.subscriberDialog = false;
     this._loader.show();
-    this.subscriberService.subscriberGet().subscribe(subscriber => {
+    this.subscriberService.subscriberGet(this.userId).subscribe(subscriber => {
       this._loader.hide();
       this.subscriberDetails = subscriber.data
 
     })
   }
 
-  profileInfo() {
+  profileInfo(id:string) {
     
     
-this.router.navigate(["app/user/Profile"])
+this.router.navigate(["app/user/profile/"+id])
   }
 
   subscriberDataAdd() {
@@ -112,12 +115,13 @@ this.router.navigate(["app/user/Profile"])
       "city": this.subscriberForm.value.city,
       "mobile": this.subscriberForm.value.mobile,
       "pinCode": this.subscriberForm.value.pinCode,
-      "state": this.subscriberForm.value.state
+      "state": this.subscriberForm.value.state,
+      "createdBy": this.userId
     }
     this.subscriberService.subscriberPost(reqData).subscribe(arg => {
 
       this.subscriberDialog = false;
-      this.subscriberAdd();
+      this.getAllsubscriber();
     });
 
   }
@@ -143,7 +147,7 @@ this.router.navigate(["app/user/Profile"])
   updatesubscriberData() {
     this.subscriberService.subscriberUpdate(this.subscriberForm.value).subscribe(arg => {
       this.subscriberDialog = false;
-      this.subscriberAdd();
+      this.getAllsubscriber();
     })
   }
 }

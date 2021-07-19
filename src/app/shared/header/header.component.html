@@ -18,8 +18,8 @@
         <a class="nav-link top-menu" [routerLink]="['/app/user']" routerLinkActive="active"  aria-current="page">Subscribers</a>
         <a class="nav-link top-menu" *ngIf="isSuperAdmin" [routerLink]="['/app/admin']" routerLinkActive="active"  aria-current="page">Manage Admin</a>
         <a class="nav-link top-menu" [routerLink]="['/app/subscription/user']" routerLinkActive="active"  aria-current="page">Subscribe/Renew</a>
-        <a class="nav-link top-menu" [routerLink]="['/app/plans']" routerLinkActive="active"  aria-current="page">Plans</a>
-        <a class="nav-link top-menu" [routerLink]="['/app/books']" routerLinkActive="active"  aria-current="page">Books</a>
+        <a class="nav-link top-menu" *ngIf="isSuperAdmin" [routerLink]="['/app/plans']" routerLinkActive="active"  aria-current="page">Plans</a>
+        <a class="nav-link top-menu" *ngIf="isSuperAdmin" [routerLink]="['/app/books']" routerLinkActive="active"  aria-current="page">Books</a>
         	<!-- Header Right Menu -->
 				<ul class="nav user-menu">
 

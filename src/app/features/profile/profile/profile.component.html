@@ -211,7 +211,7 @@
             <h5 class="card-title">Account</h5>
             <div class="row">
               <div class="col-md-10 col-lg-10">
-                <form class="row">
+                <form [formGroup]="form" class="row">
                   <div class="col form-group">
                     <label>Pending Amount</label>
                     <input type="text" [value]="profile?.pendingAmount" class="form-control" disabled>
@@ -220,9 +220,12 @@
                     <label>Deposit Amount</label>
                     <input type="text" name="depositAmount" formControlName="depositAmount" class="form-control">
                   </div>
-                  
+                  <div class="col form-group">
+                    <label>Note</label>
+                    <input type="text" name="note" formControlName="note" class="form-control">
+                  </div>
                 </form>
-                <button class="btn btn-primary" [disabled]="amount" (click)="deposit()" type="submit">Save Changes</button>
+                <button class="btn btn-primary" [disabled]="form.invalid" (click)="deposit()" type="submit">Save Changes</button>
 
               </div>
             </div>

@@ -14,7 +14,7 @@ export class PersonalComponent implements OnInit {
   userInformationForm!: FormGroup;
   constructor(private _fb: FormBuilder, private _router: Router, private activeRoute: ActivatedRoute,
     private _service: SubcriptionService) { }
-  states: SelectItem[] = [];
+  states: any[] = [];
   subscriberId: string = '';
   ngOnInit(): void {
   this.initlization();
@@ -48,7 +48,9 @@ export class PersonalComponent implements OnInit {
         this._router.navigate(['app/subscription/plan/'+this.subscriberId])
       })
     } else{
-      this._service.saveSubscriber(this.userInformationForm.value)
+      let reqData = this.userInformationForm.value;
+      reqData.createdBy = localStorage.getItem('userID');
+      this._service.saveSubscriber(reqData)
     .subscribe(res => {
       this._router.navigate(['app/subscription/plan/'+res.data.id])
     })

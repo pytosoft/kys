@@ -37,4 +37,20 @@ public getProfileById(id: string){
         catchError(() => throwError('Sorry something went wrong in api'))
       )
     }
+    depositAmountRequest(data: any){
+      return this._http
+      .post(apiEndpointUrl.depositAmountRequest(), data)
+      .pipe(
+        map((body: any) => body),
+        catchError(() => throwError('Sorry something went wrong in api'))
+      )
+    }
+    verifyAmount(data: any){
+      return this._http
+      .post(apiEndpointUrl.verifyAmount(), data)
+      .pipe(
+        map((body: any) => body),
+        catchError(() => throwError('Sorry something went wrong in api'))
+      )
+    }
 }

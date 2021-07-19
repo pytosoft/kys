@@ -17,9 +17,9 @@ export class subscriberService {
 
   constructor( private _http: HttpClient ) { }
 
-  public subscriberGet(){
+  public subscriberGet(id: string){
     return this._http
-    .get("subscriber/list")
+    .get(`subscriber/list/${id}`)
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))
@@ -43,6 +43,13 @@ export class subscriberService {
       catchError(() => throwError('Sorry something went wrong in api'))
     )
   }
-
+  getSubcriberprofileById(id: string){
+    return this._http
+    .get(`subscriber/getUserProfile/${id}`)
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
 
 }

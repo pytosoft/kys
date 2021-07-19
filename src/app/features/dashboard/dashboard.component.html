@@ -9,7 +9,7 @@
 
 <div class="row">
 <div class="col-xl-3 col-sm-6 col-12">
-  <div class="card">
+  <div routerLink="user" class="card">
     <div class="card-body">
       <div class="dash-widget-header">
         <span class="dash-widget-icon text-primary border-primary">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="dash-widget-info">
-        <h6 class="text-muted">Subscribers</h6>
+        <h6 class="text-muted">Total Subscribers</h6>
         <div class="progress progress-sm">
           <div class="progress-bar bg-primary w-50"></div>
         </div>
@@ -29,6 +29,46 @@
   </div>
 </div>
 <div class="col-xl-3 col-sm-6 col-12">
+  <div routerLink="user" class="card">
+    <div class="card-body">
+      <div class="dash-widget-header">
+        <span class="dash-widget-icon text-primary border-primary">
+          <i class="fe fe-users"></i>
+        </span>
+        <div class="dash-count">
+          <h3>{{data?.activeSubsCount}}</h3>
+        </div>
+      </div>
+      <div class="dash-widget-info">
+        <h6 class="text-muted">Active Subscribers</h6>
+        <div class="progress progress-sm">
+          <div class="progress-bar bg-primary w-50"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xl-3 col-sm-6 col-12">
+  <div routerLink="user" class="card">
+    <div class="card-body">
+      <div class="dash-widget-header">
+        <span class="dash-widget-icon text-primary border-primary">
+          <i class="fe fe-users"></i>
+        </span>
+        <div class="dash-count">
+          <h3>{{data?.subsCount - data?.activeSubsCount}}</h3>
+        </div>
+      </div>
+      <div class="dash-widget-info">
+        <h6 class="text-muted">Deactivate Subscribers</h6>
+        <div class="progress progress-sm">
+          <div class="progress-bar bg-primary w-50"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="currentUser?.isSuperAdmin" class="col-xl-3 col-sm-6 col-12">
   <div class="card">
     <div class="card-body">
       <div class="dash-widget-header">
@@ -49,7 +89,7 @@
     </div>
   </div>
 </div>
-<div class="col-xl-3 col-sm-6 col-12">
+<div *ngIf="currentUser?.isSuperAdmin" class="col-xl-3 col-sm-6 col-12">
   <div class="card">
     <div class="card-body">
       <div class="dash-widget-header">
@@ -70,7 +110,7 @@
     </div>
   </div>
 </div>
-<div class="col-xl-3 col-sm-6 col-12">
+<div *ngIf="currentUser?.isSuperAdmin" class="col-xl-3 col-sm-6 col-12">
   <div class="card">
     <div class="card-body">
       <div class="dash-widget-header">
@@ -91,9 +131,30 @@
     </div>
   </div>
 </div>
+<div *ngIf="!currentUser?.isSuperAdmin" class="col-xl-3 col-sm-6 col-12">
+  <div class="card">
+    <div class="card-body">
+      <div class="dash-widget-header">
+        <span class="dash-widget-icon text-warning border-warning">
+          <i class="fe fe-folder"></i>
+        </span>
+        <div class="dash-count">
+          <h3>₹ {{data?.depositAmount}}</h3>
+        </div>
+      </div>
+      <div class="dash-widget-info">
+
+        <h6 class="text-muted">Deposit Amount</h6>
+        <div class="progress progress-sm">
+          <div class="progress-bar bg-warning w-50"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
-<div class="row">
+<div *ngIf="currentUser?.isSuperAdmin" class="row">
 <div class="col-md-12">
 
   <!-- Recent Orders -->
@@ -117,7 +178,7 @@
             <tr *ngFor="let item of data?.admins">
               <td>
                 <h2 class="table-avatar">
-                  <a href="profile.html">{{item?.name}}</a>
+                  <a >{{item?.name}}</a>
                 </h2>
               </td>
               <td>{{item?.region}}</td>
@@ -142,5 +203,54 @@
 
 </div>
 </div>
+<div class="row" *ngIf="currentUser?.isSuperAdmin">
+  <div class="col-md-12">
+  
+    <!-- Recent Orders -->
+    <div class="card card-table">
+      <div class="card-header">
+        <h4 class="card-title">Deposit Request</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-center mb-0">
+            <thead>
+              <tr>
+                <th>Admin Name</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th class="text-right">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of currentUser?.depositAmountRequest">
+                <td>
+                  <h2 class="table-avatar">
+                    <a >{{item?.name}}</a>
+                  </h2>
+                </td>
+                <td>{{item?.note}}</td>
+                <td>
+                  <span *ngIf="!item?.isVerifyed" (click)="verify(item)" style="cursor: pointer;" class="badge badge-pill bg-info inv-badge">Not Verifiyed</span>
+                  <span *ngIf="item?.isVerifyed" class="badge badge-pill bg-success inv-badge"> Verifiyed</span>
+                </td>
+                <td>
+                  {{item.depositAmount}}
+                </td>
+                <td class="text-right">
+                  {{item.date | date}}
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /Recent Orders -->
+  
+  </div>
+  </div>
 
 </div>

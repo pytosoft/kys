@@ -4,62 +4,51 @@
     </a>
   </div>
 </nav>
+
 <main class="container-fluid" style="margin-top: -8px;">
-  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg">
+  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
     <div class="lh-1">
       <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
-        <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height"
-          placeholder="Search..." aria-label="Search">
+        <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
       </form>
     </div>
-    
     <div class="btn-group me-1 ml-auto">
       <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
     </div>
-
   </div>
 
   <p-table #dt [value]="subscriberDetails" [rows]="10" [paginator]="true" [responsive]="true" reso
     [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
     [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true">
-    <ng-template pTemplate="caption">
-
-    </ng-template>
+    
     <ng-template pTemplate="header">
       <tr>
 
+        <th>User Id</th>
         <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+        <th pSortableColumn="fatherName">FatherName
         </th>
-        <th pSortableColumn="fatherName">FatherName <p-sortIcon field="fatherName"></p-sortIcon>
-        </th>
-        <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon>
-        </th>
-        <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon>
+        <th pSortableColumn="city">City/Village <p-sortIcon field="city"></p-sortIcon>
         </th>
         <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
         </th>
-        <th pSortableColumn="pinCode">PinCode <p-sortIcon field="pinCode"></p-sortIcon>
-        
-        <th pSortableColumn="state">State <p-sortIcon field="state"></p-sortIcon>
-        </th>
-        <th pSortableColumn="active">Active <p-sortIcon field="active"></p-sortIcon>
+        <th pSortableColumn="pinCode">PinCode </th>
+       
+        <th pSortableColumn="active">Status <p-sortIcon field="active"></p-sortIcon>
         <th>Action</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-subscriberDetails>
       <tr>
+        <td>{{subscriberDetails.subscriberId}}</td>
         <td>{{subscriberDetails.name}}</td>
-        <td>{{subscriberDetails.email}}</td>
         <td>{{subscriberDetails.fatherName}}</td>
-        <td>{{subscriberDetails.address}}</td>
         <td>{{subscriberDetails.city}}</td>
         <td>{{subscriberDetails.mobile}}</td>
         <td>{{subscriberDetails.pinCode}}</td>
-        <td>{{subscriberDetails.state}}</td>
         <td>
           <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
           <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
@@ -71,7 +60,7 @@
               class="fa fa-pencil text-light"></i></button>
 
              
-              <button class="btn btn-success" (click)="profileInfo() "><i class="fa fa-info rounded-circle" ></i></button>
+              <button class="btn btn-success" (click)="profileInfo(subscriberDetails._id) "><i class="fa fa-info rounded-circle" ></i></button>
 
         </td>
       </tr>
@@ -183,7 +172,9 @@
       <div class="form-group row">
         <label for="state" class="col-sm-2 col-form-label">state</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="pinCode" name="state" placeholder="state" formControlName="state">
+          <!-- <input type="text" class="form-control" id="pinCode" name="state" placeholder="state" formControlName="state"> -->
+          <p-dropdown [options]="states" [filter]="true" class="form-control" formControlName="state" optionLabel="name"></p-dropdown>
+
           <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
             <div *ngIf="state.errors?.required">
               address is required.
