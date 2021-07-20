@@ -32,7 +32,7 @@ public getAllAdmin(){
 }
 saveAdmin(data: any){
   return this._http
-  .post(apiEndpointUrl.saveAdmin(),data, httpOptions)
+  .post("user",data, httpOptions)
   .pipe(
     map((body: any) => body),
     catchError(() => throwError('Sorry something went wrong in api'))

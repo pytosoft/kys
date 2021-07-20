@@ -114,31 +114,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group row">
-        <label for="address" class="col-sm-2 col-form-label">Address</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="address" name="address" placeholder="Address"
-            formControlName="address">
-          <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
-            <div *ngIf="address.errors?.required">
-              address is required.
-            </div>
-       
-        </div>
-      </div>
-      </div>
-      <div class="form-group row">
-        <label for="city" class="col-sm-2 col-form-label">City</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="city" name="city" placeholder="city" formControlName="city">
-          <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
-            <div *ngIf="city.errors?.required">
-              city is required.
-            </div>
-         
-          </div>
-        </div>
-      </div>
+
       <div class="form-group row">
         <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
         <div class="col-sm-10">
@@ -155,16 +131,16 @@
           </div>
         </div>
       </div>
+
       <div class="form-group row">
-        <label for="pinCode" class="col-sm-2 col-form-label">pinCode</label>
+        <label for="city" class="col-sm-2 col-form-label">City</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="pinCode" name="pinCode" placeholder="pinCode"
-            formControlName="pinCode">
-          <div *ngIf="pinCode.invalid && (pinCode.dirty || pinCode.touched)" class="alert alert-danger">
-            <div *ngIf="pinCode.errors?.required">
-              Pin Code is required.
+          <input type="text" class="form-control" id="city" name="city" placeholder="city" formControlName="city">
+          <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+            <div *ngIf="city.errors?.required">
+              city is required.
             </div>
-        
+         
           </div>
         </div>
       </div>
@@ -183,6 +159,37 @@
           </div>
         </div>
       </div>
+
+      <div class="form-group row">
+        <label for="address" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="address" name="address" placeholder="Address"
+            formControlName="address">
+          <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+            <div *ngIf="address.errors?.required">
+              address is required.
+            </div>
+        </div>
+      </div>
+      </div>
+
+   
+    
+      <div class="form-group row">
+        <label for="pinCode" class="col-sm-2 col-form-label">pinCode</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="pinCode" name="pinCode" placeholder="pinCode"
+            formControlName="pinCode">
+          <div *ngIf="pinCode.invalid && (pinCode.dirty || pinCode.touched)" class="alert alert-danger">
+            <div *ngIf="pinCode.errors?.required">
+              Pin Code is required.
+            </div>
+        
+          </div>
+        </div>
+      </div>
+
+     
       <br>
 
 

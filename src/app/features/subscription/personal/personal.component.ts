@@ -43,7 +43,7 @@ export class PersonalComponent implements OnInit {
     if(this.subscriberId){
       let reqData = this.userInformationForm.value;
       reqData['_id'] = this.subscriberId;
-      this._service.updateSubscriber(reqData)
+      this._service. updateSubscriber(reqData)
       .subscribe(res => {
         this._router.navigate(['app/subscription/plan/'+this.subscriberId])
       })

@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.params.subscribe(res => {
+     
       if(res && res.id){
         this.getProfile(res.id)
       } 
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
     this.subscriberService.getSubcriberprofileById(id).subscribe(profile => {
       this._loader.hide();
       this.profileDetails = profile.data
+      console.log(profile.data)
     })
   }
 

@@ -10,34 +10,34 @@
          <div class="row">
           <div class="col-4">
             <label for="firstname">Name</label>
-            <input id="firstname" formControlName="name" type="text" pInputText>
+            <input id="firstname" formControlName="name" type="text" class="form-control">
         </div>
         <div class="col-4">
             <label for="lastname">Father's Name</label>
-            <input id="lastname" type="text" formControlName="fatherName" pInputText>
+            <input id="lastname" type="text" formControlName="fatherName" class="form-control">
         </div>
         <div class="col-4">
           <label for="mobile">Mobile</label>
-          <input id="mobile" maxlength="10" type="text" formControlName="mobile" pInputText>
+          <input id="mobile" maxlength="10" type="text" formControlName="mobile" class="form-control">
       </div>
          </div>
          <div class="row">
            <div class="col-4">
               <label for="city">City</label>
-              <input id="city" type="text" formControlName="city" pInputText>
+              <input id="city" type="text" formControlName="city" class="form-control">
            </div>
            <div class="col-4">
             <label for="state">State</label>
-            <p-dropdown inputId="state" [options]="states" [filter]="true" formControlName="state" placeholder="Select"></p-dropdown>
-           </div>
+            <p-dropdown inputId="state" [options]="states" op [filter]="true" formControlName="state" placeholder="Select"></p-dropdown>
+           </div> 
            <div class="col-4">
               <label for="zip">Zip</label>
-              <input id="zip" type="text" formControlName="pinCode" pInputText>
+              <input id="zip" type="text" formControlName="pinCode" class="form-control">
            </div>
          </div>
           <div class="p-field p-col-12">
               <label for="address">Address</label>
-              <textarea id="address" type="text" formControlName="address" rows="4" pInputTextarea></textarea>
+              <textarea id="address" type="text" formControlName="address" rows="4" class="form-control" ></textarea>
           </div>
                </div>
       </form>
@@ -48,7 +48,7 @@
           <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
         </div>
         <div class="col" style="text-align: end;">
-          <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+          <button class="btn btn-primary " (onClick)="nextPage()">Next<i class="fa fa-angle-right ml-2"></i></button>
         </div>
 
       </div>
