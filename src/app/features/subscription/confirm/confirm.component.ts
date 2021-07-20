@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
@@ -15,7 +16,8 @@ export class ConfirmComponent implements OnInit {
   seletedPlans: any[] = [];
   totalAmount: number = 0;
   today = new Date();
-  constructor(private _router: Router,  private activeRoute: ActivatedRoute,
+  deliverForm!: FormGroup;
+  constructor(private _router: Router,  private activeRoute: ActivatedRoute, private _fb: FormBuilder,
      private _service: SubcriptionService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -37,8 +39,11 @@ export class ConfirmComponent implements OnInit {
       element.startDate = this.today;
       element.endDate = dt; ​
       element.active = true;
+      delete element.books;
+      delete element._id;
     });
   })
+  this.initlizationForm();
   }
   complete(){
     if(this.subcriberInfo.subcriptions && this.subcriberInfo.subcriptions.length > 0){
@@ -48,11 +53,16 @@ export class ConfirmComponent implements OnInit {
     } else {
       this.subcriberInfo.subcriptions = [];
     }
+    this.seletedPlans.forEach(element => {
+      element.deliveryAddress = this.deliverForm.value
+      element.subscriberId = this.subscriberId
+      element.createdBy = localStorage.getItem('userID')
+    });
     const reqData = {
       "subscriberId": this.subscriberId,
       "createdBy": localStorage.getItem('userID'),
       "totalAmount": this.totalAmount,
-      "plans": [...this.subcriberInfo.subcriptions, ...this.seletedPlans]
+      "plans": this.seletedPlans
     }
     this._service.saveSubcription(reqData)
     .subscribe(res => {
@@ -73,6 +83,20 @@ export class ConfirmComponent implements OnInit {
     this._service.getSubcriberInfoById(this.subscriberId)
     .subscribe(res => {
       this.subcriberInfo =res.data;
+      this.deliverForm.patchValue(res.data)
+    })
+  }
+  initlizationForm(){
+    this.deliverForm = this._fb.group({
+      name: ['', Validators.required],
+      mobile: ['', Validators.required],
+      pinCode: ['', Validators.required],
+      locality: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      landmark: [''],
+      secondaryPhone: ['']
     })
   }
 }
