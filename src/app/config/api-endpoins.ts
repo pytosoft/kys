@@ -19,5 +19,11 @@
   editAdmin: () => `user/update`,
   depositAmountRequest: () => `user/depositAmountRequest`,
   verifyAmount: () => `user/verifyAmount`,
-  profile: (id: string) => `subscriber/list/${id}`
- }
+  profile: (id: string) => `subscriber/list/${id}`,
+   books: () => `book/list`,
+  bookPost:() => `book`,
+  bookDelete:()=> `book/deleteById?id=`,
+  updateBook:()=> `book/update`
+}
+
+ 
