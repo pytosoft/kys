@@ -1,4 +1,4 @@
-<div class="stepsdemo-content">
+<!-- <div class="stepsdemo-content">
   <p-card>
       <ng-template pTemplate="title">
           Confirmation
@@ -116,7 +116,7 @@
           </div>
         </div>
 
-        <h4>Total Amount to be paid: {{totalAmount}}</h4>
+        <h4>Total Payable: {{totalAmount}}</h4>
         </ng-template>
       <ng-template pTemplate="footer">
           <div class="row">
@@ -129,4 +129,201 @@
           </div>
       </ng-template>
   </p-card>
+</div> -->
+
+<div class="stepsdemo-content">
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Confirmation </h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="deliverForm">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="card-title">Personal details</h4>
+              <div class="row">
+                <div class="col-md-12">
+              <div class="form-group">
+                <label>Name:</label>
+                <input type="text" [value]="subcriberInfo?.name" class="form-control" disabled>
+              </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Father`s Name:</label>
+                    <input type="text" class="form-control"  [value]="subcriberInfo?.fatherName" disabled>
+                  </div>
+                  </div>
+                <div class="col-md-6">
+              <div class="form-group">
+                <label>Mobile:</label>
+                <input type="text" [value]="subcriberInfo?.mobile" class="form-control" disabled>
+              </div>
+              </div>
+              
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>City:</label>
+                    <input type="text" class="form-control"  [value]="subcriberInfo?.city" disabled>
+                  </div>
+                  </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                  <label>ZIP:</label>
+                  <input type="text" class="form-control"  [value]="subcriberInfo?.pinCode" disabled>
+                </div>
+                </div>
+               
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                    <label>State:</label>
+                    <input type="text" class="form-control"  [value]="subcriberInfo?.state" disabled>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Email:</label>
+                      <input type="text" class="form-control"  [value]="subcriberInfo?.email" disabled>
+                    </div>
+                    </div>
+                  </div>
+              <div class="row">
+                <div class="col-md-12">
+              <div class="form-group">
+                <label>Address:</label>
+                <input type="text" [value]="subcriberInfo?.address" class="form-control" disabled>
+              </div>
+              </div>
+              </div>
+              
+            </div>
+           
+            <div class="col-md-6">
+              <h4 class="card-title">Delivery Address</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Name:</label>
+                    <input type="text" formControlName="name" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Mobile:</label>
+                    <input type="text" formControlName="mobile" maxlength="10" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>PinCode:</label>
+                    <input type="text" formControlName="pinCode" maxlength="6" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Locality:</label>
+                    <input type="text" formControlName="locality" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Address :</label>
+                    <input type="text" formControlName="address" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>City:</label>
+                    <input type="text" formControlName="city" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>State/Province:</label>
+                    <input type="text" formControlName="state" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Landmark(optional):</label>
+                    <input type="text" formControlName="landmark" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Alternate Phone(optional):</label>
+                    <input type="text" formControlName="secondaryPhone" maxlength="10" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <h4 class="card-title">Plans</h4>
+              <div class="row" *ngFor="let item of seletedPlans">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" [value]="item?.name" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Price:</label>
+                    <input type="text" class="form-control" [value]="item?.price" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Start Date:</label>
+                    <input type="text" class="form-control" [value]="item?.startDate | date" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>End Date:</label>
+                    <input type="text" class="form-control" [value]="item?.endDate | date" disabled>
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row" >
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Total Payable: </label>
+                    <input type="text" class="form-control" [value]="totalAmount" disabled>
+                  </div>
+                </div>                
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 text-left">
+              <button  (click)="prevPage()" class="btn btn-primary">Back</button>
+            </div>
+            <div class="col-md-6 text-right">
+              <button type="submit" (click)="complete()"   class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+         
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

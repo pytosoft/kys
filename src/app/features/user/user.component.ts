@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  subscriberDetails: any[] = []
+  subscriberDetails: any;
   submitted?: boolean;
   statuses?: any[];
   subscriberDialog?: boolean;
@@ -107,22 +107,46 @@ this.router.navigate(["app/user/profile/"+id])
 
   subscriberDataAdd() {
     this.subscriberDialog = true;
-    const reqData = {
-      "name": this.subscriberForm.value.name,
-      "email": this.subscriberForm.value.email,
-      "fatherName": this.subscriberForm.value.fatherName,
-      "address": this.subscriberForm.value.address,
-      "city": this.subscriberForm.value.city,
-      "mobile": this.subscriberForm.value.mobile,
-      "pinCode": this.subscriberForm.value.pinCode,
-      "state": this.subscriberForm.value.state,
-      "createdBy": this.userId
-    }
-    this.subscriberService.subscriberPost(reqData).subscribe(arg => {
 
-      this.subscriberDialog = false;
-      this.getAllsubscriber();
+    if (this.subscriberDetails && this.subscriberDetails._id) {
+      this.subscriberService.subscriberUpdate(this.subscriberForm.value).subscribe(arg => {
+        this.subscriberDialog = false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: arg.message,
+          life: 3000,
+        });
+        this.getAllsubscriber();
+      })
+      
+    }
+else{
+
+  const reqData = {
+    "name": this.subscriberForm.value.name,
+    "email": this.subscriberForm.value.email,
+    "fatherName": this.subscriberForm.value.fatherName,
+    "address": this.subscriberForm.value.address,
+    "city": this.subscriberForm.value.city,
+    "mobile": this.subscriberForm.value.mobile,
+    "pinCode": this.subscriberForm.value.pinCode,
+    "state": this.subscriberForm.value.state,
+    "createdBy": this.userId
+  }
+  this.subscriberService.subscriberPost(reqData).subscribe(arg => {
+
+    this.subscriberDialog = false;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: arg.message,
+      life: 3000,
     });
+    this.getAllsubscriber();
+  });
+}
+    
 
   }
 
@@ -144,12 +168,6 @@ this.router.navigate(["app/user/profile/"+id])
   }
 
 
-  updatesubscriberData() {
-    this.subscriberService.subscriberUpdate(this.subscriberForm.value).subscribe(arg => {
-      this.subscriberDialog = false;
-      this.getAllsubscriber();
-    })
-  }
 }
 
 

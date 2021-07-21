@@ -28,27 +28,27 @@
            </div>
            <div class="col-4">
             <label for="state">State</label>
-            <p-dropdown inputId="state" [options]="states" op [filter]="true" formControlName="state" placeholder="Select"></p-dropdown>
-           </div> 
-           <div class="col-4">
+            <input id="city" type="text" formControlName="state" class="form-control">
+             </div>
+             <div class="col-4">
               <label for="zip">Zip</label>
               <input id="zip" type="text" formControlName="pinCode" class="form-control">
            </div>
-         </div>
+           </div> 
           <div class="p-field p-col-12">
               <label for="address">Address</label>
               <textarea id="address" type="text" formControlName="address" rows="4" class="form-control" ></textarea>
           </div>
-               </div>
+          </div>
       </form>
     </ng-template>
     <ng-template pTemplate="footer">
       <div class="row">
         <div class="col" >
-          <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+          <button class="btn btn-primary " (click)="prevPage()"><i class="fa fa-angle-left ml-2"></i>Back</button>
         </div>
         <div class="col" style="text-align: end;">
-          <button class="btn btn-primary " (onClick)="nextPage()">Next<i class="fa fa-angle-right ml-2"></i></button>
+          <button class="btn btn-primary " (click)="nextPage()">Next<i class="fa fa-angle-right ml-2"></i></button>
         </div>
 
       </div>

@@ -26,7 +26,7 @@ public saveSubscriber(data: any){
 }
 updateSubscriber(data: any){
   return this._http
-  .post(apiEndpointUrl.updayteSubcriber(), data)
+  .post(apiEndpointUrl.updateSubcriber(), data)
   .pipe(
     map((body: any) => body),
     catchError(() => throwError('Sorry something went wrong in api'))
@@ -64,6 +64,14 @@ updateSubscriber(data: any){
   saveSubcription(data: any){
     return this._http
     .post(apiEndpointUrl.saveSubcription(), data)
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
+  getSubscriptionList(){
+    return this._http
+    .get(apiEndpointUrl.getSubscriptionList())
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))

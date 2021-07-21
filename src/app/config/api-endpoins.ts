@@ -5,10 +5,11 @@
  export const apiEndpointUrl = {
   login: () => `login`,
   subcriber: () => `subscriber`,
-  updayteSubcriber: () => `subscriber/update`,
+  updateSubcriber: () => `subscriber/update`,
   plans: () =>  `plan/list`,
   subscriberById: (id: string) => `subscriber/getUserProfile/${id}`,
   saveSubcription: () => `subscription`,
+  getSubscriptionList: () => `subscription/list`,
   subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`,
   adminList: () => `user/list`,
   saveAdmin: () => `user`,

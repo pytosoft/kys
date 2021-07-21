@@ -1,1 +1,68 @@
-<p>list works!</p>
+<nav class="navbar navbar-light header-page">
+  <div class="container-fluid">
+    <a class="navbar-brand">Manage Address
+    </a>
+    <div class="btn-group me-1 ml-auto">
+      <button type="button" (click)="printPage()" class="btn btn-primary btn-sm">Print</button>
+
+      <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+      (click)="addPlan(planDetails)"></button> -->
+    </div>
+  </div>
+</nav>
+<main class="container-fluid" >
+<div class="row">
+  <div class="col-sm-12">
+      <div class="row blog-grid-row" >
+
+        <div class="col-md-6 col-xl-4 col-sm-12" *ngFor="let item of subscriptionList">
+
+          <!-- Blog Post -->
+          <div class="blog grid-blog">
+            <div class="blog-content">
+              <h3 class="blog-title"><a href="#">{{item?.name +' ('+item?.mobile+')'}}</a></h3>
+              <p class="mb-0">{{item?.address}}</p>
+              <p class="mb-0">{{item?.landmark}}</p>
+              <p class="mb-0">{{item?.locality}}</p>
+            </div>
+            <div class="row pt-3">
+              <div class="col"><a  class="text-success"> PinCode: {{item?.pinCode}}</a></div>
+
+              <div class="col text-right"><a href="javascript:void(0);" class="text-danger" data-toggle="modal" data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i>  State: {{item?.state}}</a></div>
+            </div>
+          </div>
+          <!-- /Blog Post -->
+
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="blog-pagination">
+            <nav>
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+</main>
