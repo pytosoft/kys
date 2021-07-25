@@ -9,9 +9,9 @@
         <div class="row p-fluid">
           <div class="p-field col-md-6">
             <label for="firstname">User Type</label>
-            <p-selectButton style="background-color: cadetblue;" [options]="users" formControlName="userType"></p-selectButton>
-            
-          </div> 
+            <p-selectButton [options]="users" formControlName="userType"></p-selectButton>
+
+          </div>
 
           <div class="col-md-2"></div>
           <div *ngIf="isExisting" class="p-field col-md-4">
@@ -22,7 +22,7 @@
               class="form-control" placeholder="Mobile Number...." formControlName="mobile"
             />
 
-      
+
             <!-- <small
               class="p-error"
               *ngIf="">User Not Found</small

@@ -1,7 +1,7 @@
 import { stateList } from './../../model/states-list';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
-import {  FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { subscriberService } from 'src/app/core/services/user.service';
@@ -23,16 +23,17 @@ export class UserComponent implements OnInit {
   selected!: number;
   userId: string = '';
   states: any[] = stateList;
+  subscribers: any[] = [];
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-   
+
     const id = localStorage.getItem('userID');
     if(typeof id === 'string'){
-      this.userId =  id;   
+      this.userId =  id;
     }
     this.getAllsubscriber()
     this.addsubscriberForm()
@@ -53,14 +54,8 @@ export class UserComponent implements OnInit {
     })
   }
 
-  filterByName(val: string) {
-
-  }
   get name() {
     return this.subscriberForm.get('name');
-  }
-  get email() {
-    return this.subscriberForm.get('email');
   }
   get fatherName() {
     return this.subscriberForm.get('fatherName');
@@ -95,20 +90,26 @@ export class UserComponent implements OnInit {
     this.subscriberService.subscriberGet(this.userId).subscribe(subscriber => {
       this._loader.hide();
       this.subscriberDetails = subscriber.data
+      this.subscribers = subscriber.data;
 
     })
   }
 
   profileInfo(id:string) {
-    
-    
+
+
 this.router.navigate(["app/user/profile/"+id])
   }
 
   subscriberDataAdd() {
     this.subscriberDialog = true;
-
-    if (this.subscriberDetails && this.subscriberDetails._id) {
+    this.submitted = true;
+    let reqData = this.subscriberForm.value;
+    if(this.name.invalid || this.email || this.fatherName.invalid || this.address.invalid || this.city.invalid
+      || this.mobile.invalid || this.mobile.pinCode  || this.mobile.state){
+      return
+    }
+    if (reqData && reqData._id) {
       this.subscriberService.subscriberUpdate(this.subscriberForm.value).subscribe(arg => {
         this.subscriberDialog = false;
         this.messageService.add({
@@ -119,11 +120,9 @@ this.router.navigate(["app/user/profile/"+id])
         });
         this.getAllsubscriber();
       })
-      
     }
 else{
-
-  const reqData = {
+  const req = {
     "name": this.subscriberForm.value.name,
     "email": this.subscriberForm.value.email,
     "fatherName": this.subscriberForm.value.fatherName,
@@ -134,7 +133,7 @@ else{
     "state": this.subscriberForm.value.state,
     "createdBy": this.userId
   }
-  this.subscriberService.subscriberPost(reqData).subscribe(arg => {
+  this.subscriberService.subscriberPost(req).subscribe(arg => {
 
     this.subscriberDialog = false;
     this.messageService.add({
@@ -146,19 +145,20 @@ else{
     this.getAllsubscriber();
   });
 }
-    
+
 
   }
 
   subscriberEdit(data: any) {
     this.subscriberDialog = true;
-    this.subscriberForm.addControl['_id'];
+    this.subscriberForm.addControl('_id', new FormControl(''));
     this.subscriberForm.patchValue(data);
   }
 
   openNew() {
     this.submitted = false;
     this.subscriberDialog = true;
+    this.subscriberForm.reset();
   }
 
 
@@ -166,8 +166,20 @@ else{
     this.subscriberDialog = false;
     this.submitted = false;
   }
+  get email() {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return !re.test(String(this.subscriberForm.value.email).toLowerCase());
+  }
+  filterByName(val: string){
+    if(val){
+      this.subscriberDetails = this.subscribers.filter(function (e: { name: string | string[]; }) {
+        return e.name.includes(val);
+       })
+    } else{
+      this.subscriberDetails = this.subscribers;
+    }
 
-
+  }
 }
 
 

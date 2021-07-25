@@ -1,3 +1,4 @@
+import { BookServiceService } from './../books/book.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { PlanDetail } from '../../model/plans';
@@ -18,13 +19,17 @@ export class PlainsComponent implements OnInit {
   statuses?: any[];
   planDialog?: boolean;
   selectedPlans: any;
+  books: any[] = [];
 
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private _service: PlanService,
-    private _spinner: LoaderService
-  ) {}
+    private _spinner: LoaderService,
+    private _bookservice: BookServiceService
+  ) {
+    this.getAllBooks();
+  }
 
   ngOnInit(): void {
     this.planGet();
@@ -38,8 +43,14 @@ export class PlainsComponent implements OnInit {
       this._spinner.hide();
     });
   }
+  getAllBooks() {
+    this._bookservice.getBookList().subscribe((user) => {
+      this.books = user.data;
+      this._spinner.hide();
+    });
+  }
 
-  addPlan(plan: any) {
+  addPlan() {
     this.plan = {};
     this.submitted = false;
     this.planDialog = true;
@@ -76,9 +87,13 @@ export class PlainsComponent implements OnInit {
   }
 
   savePlan() {
-    this._spinner.show();
     this.submitted = true;
-    if (this.plan && this.plan._id) {
+    if(this.plan.name == undefined || this.plan.price == undefined || this.plan.duration == undefined || this.plan.books == undefined){
+      return
+    }
+
+    else if (this.plan && this.plan._id) {
+      this._spinner.show();
       this._service.planUpdate(this.plan).subscribe((res) => {
         this.planDialog = false;
         this.messageService.add({
@@ -90,6 +105,7 @@ export class PlainsComponent implements OnInit {
       });
       this.planGet();
     } else {
+      this._spinner.show();
       this._service.planAdd(this.plan).subscribe((res) => {
         this.planDialog = false;
         this.messageService.add({
@@ -113,5 +129,9 @@ export class PlainsComponent implements OnInit {
       this.planDetails = this.plans;
     }
 
+  }
+  updateBook(value: any){
+    const bookPrice = this.books.filter(res => res.bookName === this.plan.books)
+    this.plan.price = bookPrice[0].pricing*this.plan.duration
   }
 }

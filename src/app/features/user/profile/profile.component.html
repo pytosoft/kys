@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            <div class="numberCircle">{{profileDetails?.id}}</div>
+            <div class="numberCircle">{{profileDetails?.subscriberId}}</div>
         </div>
         <div class="col-md-4">
             <h3>{{profileDetails?.name}}</h3>
@@ -24,7 +24,7 @@
             <p><span class="mr-2 mt-4">City:</span><strong>{{profileDetails?.city}}</strong></p>
             <p><span class="mr-2 mt-4">State:</span><strong>{{profileDetails?.state}}</strong></p>
             <p><span class="mr-2 mt-4">Address:</span><strong>{{profileDetails?.address}}</strong></p>
-       
+
 
 
         </div>
@@ -35,92 +35,85 @@
 
             <p><span class="mr-2 mt-4">Status:</span><strong>Active</strong></p>
         </div>
-<!-- 
-        <div class="col-md-3">
-            <a class="edit-link" data-toggle="modal" href="#"><i class="fa fa-edit mr-1"></i>Edit</a>
-
-        </div> -->
     </div>
 
 
     <div class="profile-menu mt-4">
         <ul class="nav nav-tabs nav-tabs-solid">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#Active_tab">Active</a>
+                <a class="nav-link active"  (click)="activeTab='active'"  data-toggle="tab" href="#Active_tab">Active</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#InActive_tab">InActive </a>
+                <a class="nav-link" (click)="activeTab='inactive'" data-toggle="tab" href="#InActive_tab">InActive </a>
             </li>
-          
+
         </ul>
     </div>
-    <table class="table tab-pane fade show active" id="Active_tab" >
+    <table *ngIf="activeTab === 'active'" class="table tab-pane fade show active" id="Active_tab" >
         <thead class="table-primary bg-primary text-light">
             <tr>
                 <th>Name</th>
-                <th>Books</th>
-                <th>Created Date</th>
                 <th>Duration</th>
-                <th>Start Date</th>    
+                <th>Start Date</th>
                 <th>End Date</th>
-                <th>Price</th> 
-                <th>Status</th>
+                <th>Price</th>
+                <th>Delivery Address</th>
             </tr>
         </thead>
         <tbody >
-            <tr *ngFor="let item of profileDetails?.subcriptions">
+            <tr *ngFor="let item of activeSubcriptions">
                 <td>{{item?.name}}</td>
 
-    <td>{{item?.books}}</td>
-    <td>{{item?.createDate | date:'mediumDate'}}</td>
     <!-- <td>{{item?.description}}</td> -->
-    <td>{{item?.duration}}</td>
+    <td>{{item?.duration}} Months</td>
     <td>{{item?.startDate | date:'mediumDate'}}</td>
     <td>{{item?.endDate | date:'mediumDate'}}</td>
     <td>{{item?.price}}</td>
-    <td> <span *ngIf="profileDetails?.active" class="badge badge-pill bg-success inv-badge">Active</span>
-               
+    <td>{{item?.deliveryAddress.address}}({{item?.deliveryAddress.city}})
+
     </td>
             </tr>
-
-        </tbody>
-
-            
-           
-    
-            
-    </table>
-
-
-    <table class="table tab-pane fade" id="InActive_tab">
-        <thead class="table-primary bg-primary text-light">
-            <tr>
-                <th>Name</th>
-                <th>Books</th>
-                <th>Created Date</th>
-                <th>Duration</th>
-                <th>Start Date</th>    
-                <th>End Date</th>
-                <th>Price</th> 
-                <th>Status</th>
+            <tr *ngIf="activeSubcriptions.length === 0">
+              <td class="text-center">No Records Found</td>
             </tr>
-        </thead>
-        <tbody *ngIf="!profileDetails?.active">
-            <tr *ngFor="let item of profileDetails?.subcriptions">
-                <td>{{item?.name}}</td>
-
-    <td>{{item?.books}}</td>
-    <td>{{item?.createDate}}</td>
-    <!-- <td>{{item?.description}}</td> -->
-    <td>{{item?.duration}}</td>
-    <td>{{item?.startDate}}</td>
-    <td>{{item?.endDate}}</td>
-    <td>{{item?.price}}</td>
-            <td>
-                <span *ngIf="!profileDetails?.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
-             </td>
-          </tr>
         </tbody>
-    </table>
 
+
+
+
+
+    </table>
+    <table *ngIf="activeTab === 'inactive'" class="table tab-pane fade show active" id="InActive_tab" >
+      <thead class="table-primary bg-primary text-light">
+          <tr>
+              <th>Name</th>
+              <th>Duration</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Price</th>
+              <th>Delivery Address</th>
+          </tr>
+      </thead>
+      <tbody >
+        <tr *ngFor="let item of inactiveSubcriptions">
+            <td>{{item?.name}}</td>
+
+<!-- <td>{{item?.description}}</td> -->
+<td>{{item?.duration}} Months</td>
+<td>{{item?.startDate | date:'mediumDate'}}</td>
+<td>{{item?.endDate | date:'mediumDate'}}</td>
+<td>{{item?.price}}</td>
+<td>{{item?.deliveryAddress.address}}({{item?.deliveryAddress.city}})
+
+</td>
+        </tr>
+        <tr *ngIf="inactiveSubcriptions.length === 0">
+          <td class="text-center">No Records Found</td>
+        </tr>
+
+    </tbody>
+
+
+
+  </table>
 </div>

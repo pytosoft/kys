@@ -1,3 +1,4 @@
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
@@ -17,8 +18,9 @@ export class ConfirmComponent implements OnInit {
   totalAmount: number = 0;
   today = new Date();
   deliverForm!: FormGroup;
+  submitted: boolean = false;
   constructor(private _router: Router,  private activeRoute: ActivatedRoute, private _fb: FormBuilder,
-     private _service: SubcriptionService, private messageService: MessageService) { }
+     private _service: SubcriptionService, private messageService: MessageService, private spinner: LoaderService) { }
 
   ngOnInit(): void {
         this.activeRoute.params.subscribe(query => {
@@ -36,8 +38,8 @@ export class ConfirmComponent implements OnInit {
       var dt = new Date();
       dt.setMonth( dt.getMonth() + element.duration );
       element.new = true;
-      element.startDate = this.today;
-      element.endDate = dt; ​
+      element.startDate = this.today.getTime();
+      element.endDate = dt.getTime(); ​
       element.active = true;
       delete element.books;
       delete element._id;
@@ -45,7 +47,12 @@ export class ConfirmComponent implements OnInit {
   })
   this.initlizationForm();
   }
+
   complete(){
+    this.submitted = true;
+    if(this.name?.invalid || this.mobile?.invalid || this.address?.invalid || this.city?.invalid || this.state?.invalid || this.pinCode?.invalid || this.locality?.invalid){
+      return;
+    }
     if(this.subcriberInfo.subcriptions && this.subcriberInfo.subcriptions.length > 0){
       this.subcriberInfo.subcriptions.forEach((element: { new: boolean; }) => {
         element.new = false;
@@ -64,6 +71,7 @@ export class ConfirmComponent implements OnInit {
       "totalAmount": this.totalAmount,
       "plans": this.seletedPlans
     }
+    this.spinner.show();
     this._service.saveSubcription(reqData)
     .subscribe(res => {
       this.messageService.add({
@@ -73,17 +81,19 @@ export class ConfirmComponent implements OnInit {
         life: 3000,
       });
       this._router.navigate(['app/user'])
-
+      this.spinner.hide();
     })
   }
   prevPage(){
     this._router.navigate(['app/subscription/plan/'+this.subscriberId])
   }
    getSubcriberInfoById(){
+    this.spinner.show();
     this._service.getSubcriberInfoById(this.subscriberId)
     .subscribe(res => {
-      this.subcriberInfo =res.data;
-      this.deliverForm.patchValue(res.data)
+      this.subcriberInfo =res.data._doc;
+      this.deliverForm.patchValue(this.subcriberInfo)
+      this.spinner.hide();
     })
   }
   initlizationForm(){
@@ -99,4 +109,27 @@ export class ConfirmComponent implements OnInit {
       secondaryPhone: ['']
     })
   }
+  get name() {
+    return this.deliverForm.get('name');
+  }
+  get address() {
+    return this.deliverForm.get('address');
+  }
+  get city() {
+    return this.deliverForm.get('city');
+  }
+  get mobile() {
+    return this.deliverForm.get('mobile');
+  }
+  get pinCode() {
+    return this.deliverForm.get('pinCode');
+  }
+  get state() {
+    return this.deliverForm.get('state');
+  }
+
+  public get locality() {
+    return this.deliverForm.get('locality');
+  }
+
 }

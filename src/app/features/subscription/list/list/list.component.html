@@ -3,21 +3,17 @@
     <a class="navbar-brand">Manage Address
     </a>
     <div class="btn-group me-1 ml-auto">
-      <button type="button" (click)="printPage()" class="btn btn-primary btn-sm">Print</button>
-
-      <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-      (click)="addPlan(planDetails)"></button> -->
+      <button type="button" (click)="printPage()" class="btn btn-primary btn-sm">Download</button>
     </div>
   </div>
 </nav>
 <main class="container-fluid" >
-<div class="row">
+<div class="row" id="capture">
   <div class="col-sm-12">
       <div class="row blog-grid-row" >
 
         <div class="col-md-6 col-xl-4 col-sm-12" *ngFor="let item of subscriptionList">
 
-          <!-- Blog Post -->
           <div class="blog grid-blog">
             <div class="blog-content">
               <h3 class="blog-title"><a href="#">{{item?.name +' ('+item?.mobile+')'}}</a></h3>
@@ -31,13 +27,12 @@
               <div class="col text-right"><a href="javascript:void(0);" class="text-danger" data-toggle="modal" data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i>  State: {{item?.state}}</a></div>
             </div>
           </div>
-          <!-- /Blog Post -->
 
         </div>
       </div>
 
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="blog-pagination">
             <nav>
@@ -61,7 +56,7 @@
             </nav>
           </div>
         </div>
-      </div>
+      </div> -->
 
   </div>
 </div>

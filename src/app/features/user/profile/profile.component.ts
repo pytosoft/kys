@@ -11,16 +11,18 @@ import { subscriberService } from 'src/app/core/services/user.service';
 export class ProfileComponent implements OnInit {
   profileDetails: any;
   userId: string = '';
-
+  activeSubcriptions: any[] = [];
+  inactiveSubcriptions: any[] = [];
+  activeTab: string = 'active';
   constructor(private _loader: LoaderService, private subscriberService: subscriberService, private _route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
     this._route.params.subscribe(res => {
-     
+
       if(res && res.id){
         this.getProfile(res.id)
-      } 
+      }
     })
   }
 
@@ -28,8 +30,9 @@ export class ProfileComponent implements OnInit {
     this._loader.show();
     this.subscriberService.getSubcriberprofileById(id).subscribe(profile => {
       this._loader.hide();
-      this.profileDetails = profile.data
-      console.log(profile.data)
+      this.profileDetails = profile.data._doc;
+      this.activeSubcriptions = profile.data.subcriptions.filter((res: { active: boolean; }) => res.active === true)
+      this.inactiveSubcriptions = profile.data.subcriptions.filter((res: { active: boolean; }) => res.active === false)
     })
   }
 

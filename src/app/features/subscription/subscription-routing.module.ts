@@ -14,7 +14,7 @@ children: [
   { path: 'personal/:id', component: PersonalComponent },
   { path: 'personal', component: PersonalComponent },
   { path: 'plan/:subsId', component: PlanComponent },
-  { path: 'confirm/:subsId', component: ConfirmComponent },
+  { path: 'confirm/:subsId', component: ConfirmComponent }
 ]
 },
 { path: 'list', component: ListComponent }

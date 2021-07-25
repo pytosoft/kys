@@ -14,8 +14,10 @@ export class ProfileComponent implements OnInit {
 
   profile: any;
   form!: FormGroup;
-  
-  constructor(private _service: ProfileService, private _route: ActivatedRoute, 
+  resetPasswordForm!: FormGroup;
+  submitted: boolean = false;
+
+  constructor(private _service: ProfileService, private _route: ActivatedRoute,
     private _fb: FormBuilder, private messageService: MessageService, private _spinner: LoaderService) { }
 
   ngOnInit(): void {
@@ -34,7 +36,13 @@ export class ProfileComponent implements OnInit {
     this.form = this._fb.group({
       depositAmount: ['', Validators.required],
       note: ['']
-    }) 
+    })
+    this.resetPasswordForm = this._fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    })
 
   }
 
@@ -61,6 +69,55 @@ deposit(){
     this.form.reset();
   })
 }
+verify(item: any){
+  this._spinner.show();
+  item.adminId = localStorage.getItem('userID');
+  this._service.verifyAmount(item)
+  .subscribe(res => {
+    this._spinner.hide();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: res.message,
+      life: 3000,
+    });
+    this.profile.depositAmountRequest.forEach((element: { id: any; isVerifyed: boolean; }) => {
+      if(element.id === item.id){
+        element.isVerifyed = true;
+      }
+    });
+  })
+}
+changePassword() {
+  this.resetPasswordForm.patchValue({'email': this.profile?.email})
+  if(this.resetPasswordForm.invalid)
+    return
+  const reqData = this.resetPasswordForm.value;
+  this._spinner.show();
+  this._service.changePassword(reqData)
+  .subscribe(res => {
+    this._spinner.hide();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: res.message,
+      life: 3000,
+    })
+    this.resetPasswordForm.reset();
+    this.submitted = false;
+  })
+}
 
+public get password() : any {
+  return this.resetPasswordForm.get('password')
+}
+public get newPassword() : any {
+  return this.resetPasswordForm.get('newPassword')
+}
+public get confirmPassword() : boolean {
+  if(this.resetPasswordForm.value.newPassword === this.resetPasswordForm.value.confirmPassword && this.resetPasswordForm.value.confirmPassword !== '')
+    return true;
+  return false;
+}
 
 }

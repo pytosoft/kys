@@ -1,48 +1,41 @@
-<p-toast></p-toast>
+<nav class="navbar navbar-light header-page">
+  <div class="container-fluid">
+    <a class="navbar-brand">Manage Books
+    </a>
+  </div>
+</nav>
+<main class="container-fluid" style="margin-top: -8px;">
+  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
+    <div class="lh-1">
+      <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
+        <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+    <div class="btn-group me-1 ml-auto">
+      <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
+    </div>
+  </div>
 
-<div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-                (click)="openNew()"></button>
-
-        </ng-template>
-
-    </p-toolbar>
+  <div class="my-1 p-1 bg-body rounded shadow-sm">
 
     <p-table #dt [value]=" booksDetail" [responsive]="true" [rows]="10" [paginator]="true"
         [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
         [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between fluid-container headerBook ">
-                <h5 class="p-m-0 ">Manage Books</h5>
-               
-                    <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
-       
-
-            </div>
-        </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
                     #
                 </th>
-                <th pSortableColumn="name">Book Name <p-sortIcon field="name"></p-sortIcon>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th>Image</th>
                 <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
                 </th>
                 <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon>
                 </th>
-                <th pSortableColumn="Date">Created-Date<p-sortIcon field="Date"></p-sortIcon>
-                </th>
-                <th pSortableColumn="Date">Updated-Date <p-sortIcon field="Date"></p-sortIcon>
-                </th>
 
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
-                </th>
-                <th></th>
+                <th>Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-booksDetail let-record="$implicit" let-rowIndex="rowIndex">
@@ -51,79 +44,60 @@
                     {{rowIndex + 1}}
                 </td>
                 <td>{{ booksDetail.bookName}}</td>
-                <td><img src="http://3.21.163.69:3000/{{booksDetail.image}}" [alt]="booksDetail.name" width="100"
+                <td><img *ngIf="booksDetail.image" src="{{serverUrl+booksDetail.image}}" [alt]="booksDetail.name" width="100"
                         class="p-shadow-4" /></td>
                 <td>{{ booksDetail.pricing | currency:'INR'}}</td>
                 <td>{{ booksDetail.category}}</td>
-                <td>{{ booksDetail.createDate | date: 'dd/MM/yyyy'}}</td>
-                <td>{{ booksDetail.updateDate | date: 'dd/MM/yyyy' }}</td>
-                <td><span
-                        [class]="'product-badge status-' + (booksDetail.inventoryStatus ? booksDetail.inventoryStatus.toLowerCase() : '')">{{
-                        booksDetail.bookDetails}}</span></td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
-                        (click)="editBook(booksDetail)"></button>
-
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                        (click)="deleteSelectedProducts(booksDetail)"></button>
+                  <button pButton pRipple icon="pi pi-pencil" style="    margin-right: 15px;" class="p-button-rounded p-button-success p-mr-2" (click)="editBook(booksDetail)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="deleteBook(booksDetail)"></button>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                In total there are {{products ? products.length : 0 }} products.
+                In total there are {{booksDetail ? booksDetail.length : 0 }} books.
             </div>
         </ng-template>
     </p-table>
-</div>
-
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+  </div>
+  </main>
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Book Details" [modal]="true"
     styleClass="p-fluid">
-
-    <!--this  is new form-->
-
     <ng-template pTemplate="content">
-        <!-- <img [src]="'assets/showcase/images/demo/product/' + product?.image" [alt]="product.image" class="product-image"
-           > -->
-        <form [formGroup]="bookForm" (ngSubmit)="bookPost()">
+        <form [formGroup]="bookForm" (ngSubmit)="addNewBook()">
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Book-Name</label>
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="bookname" name="bookName" placeholder="Book Name"
                         formControlName="bookName">
+                        <small class="p-error" *ngIf="submitted && bookName.invalid">Name is required.</small>
                 </div>
             </div>
-            <label for="name" class="col-sm-2 col-form-label">pricing</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="pricing" placeholder="pricing" name="pricing"
-                    formControlName="pricing">
+            <div class="form-group row">
+              <label for="name" class="col-sm-2 col-form-label">Price</label>
+              <div class="col-sm-10">
+                  <input type="text" maxlength="5" class="form-control" id="pricing" appNumberOnly placeholder="" name="pricing"
+                      formControlName="pricing">
+                      <small class="p-error" *ngIf="submitted && pricing.invalid">Price is required.</small>
 
-
+  </div>
+            </div>
+            <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Category</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="category" placeholder="Category" name="category"
-                        formControlName="category">
+                  <select class="form-control"  formControlName="category">
+                    <option value="" disabled>Choose</option>
+                    <option value="साहित्य">साहित्य</option>
+                    <option value="पत्र पत्रिकाएं">पत्र पत्रिकाएं</option>
+                  </select>
+                  <small class="p-error" *ngIf="submitted && category.invalid">Please choose one.</small>
+
 
                 </div>
-                <label for="name" class="col-sm-2 col-form-label">Created-Date</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="createDate" placeholder="Created-Date" name="createDate"
-                        formControlName="createDate">
-
                 </div>
-                <label for="name" class="col-sm-2 col-form-label">Updated-Date</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="updated-Date" placeholder="Updated-Date"
-                        name="updateDate" formControlName="updateDate">
-                </div>
-                <label for="name" class="col-sm-2 col-form-label">status</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="bookDetails" placeholder="Book-details"
-                        name="bookDetails" formControlName="bookDetails">
-
-                </div>
-
-                <label for="exampleFormControlFile1">Attachment</label>
+                <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Image</label>
                 <div class="col-sm-10">
                     <input type="file" class="form-control-file" (change)="onFileSelected($event)"
                         id="exampleFormControlFile1" name="attachment" formControlName="attachment">

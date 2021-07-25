@@ -38,8 +38,7 @@
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/feathericon.min.css",
               "src/assets/plugins/morris/morris.css",
-              "src/assets/css/style.css",
-              "src/styles.scss"
+              "src/assets/css/style.css"
 
             ],
             "scripts": [
@@ -51,13 +50,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5000kb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "20kb",
+                  "maximumError": "40kb"
                 }
               ],
               "fileReplacements": [

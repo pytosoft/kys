@@ -45,7 +45,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: res.error.message
+        detail: res.error.message ? res.error.message : 'Session Expired. Please login again'
       });
       localStorage.removeItem('token');
       localStorage.removeItem('userID');
@@ -56,9 +56,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         summary: 'Error',
         detail: res.error.message
       });
-      localStorage.removeItem('token');
-      localStorage.removeItem('userID');
-      this._router.navigate(['/login']);
     } else {
       this.messageService.add({
         severity: 'error',

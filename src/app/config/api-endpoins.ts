@@ -19,6 +19,7 @@
   editAdmin: () => `user/update`,
   depositAmountRequest: () => `user/depositAmountRequest`,
   verifyAmount: () => `user/verifyAmount`,
+  changePassword: () => `auth/reset-password`,
   profile: (id: string) => `subscriber/list/${id}`,
    books: () => `book/list`,
   bookPost:() => `book`,
@@ -26,4 +27,4 @@
   updateBook:()=> `book/update`
 }
 
- 
+

@@ -1,3 +1,4 @@
+import { NumberOnlyDirective } from './../directives/number-only.directive';
 import { HttpService } from './../core/http/interceptor/http-service.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -20,7 +21,8 @@ import { UiFeaturesModule } from './ui-features/ui-features.module';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    LoaderComponent
+    LoaderComponent,
+    NumberOnlyDirective
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { UiFeaturesModule } from './ui-features/ui-features.module';
     FooterComponent,
     LoaderComponent,
     UiFeaturesModule,
+    NumberOnlyDirective,
     ReactiveFormsModule
   ],
   providers: [

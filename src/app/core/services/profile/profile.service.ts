@@ -53,4 +53,12 @@ public getProfileById(id: string){
         catchError(() => throwError('Sorry something went wrong in api'))
       )
     }
+    changePassword(data: any){
+      return this._http
+      .post(apiEndpointUrl.changePassword(), data)
+      .pipe(
+        map((body: any) => body),
+        catchError(() => throwError('Sorry something went wrong in api'))
+      )
+    }
 }

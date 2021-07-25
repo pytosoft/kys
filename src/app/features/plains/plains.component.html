@@ -12,10 +12,7 @@
       </form>
     </div>
     <div class="btn-group me-1 ml-auto">
-      <button type="button" (click)="addPlan(planDetails)" class="btn btn-primary btn-sm">Add New</button>
-
-      <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-      (click)="addPlan(planDetails)"></button> -->
+      <button type="button" (click)="addPlan()" class="btn btn-primary btn-sm">Add New</button>
     </div>
   </div>
 
@@ -31,10 +28,10 @@
                 <!-- <th pSortableColumn="createdBy">Created BY </th> -->
                 <th pSortableColumn="price">Price</th>
 
-                <th pSortableColumn="duration">Duration </th>
+                <th pSortableColumn="duration">Duration(Months) </th>
                 <th pSortableColumn="books">Books </th>
                 <!-- <th pSortableColumn=" description">Description</th> -->
-                <th pSortableColumn="active">Active <p-sortIcon field="active"></p-sortIcon></th>
+                <!-- <th pSortableColumn="active">Active <p-sortIcon field="active"></p-sortIcon></th> -->
 
                 <th>Action</th>
 
@@ -56,10 +53,10 @@
                 <td>{{planDetails.books}}</td>
 
                 <!-- <td>{{planDetails.description}}</td> -->
-                <td>
+                <!-- <td>
                   <span *ngIf="planDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
                   <span *ngIf="!planDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
-                </td>
+                </td> -->
                   <td>
                     <button pButton pRipple icon="pi pi-pencil" style="    margin-right: 15px;" class="p-button-rounded p-button-success p-mr-2" (click)="editPlan(planDetails)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2" (click)="deletePlan(planDetails)"></button>
@@ -81,40 +78,29 @@
             <small class="p-error" *ngIf="submitted && !plan.name">Name is required.</small>
         </div>
 
-        <div class="p-field">
-            <label for="name">Price</label>
-            <input type="number" pInputText id="price" [(ngModel)]="plan.price" required autofocus />
-            <small class="p-error" *ngIf="submitted && !plan.price">Price is required.</small>
-        </div>
+
         <div class="p-field">
             <label for="name">Duration</label>
-            <input type="text" pInputText id="duration" [(ngModel)]="plan.duration" required autofocus />
+            <input type="text" appNumberOnly maxlength="5" pInputText id="duration" [(ngModel)]="plan.duration" required autofocus />
             <small class="p-error" *ngIf="submitted && !plan.duration">Duration is required.</small>
         </div>
         <div class="p-field">
             <label for="name">Book</label>
-            <input type="text" pInputText id="books" [(ngModel)]="plan.books" required autofocus />
-            <small class="p-error" *ngIf="submitted && !plan.books">Book name is required.</small>
+            <select class="form-control" #book (change)="updateBook(book.value)"  [(ngModel)]="plan.books" >
+              <option value="" disabled>Choose</option>
+              <option value="{{item.bookName}}" *ngFor="let item of books">{{item.bookName}}</option>
+            </select>
+            <small class="p-error" *ngIf="submitted && !plan.books">Book  is required.</small>
         </div>
+        <div class="p-field">
+          <label for="name">Price</label>
+          <input type="text" maxlength="5" pInputText id="price" appNumberOnly [(ngModel)]="plan.price" required autofocus />
+          <small class="p-error" *ngIf="submitted && !plan.price">Price is required.</small>
+      </div>
         <div class="p-field">
             <label for="description">Description</label>
             <textarea id="description" pInputTextarea [(ngModel)]="plan.description" required rows="3" cols="20"></textarea>
             <small class="p-error" *ngIf="submitted && !plan.description">Description is required.</small>
-        </div>
-
-        <div class="p-field">
-            <label class="p-mb-3">Active</label>
-            <small class="p-error" *ngIf="submitted && !plan.active"> Choose any one .</small>
-            <div class="p-formgrid p-grid">
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="Action1" name="Action" value="true" [(ngModel)]="plan.active"></p-radioButton>
-                    <label for="Action1">YES</label>
-                </div>
-                <div class="p-field-radiobutton p-col-6">
-                    <p-radioButton id="Action2" name="Action" value="false" [(ngModel)]="plan.active"></p-radioButton>
-                    <label for="Action2">NO</label>
-                </div>
-            </div>
         </div>
     </ng-template>
 

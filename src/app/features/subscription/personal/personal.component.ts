@@ -1,9 +1,8 @@
-import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { stateList } from './../../../model/states-list';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
+import { stateList } from './../../../model/states-list';
 
 @Component({
   selector: 'app-personal',
@@ -12,6 +11,7 @@ import { SelectItem } from 'primeng/api';
 })
 export class PersonalComponent implements OnInit {
   userInformationForm!: FormGroup;
+  submitted: boolean = false;
   constructor(private _fb: FormBuilder, private _router: Router, private activeRoute: ActivatedRoute,
     private _service: SubcriptionService) { }
   states: any[] = [];
@@ -30,17 +30,21 @@ export class PersonalComponent implements OnInit {
   initlization(): void{
     this.userInformationForm = this._fb.group({
       name: [ '', Validators.required],
-      mobile: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       email: [''],
       fatherName: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      pinCode: [0, Validators.required]
+      pinCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
     })
   }
   nextPage(){
-    if(this.subscriberId){
+    this.submitted = true;
+    if(this.name?.invalid || this.mobile?.invalid || this.fatherName?.invalid || this.address?.invalid || this.city?.invalid || this.state?.invalid || this.pinCode?.invalid){
+      return;
+    }
+    else if(this.subscriberId){
       let reqData = this.userInformationForm.value;
       reqData['_id'] = this.subscriberId;
       this._service.updateSubscriber(reqData)
@@ -55,7 +59,27 @@ export class PersonalComponent implements OnInit {
       this._router.navigate(['app/subscription/plan/'+res.data.id])
     })
     }
-
+  }
+  get name() {
+    return this.userInformationForm.get('name');
+  }
+  get fatherName() {
+    return this.userInformationForm.get('fatherName');
+  }
+  get address() {
+    return this.userInformationForm.get('address');
+  }
+  get city() {
+    return this.userInformationForm.get('city');
+  }
+  get mobile() {
+    return this.userInformationForm.get('mobile');
+  }
+  get pinCode() {
+    return this.userInformationForm.get('pinCode');
+  }
+  get state() {
+    return this.userInformationForm.get('state');
   }
   prevPage(){
     this._router.navigate(['app/subscription/user'])

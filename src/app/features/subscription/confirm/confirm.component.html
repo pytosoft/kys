@@ -164,7 +164,7 @@
                 <input type="text" [value]="subcriberInfo?.mobile" class="form-control" disabled>
               </div>
               </div>
-              
+
               </div>
               <div class="row">
                 <div class="col-md-6">
@@ -179,7 +179,7 @@
                   <input type="text" class="form-control"  [value]="subcriberInfo?.pinCode" disabled>
                 </div>
                 </div>
-               
+
                 </div>
                 <div class="row">
                   <div class="col-md-6">
@@ -203,22 +203,24 @@
               </div>
               </div>
               </div>
-              
+
             </div>
-           
+
             <div class="col-md-6">
               <h4 class="card-title">Delivery Address</h4>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label> Name:</label>
-                    <input type="text" formControlName="name" class="form-control">
+                    <input type="text" formControlName="name" class="form-control"
+                    [ngClass]="{'is-invalid': name?.invalid && submitted, ' is-valid' : name?.valid}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Mobile:</label>
-                    <input type="text" formControlName="mobile" maxlength="10" class="form-control">
+                    <input type="text" formControlName="mobile" appNumberOnly maxlength="10" class="form-control"
+                    [ngClass]="{'is-invalid': mobile?.invalid && submitted, ' is-valid' : mobile?.valid}">
                   </div>
                 </div>
               </div>
@@ -226,13 +228,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>PinCode:</label>
-                    <input type="text" formControlName="pinCode" maxlength="6" class="form-control">
+                    <input type="text" formControlName="pinCode" appNumberOnly maxlength="6" class="form-control"
+                    [ngClass]="{'is-invalid': pinCode?.invalid && submitted, ' is-valid' : pinCode?.valid}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Locality:</label>
-                    <input type="text" formControlName="locality" class="form-control">
+                    <input type="text" formControlName="locality" class="form-control"
+                    [ngClass]="{'is-invalid': locality?.invalid && submitted, ' is-valid' : locality?.valid}">
                   </div>
                 </div>
               </div>
@@ -240,7 +244,8 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Address :</label>
-                    <input type="text" formControlName="address" class="form-control">
+                    <input type="text" formControlName="address" class="form-control"
+                    [ngClass]="{'is-invalid': address?.invalid && submitted, ' is-valid' : address?.valid}">
                   </div>
                 </div>
               </div>
@@ -248,13 +253,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>City:</label>
-                    <input type="text" formControlName="city" class="form-control">
+                    <input type="text" formControlName="city" class="form-control"
+                    [ngClass]="{'is-invalid': city?.invalid && submitted, ' is-valid' : city?.valid}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>State/Province:</label>
-                    <input type="text" formControlName="state" class="form-control">
+                    <input type="text" formControlName="state" class="form-control"
+                    [ngClass]="{'is-invalid': state?.invalid && submitted, ' is-valid' : state?.valid}">
                   </div>
                 </div>
               </div>
@@ -268,7 +275,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Alternate Phone(optional):</label>
-                    <input type="text" formControlName="secondaryPhone" maxlength="10" class="form-control">
+                    <input type="text" formControlName="secondaryPhone" appNumberOnly maxlength="10" class="form-control">
                   </div>
                 </div>
               </div>
@@ -300,7 +307,7 @@
                     <input type="text" class="form-control" [value]="item?.endDate | date" disabled>
                   </div>
                 </div>
-                
+
               </div>
               <div class="row" >
                 <div class="col-md-12">
@@ -308,7 +315,7 @@
                     <label>Total Payable: </label>
                     <input type="text" class="form-control" [value]="totalAmount" disabled>
                   </div>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -320,7 +327,7 @@
               <button type="submit" (click)="complete()"   class="btn btn-primary">Submit</button>
             </div>
           </div>
-         
+
         </form>
       </div>
     </div>
