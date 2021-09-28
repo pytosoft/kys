@@ -7,12 +7,15 @@ import { MessageService } from 'primeng/api';
 import { subscriberService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+ 
+  distByState:any[]=[];
   subscriberDetails: any;
   submitted?: boolean;
   statuses?: any[];
@@ -22,7 +25,7 @@ export class UserComponent implements OnInit {
   panelOpenState = false;
   selected!: number;
   userId: string = '';
-  states: any[] = stateList;
+  states: any[] = [];
   subscribers: any[] = [];
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
@@ -37,6 +40,9 @@ export class UserComponent implements OnInit {
     }
     this.getAllsubscriber()
     this.addsubscriberForm()
+    this.getStates()
+    // this.handleValueChanges()
+    
   }
 
 
@@ -53,7 +59,37 @@ export class UserComponent implements OnInit {
       state: ['', [Validators.required]]
     })
   }
+  getStates(){
+    this.subscriberService.getState().subscribe(
+      data => {
+         data = data.data;
+          for(let i=0; i<=data.length; i++){
+            this.states.push({
+              code: data[i],
+              name: data[i]
+            })
+          }   
+    
+      }
+    )
+  }
 
+ //this.distByState=0
+  changeStates(){
+  this.distByState = []
+   this.subscriberService.getDistrict(this.subscriberForm.value.state).subscribe(
+    data =>{
+   data=data.data;
+   for(let i=0; i<=data.length; i++){
+    this.distByState.push({
+      code: data[i],
+      name: data[i]
+    })
+  }   
+   
+    }
+  )
+  }
   get name() {
     return this.subscriberForm.get('name');
   }
@@ -127,7 +163,7 @@ else{
     "email": this.subscriberForm.value.email,
     "fatherName": this.subscriberForm.value.fatherName,
     "address": this.subscriberForm.value.address,
-    "city": this.subscriberForm.value.city,
+    "distByState": this.subscriberForm.value.city,
     "mobile": this.subscriberForm.value.mobile,
     "pinCode": this.subscriberForm.value.pinCode,
     "state": this.subscriberForm.value.state,
@@ -153,6 +189,9 @@ else{
     this.subscriberDialog = true;
     this.subscriberForm.addControl('_id', new FormControl(''));
     this.subscriberForm.patchValue(data);
+    this.subscriberForm.controls['email'].disable()  
+    // this.subscriberForm.patchValue(data).controls['email'].disable()
+
   }
 
   openNew() {

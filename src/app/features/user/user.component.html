@@ -30,7 +30,7 @@
         </th>
         <th pSortableColumn="fatherName">Father Name
         </th>
-        <th pSortableColumn="city">City/Village <p-sortIcon field="city"></p-sortIcon>
+        <th pSortableColumn="city">District/Village <p-sortIcon field="city"></p-sortIcon>
         </th>
         <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
         </th>
@@ -87,7 +87,7 @@
       <div class="form-group row">
         <label for="email" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" name="email" formControlName="email">
+          <input type="text" class="form-control" id="email" name="email" formControlName="email" > 
           <div *ngIf="email && submitted" class="alert alert-danger">
               Email is required.
           </div>
@@ -123,29 +123,31 @@
           </div>
         </div>
       </div>
-
-      <div class="form-group row">
-        <label for="city" class="col-sm-2 col-form-label">City</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="city" name="city" formControlName="city">
-          <div *ngIf="city.invalid && submitted" class="alert alert-danger">
-            <div *ngIf="city.errors?.required">
-              city is required.
-            </div>
-
-          </div>
-        </div>
-      </div>
-
       <div class="form-group row">
         <label for="state" class="col-sm-2 col-form-label">State</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state">
+          <!-- <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state"> -->
+          <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  formControlName="state" (onChange)="changeStates()">
+            <option value="">Select States</option>
+          </p-dropdown>
           <div *ngIf="state.invalid &&  submitted" class="alert alert-danger">
             <div *ngIf="state.errors?.required">
               State is required.
             </div>
-
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="city" class="col-sm-2 col-form-label">District</label>
+        <div class="col-sm-10">
+          <!-- <input type="text" class="form-control" id="city" name="city" formControlName="city"> -->
+          <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"  formControlName="city">
+            <option value="">Select country...</option>
+          </p-dropdown>
+          <div *ngIf="city.invalid && submitted" class="alert alert-danger">
+            <div *ngIf="city.errors?.required">
+              District is required.
+            </div>
           </div>
         </div>
       </div>
@@ -180,13 +182,7 @@
         </div>
       </div>
       </div>
-
-
-
       <br>
-
-
-
     </form>
   </ng-template>
 

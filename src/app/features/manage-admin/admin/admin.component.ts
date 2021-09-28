@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { AdminService } from './../../../core/services/admin/admin.service';
 import { stateList } from './../../../model/states-list';
+import { subscriberService } from 'src/app/core/services/user.service'
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -14,21 +15,23 @@ export class AdminComponent implements OnInit {
   adminDialog: boolean = false;
   submitted: boolean = false;
   adminForm:any;
-  states: any[] = stateList;
+  states: any[] = [];
   editMode: boolean = false;
   admins: any[] = [];
-
+  distByState:any[]=[];
   constructor(private _service: AdminService, private _spinner: LoaderService,
-     private _fb: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+     private _fb: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private subscriberService: subscriberService) { }
 
   ngOnInit(): void {
-    console.log(this.getAllAdmin())
     this.initilization();
     this.getAllAdmin();
+    this.getStates()
   }
+
   /**
    * getAllAdmin
    */
+  
    getAllAdmin(){
      this._spinner.show();
      this._service.getAllAdmin()
@@ -37,6 +40,35 @@ export class AdminComponent implements OnInit {
        this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
        this._spinner.hide();
      })
+   }
+   getStates(){
+    this.subscriberService.getState().subscribe(
+      data => {
+         data = data.data;
+          for(let i=0; i<=data.length; i++){
+            this.states.push({
+              code: data[i],
+              name: data[i]
+            })
+          }   
+    
+      }
+    )
+   }
+   changeStates(){
+ this.distByState=[]
+    this.subscriberService.getDistrict(this.adminForm.value.state).subscribe(
+     data =>{
+    data=data.data;
+    for(let i=0; i<=data.length; i++){
+     this.distByState.push({
+       code: data[i],
+       name: data[i]
+     })
+   }   
+    
+     }
+   )
    }
 
   showAddAdmin(){

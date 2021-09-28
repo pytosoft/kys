@@ -9,7 +9,8 @@ import { PersonalComponent } from './personal/personal.component';
 import { PlanComponent } from './plan/plan.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { SharedModule } from '../../shared/shared.module';
-import { ListComponent } from './list/list/list.component'
+import { ListComponent } from './list/list/list.component';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ListComponent } from './list/list/list.component'
     CommonModule,
     SubscriptionRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    DropdownModule
   ]
 })
 export class SubscriptionModule { }

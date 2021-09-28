@@ -58,6 +58,20 @@ export class subscriberService {
       catchError(() => throwError('Sorry something went wrong in api'))
     )
   }
+ public getState(){
+    return this._http.get(apiEndpointUrl.getStateList()).pipe(
+      map((body:any)=>body),
+      catchError(()=>throwError('sorry something went wth the api'))
+    )
+
+  }
+  public getDistrict(data:any){
+    return this._http.get(apiEndpointUrl.getDistList(data)).pipe(
+      map((body:any)=>body),
+      catchError(()=>throwError('sorry something went wrong with the api'))
+    )
+
+  }
   
 
 }

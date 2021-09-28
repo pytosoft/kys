@@ -7,12 +7,45 @@
     </div>
   </div>
 </nav>
-<main class="container-fluid" >
-<div class="row" id="capture">
-  <div class="col-sm-12">
-      <div class="row blog-grid-row" >
+<!--form adress-->
+<form [formGroup]="DistrictForm" >
+<div class="col-12 col-md-6 ">
+  <div class="form-group">
+<br>
+      <div class="form-group row">
+          <label for="state" class="col-sm-2 col-form-label">State</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state"> -->
+            <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  formControlName="state" (onChange)="changeStates()">
+              <option value="">Select States</option>
+            </p-dropdown>
+          
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="city" class="col-sm-2 col-form-label">District</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" class="form-control" id="city" name="city" formControlName="city"> -->
+            <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"  formControlName="city">
+              <option value="">Select District...</option>
+            </p-dropdown>
+          
+          </div>
+        </div>
 
-        <div class="col-md-6 col-xl-4 col-sm-12" *ngFor="let item of subscriptionList">
+  </div>
+</div>
+<div>
+  <button type="submit" [disabled]="!DistrictForm.valid" (click)="onSubmit()">Search</button>
+</div>
+</form>
+<br>
+<main class="container-fluid">
+  <div class="row" id="capture">
+    <div class="col-sm-12">
+      <div class="row blog-grid-row">
+
+        <div class="col-md-6 col-xl-3 col-sm-12" *ngFor="let item of subscriptionList">
 
           <div class="blog grid-blog">
             <div class="blog-content">
@@ -22,9 +55,10 @@
               <p class="mb-0">{{item?.locality}}</p>
             </div>
             <div class="row pt-3">
-              <div class="col"><a  class="text-success"> PinCode: {{item?.pinCode}}</a></div>
+              <div class="col"><a class="text-success"> PinCode: {{item?.pinCode}}</a></div>
 
-              <div class="col text-right"><a href="javascript:void(0);" class="text-danger" data-toggle="modal" data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i>  State: {{item?.state}}</a></div>
+              <div class="col text-right"><a href="javascript:void(0);" class="text-danger" data-toggle="modal"
+                  data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i> State: {{item?.state}}</a></div>
             </div>
           </div>
 
@@ -58,6 +92,6 @@
         </div>
       </div> -->
 
+    </div>
   </div>
-</div>
 </main>

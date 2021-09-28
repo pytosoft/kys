@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { LoginService } from 'src/app/core/services/login/login.service';
 import { SharedService } from 'src/app/core/services/shared/shared.service';
-
+import {AuthguardService} from 'src/app/core/services/auth/authguard.service'
 /** Error when invalid control is dirty, touched, or submitted. */
 
 @Component({
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     private _loader: LoaderService,
     private _service: LoginService,
     private _message: MessageService,
-    private _shared: SharedService
+    private _shared: SharedService,
+    private _authservice:AuthguardService
   ) {
   }
 

@@ -67,7 +67,7 @@
             Name <p-sortIcon field="name"></p-sortIcon>
           </th>
           <th pSortableColumn="fatherName">Father's Name</th>
-          <th pSortableColumn="city">Village/City</th>
+          <th pSortableColumn="city">Village/District</th>
           <th pSortableColumn="mobile">Phone</th>
           <th pSortableColumn="mobile">Region</th>
           <th pSortableColumn="active">
@@ -199,36 +199,27 @@
           >Mobile is required.</small
         >
       </div>
-      <div class="p-field">
-        <label for="name">City/Village</label>
-        <input
-          type="text"
-          pInputText
-          id="duration"
-          formControlName="city"
-          required
-          autofocus
-        />
-        <small
-          class="p-error"
-          *ngIf="submitted && adminForm.controls['city'].invalid"
-          >City/Village is required.</small
-        >
-      </div>
+    
       <div class="p-field">
         <label for="name">State</label>
-        <input
-          type="text"
-          pInputText
-          id="state"
-          formControlName="state"
-          required
-          autofocus
-        />
+        <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  formControlName="state" (onChange)="changeStates()" >
+          <option value="">Select States</option>
+        </p-dropdown>
         <small
           class="p-error"
           *ngIf="submitted && adminForm.controls['state'].invalid"
           >State is required.</small
+        >
+      </div>
+      <div class="p-field">
+        <label for="name">District</label>
+        <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"  formControlName="city">
+            <option value="">Select country...</option>
+          </p-dropdown>
+        <small
+          class="p-error"
+          *ngIf="submitted && adminForm.controls['city'].invalid"
+          >City/Village is required.</small
         >
       </div>
       <div class="p-field">

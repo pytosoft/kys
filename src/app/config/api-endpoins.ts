@@ -9,7 +9,7 @@
   plans: () =>  `plan/list`,
   subscriberById: (id: string) => `subscriber/getUserProfile/${id}`,
   saveSubcription: () => `subscription`,
-  getSubscriptionList: () => `subscription/list`,
+  getSubscriptionList: () => `subscription/list?DistrictForm/`,
   subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`,
   adminList: () => `user/list`,
   saveAdmin: () => `user`,
@@ -24,7 +24,9 @@
    books: () => `book/list`,
   bookPost:() => `book`,
   bookDelete:()=> `book/deleteById?id=`,
-  updateBook:()=> `book/update`
+  updateBook:()=> `book/update`,
+  getStateList:()=>`common/states/list`,
+  getDistList:(data:string)=>`common/distByState?state=${data}`
 }
 
 

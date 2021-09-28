@@ -4,6 +4,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { KysGuard } from './core/auth/kys.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ path:'login', component:LoginComponent
   },
 
   {
+    canActivate:[KysGuard],
     path: 'app',
     component: LayoutComponent,
     children: [
@@ -24,6 +26,7 @@ path:'login', component:LoginComponent
       },
 
       {
+        canActivate:[KysGuard],
         path: 'subscription',
         loadChildren: () =>
           import('./features/subscription/subscription.module').then(
@@ -32,12 +35,14 @@ path:'login', component:LoginComponent
       },
 
       {
+        canActivate:[KysGuard],
         path: 'user',
         loadChildren: () =>
           import('./features/user/user.module').then((m) => m.UserModule),
       },
 
       {
+        canActivate:[KysGuard],
         path: 'dashboard',
         loadChildren: () =>
           import('./features/dashboard/dashboard.module').then(
@@ -46,6 +51,7 @@ path:'login', component:LoginComponent
       },
 
       {
+        canActivate:[KysGuard],
         path: 'plans',
         loadChildren: () =>
           import('./features/plains/plains.module').then(
@@ -54,6 +60,7 @@ path:'login', component:LoginComponent
       },
 
       {
+        canActivate:[KysGuard],
         path: 'account',
         loadChildren: () =>
           import('./features/account/account.module').then(
@@ -62,6 +69,7 @@ path:'login', component:LoginComponent
       },
 
       {
+        canActivate:[KysGuard],
         path: 'admin',
         loadChildren: () =>
           import('./features/manage-admin/manage-admin.module').then(
@@ -70,6 +78,7 @@ path:'login', component:LoginComponent
       },
 
       {
+        canActivate:[KysGuard],
         path: 'profile',
         loadChildren: () =>
           import('./features/profile/profile.module').then(
