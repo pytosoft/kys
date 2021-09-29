@@ -69,9 +69,9 @@ updateSubscriber(data: any){
       catchError(() => throwError('Sorry something went wrong in api'))
     )
   }
-  getSubscriptionList(){
+  getSubscriptionList(distByState:any){
     return this._http
-    .get(apiEndpointUrl.getSubscriptionList())
+    .get(apiEndpointUrl.getAddressList(distByState))
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))

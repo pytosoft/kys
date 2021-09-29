@@ -13,25 +13,25 @@ import { subscriberService } from 'src/app/core/services/user.service';
 export class ListComponent implements OnInit {
 
   subscriptionList: any[] = [];
-  DistrictForm!: any;
+  DistrictForm!: FormGroup;
   states: any[] = [];
+   city:any[]=[]
   distByState: any[] = [];
 
   constructor(private _service: SubcriptionService, private _fb: FormBuilder, private subscriberService: subscriberService) { }
 
   ngOnInit(): void {
     this.getStates();
-    // this.onSubmit();
-    this.getSubscriptionList();
-    this.DistrictForm = this._fb.group({
-      city: [''],
-      state: ['']
+    // this.getSubscriptionList();
+   this.DistrictForm = this._fb.group({
+    city: [''],
+    state: ['']
 
-    })
+  })
 
 
   }
-
+ 
   printPage() {
     html2canvas(document.querySelector("#capture"), {
       onrendered: function (canvas: { toDataURL: (arg0: string) => any; }) {
@@ -44,9 +44,10 @@ export class ListComponent implements OnInit {
     });
   }
   getSubscriptionList() {
-    this._service.getSubscriptionList()
+    
+    this._service.getSubscriptionList(this.DistrictForm.value.city)
       .subscribe(res => {
-        res.data.forEach((element: { deliveryAddress: any; }) => {
+        res.data.forEach((element: { deliveryAddress:any}) => {
           if (element.deliveryAddress) {
             this.subscriptionList.push(element.deliveryAddress)
           }
@@ -55,17 +56,8 @@ export class ListComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.DistrictForm.value)
-    // this._service.getSubscriptionList()
-    //   .subscribe(res => {
-    //     res.data.forEach((element: { deliveryAddress: any; }) => {
-    //       if (element.deliveryAddress) {
-    //         this.subscriptionList.push(element.deliveryAddress)
-    //       }
-    //     });
-    //   })
-
-  
+  // this.DistrictForm.value
+  this.getSubscriptionList()
   }
   getStates() {
     this.subscriberService.getState().subscribe(
