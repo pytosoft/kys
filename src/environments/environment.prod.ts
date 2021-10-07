@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serverUrl: 'http://3.21.163.69:3002/',
-  publicUrl: 'http://3.21.163.69:3002/'
+  serverUrl: 'http://3.131.115.30:3002/',
+  publicUrl: 'http://3.131.115.30:3002/'
 };

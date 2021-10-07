@@ -15,7 +15,7 @@ export class ListComponent implements OnInit {
   subscriptionList: any[] = [];
   DistrictForm!: FormGroup;
   states: any[] = [];
-   city:any[]=[]
+  city: any[] = []
   distByState: any[] = [];
 
   constructor(private _service: SubcriptionService, private _fb: FormBuilder, private subscriberService: subscriberService) { }
@@ -23,15 +23,15 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.getStates();
     // this.getSubscriptionList();
-   this.DistrictForm = this._fb.group({
-    city: [''],
-    state: ['']
+    this.DistrictForm = this._fb.group({
+      city: [''],
+      state: ['']
 
-  })
+    })
 
 
   }
- 
+
   printPage() {
     html2canvas(document.querySelector("#capture"), {
       onrendered: function (canvas: { toDataURL: (arg0: string) => any; }) {
@@ -44,11 +44,10 @@ export class ListComponent implements OnInit {
     });
   }
   getSubscriptionList() {
-    
     this._service.getSubscriptionList(this.DistrictForm.value.city)
       .subscribe(res => {
-        res.data.forEach((element: { deliveryAddress:any}) => {
-          if (element.deliveryAddress) {
+        res.data.forEach((element: { deliveryAddress: any }) => {
+          if (element.deliveryAddress && element.deliveryAddress.city == this.DistrictForm.value.city) {
             this.subscriptionList.push(element.deliveryAddress)
           }
         });
@@ -56,8 +55,8 @@ export class ListComponent implements OnInit {
   }
 
   onSubmit() {
-  // this.DistrictForm.value
-  this.getSubscriptionList()
+    // this.DistrictForm.value
+    this.getSubscriptionList()
   }
   getStates() {
     this.subscriberService.getState().subscribe(
@@ -74,7 +73,7 @@ export class ListComponent implements OnInit {
     )
   }
   changeStates() {
-this.distByState=[]
+    this.distByState = []
     this.subscriberService.getDistrict(this.DistrictForm.value.state).subscribe(
       data => {
         data = data.data;

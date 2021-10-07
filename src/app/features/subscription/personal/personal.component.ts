@@ -94,7 +94,7 @@ export class PersonalComponent implements OnInit {
   getSubcriberInfoById(id: string){
     this._service.getSubcriberInfoById(id)
     .subscribe(res => {
-      this.userInformationForm.patchValue(res.data)
+      this.userInformationForm.patchValue(res.data._doc)
     })
   }
   getStates(){
