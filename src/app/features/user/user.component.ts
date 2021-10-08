@@ -41,8 +41,6 @@ export class UserComponent implements OnInit {
     this.getAllsubscriber()
     this.addsubscriberForm()
     this.getStates()
-    // this.handleValueChanges()
-    
   }
 
 
@@ -190,7 +188,7 @@ else{
     this.subscriberForm.addControl('_id', new FormControl(''));
     this.subscriberForm.patchValue(data);
     this.subscriberForm.controls['email'].disable()  
-    // this.subscriberForm.patchValue(data).controls['email'].disable()
+    
 
   }
 

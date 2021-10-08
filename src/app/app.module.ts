@@ -13,7 +13,7 @@ import { LoaderService } from './core/services/loader/loader.service';
 import { LoginService } from './core/services/login/login.service';
 import { SharedService } from './core/services/shared/shared.service';
 import { SharedModule } from './shared/shared.module';
-import { KysGuard } from './core/auth/kys.guard';
+import { kysGuard } from './core/auth/kys.guard';
 
 
 
@@ -37,7 +37,7 @@ import { KysGuard } from './core/auth/kys.guard';
       useClass: HttpService
     },
     LoaderService, LoginService, SharedService,
-    ConfirmationService, MessageService,AuthguardService,KysGuard
+    ConfirmationService, MessageService,AuthguardService,kysGuard
   ],
   bootstrap: [AppComponent]
 })

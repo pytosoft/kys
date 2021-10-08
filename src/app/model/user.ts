@@ -9,3 +9,8 @@ export interface subscriberDetail {
     state:string;
     active:boolean;
 }
+
+export interface SelectItemDropdown{
+    code: string;
+    name: string;
+}

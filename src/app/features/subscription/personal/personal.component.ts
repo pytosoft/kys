@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
 import { stateList } from './../../../model/states-list';
-import {DropdownModule} from 'primeng/dropdown';
 import { subscriberService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -12,13 +11,15 @@ import { subscriberService } from 'src/app/core/services/user.service';
   styleUrls: ['./personal.component.scss']
 })
 export class PersonalComponent implements OnInit {
+ 
   states: any[] = [];
   distByState:any[]=[];
   cities:any;
+  
   userInformationForm!: FormGroup;
   submitted: boolean = false;
   constructor(private _fb: FormBuilder, private _router: Router, private activeRoute: ActivatedRoute,
-    private _service: SubcriptionService , private _DropDownModule:DropdownModule,private subscriberService: subscriberService) { }
+    private _service: SubcriptionService , private subscriberService: subscriberService) { }
  
   subscriberId: string = '';
   ngOnInit(): void {
