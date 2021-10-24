@@ -1,12 +1,13 @@
 import { stateList } from './../../model/states-list';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { subscriberService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
-
+import { AdminService } from 'src/app/core/services/admin/admin.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
- 
+    
+ productDialog?: boolean;
   distByState:any[]=[];
   subscriberDetails: any;
   submitted?: boolean;
@@ -27,9 +29,19 @@ export class UserComponent implements OnInit {
   userId: string = '';
   states: any[] = [];
   subscribers: any[] = [];
+  admins: any[]=[];
+  data: any[]=[];
+  DistrictForm!: FormGroup;
+  Status = []=[{
+    name: 'Active',
+  label: 'Active'},{
+    name:'InActive',
+    label:'InActive'
+  }]
+  
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
-    private router:Router
+    private router:Router, private _adminService:AdminService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +53,34 @@ export class UserComponent implements OnInit {
     this.getAllsubscriber()
     this.addsubscriberForm()
     this.getStates()
+    this.getAllAdmin()
+    this.DistrictForm = this.fb.group({
+      admin:[''],
+      city: ['',Validators.required],
+      state: ['',Validators.required],
+      status:[''],
+     startDate:[''],
+      endDate:['']
+    });
   }
+  getAllAdmin(){
+    this._adminService.getAllAdmin()
+    .subscribe(res => {
+     this.admins = res.data;
+      this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
+  
+    })
+  }
+  onSubmit(){
+this.DistrictForm.value
+  }
+  subscribeAdmin(){
+    // let reqData : AdminRequestI = new AdminRequest();
+    // reqData.subscriberId = this.subscriberDetails.value.username;
+    // reqData.password = this.loginForm.value.password
 
+  }
+  
 
   addsubscriberForm() {
     this.subscriberForm = this.fb.group({
@@ -88,6 +126,21 @@ export class UserComponent implements OnInit {
     }
   )
   }
+  adminChangeState(){
+    this.distByState = []
+     this.subscriberService.getDistrict(this.DistrictForm.value.state).subscribe(
+      data =>{
+     data=data.data;
+     for(let i=0; i<=data.length; i++){
+      this.distByState.push({
+        code: data[i],
+        name: data[i]
+      })
+    }   
+     
+      }
+    )
+    }
   get name() {
     return this.subscriberForm.get('name');
   }
@@ -128,10 +181,24 @@ export class UserComponent implements OnInit {
 
     })
   }
+//this is post api for post subscriber
+
+  postAllsubscriber(){
+ 
+ const reqData ={
+  name: this.DistrictForm.value.name,
+  state: this.DistrictForm.value.state,
+  city:this.DistrictForm.value.city,
+ date:this.DistrictForm.value.date,
+ updateDate:this.subscriberForm.value.updateDate
+ }
+ this.subscriberService.postSubscriber(reqData).subscribe(arg=>{
+   console.log(arg)
+ })
+  }
+
 
   profileInfo(id:string) {
-
-
 this.router.navigate(["app/user/profile/"+id])
   }
 

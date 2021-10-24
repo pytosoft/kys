@@ -28,7 +28,8 @@ import { UiFeaturesModule } from './ui-features/ui-features.module';
     CommonModule,
     UiFeaturesModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   exports: [
     HeaderComponent,

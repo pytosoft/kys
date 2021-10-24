@@ -4,7 +4,9 @@ declare let html2canvas: any;
 import { jsPDF } from "jspdf";
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { subscriberService } from 'src/app/core/services/user.service';
-import { SelectItemDropdown} from 'src/app/model/user'
+import { SelectItemDropdown} from 'src/app/model/user';
+import { AdminService } from 'src/app/core/services/admin/admin.service';
+
 
 @Component({
   selector: 'app-list',
@@ -12,22 +14,36 @@ import { SelectItemDropdown} from 'src/app/model/user'
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
+data:any[]=[];
   subscriptionList: any[] = [];
   DistrictForm!: FormGroup;
   states: any[] = [];
    city:any[]=[]
   distByState: SelectItemDropdown[] = [];
- 
 
-  constructor(private _service: SubcriptionService, private _fb: FormBuilder, private subscriberService: subscriberService) { }
+ admins:any[]=[];
+
+  constructor(private _service: SubcriptionService, private _fb: FormBuilder, private subscriberService: subscriberService, private _adminService:AdminService) { }
 
   ngOnInit(): void {
     this.getStates();
    this.DistrictForm = this._fb.group({
-    city: [''],
-    state: ['']
-  })
+    admin:[''],
+    city: ['',Validators.required],
+    state: ['',Validators.required]
+  });
+  this.getAllAdmin()
+  }
+  getAllAdmin(){
+    this._adminService.getAllAdmin()
+    .subscribe(res => {
+     this.admins = res.data;
+      this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
+  
+    })
+  }
+  resetForm(){
+    this.DistrictForm.reset();
   }
  
   printPage() {
@@ -87,4 +103,5 @@ this.distByState=[]
       }
     )
   }
+  
 }

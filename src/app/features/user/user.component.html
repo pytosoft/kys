@@ -1,4 +1,5 @@
-<nav class="navbar navbar-light header-page">
+<nav
+ class="navbar navbar-light header-page">
   <div class="container-fluid">
     <a class="navbar-brand">Manage Subscribers
     </a>
@@ -16,6 +17,68 @@
       <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
     </div>
   </div>
+  <!--this is admin search bar-->
+  <div class="container address">
+    <p-card [style]="{width: '1346px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+        <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <br>
+            <span>
+              <label for="city" class="col-sm-4 label  ">Admin</label>
+              <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="code" style="padding-right: 57px;
+              margin-left: -153px;"
+                formControlName="admin"  (onChange)="getAllAdmin()">
+              </p-dropdown>
+            </span>
+            <span>
+              <label for="state" class="col-sm-4 label" style="    margin-left: 29px;
+              padding-left: 75px;
+          ">State</label>
+              <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  style="padding-left: 40px;
+              margin-left: -129px;" formControlName="state"
+                (onChange)="adminChangeState()">
+              </p-dropdown>
+            </span>
+         
+            <span>
+              <label for="city" class="col-sm-4 label " style="padding-left: 201px">District</label>
+              <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" style="margin-left: 71px;"
+                formControlName="city">
+              </p-dropdown>
+            </span>
+            <span>
+              <label for="Status" class="col-sm-4 label " style="padding-left: 156px" >Status</label>
+              <p-dropdown  optionLabel="name"  [options]="Status"  [filter]="true" optionValue="status" 
+                formControlName="status">
+                <option value="active"> Active</option>
+                <option  value="inactive" > InActive</option>
+              </p-dropdown>
+            </span><br><br>
+            <span>
+              <label for="Start-Date" class="col-sm-4 label date " >Create-Date</label>
+             <p-calendar formControlName="startDate"  ></p-calendar>
+            </span>
+            <span>
+              <label for="End-Date" class="col-sm-4 label dateLabel" >Update-date</label>
+             <p-calendar formControlName="endDate" ></p-calendar>
+            </span>
+  
+          </div>
+          <span class="container button">
+            <p-button label="Search" type="submit" name="submit" (onClick)="subscribeAdmin" ></p-button>
+            <p-button label="Reset"  styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}">
+            </p-button>
+          </span>
+  
+        </form>
+  
+      </ng-template>
+  
+  
+    </p-card>
+  </div>
+  <!--this is admin search bar-->
 
   <p-table #dt [value]="subscriberDetails" [rows]="10" [paginator]="true" [responsive]="true" reso
     [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
