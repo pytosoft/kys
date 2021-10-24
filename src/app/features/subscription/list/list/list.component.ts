@@ -4,6 +4,7 @@ declare let html2canvas: any;
 import { jsPDF } from "jspdf";
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { subscriberService } from 'src/app/core/services/user.service';
+import { SelectItemDropdown} from 'src/app/model/user'
 
 @Component({
   selector: 'app-list',
@@ -16,20 +17,17 @@ export class ListComponent implements OnInit {
   DistrictForm!: FormGroup;
   states: any[] = [];
   city: any[] = []
-  distByState: any[] = [];
+  distByState: SelectItemDropdown[] = [];
+ 
 
   constructor(private _service: SubcriptionService, private _fb: FormBuilder, private subscriberService: subscriberService) { }
 
   ngOnInit(): void {
     this.getStates();
-    // this.getSubscriptionList();
     this.DistrictForm = this._fb.group({
       city: [''],
       state: ['']
-
     })
-
-
   }
 
   printPage() {
@@ -58,6 +56,8 @@ export class ListComponent implements OnInit {
     // this.DistrictForm.value
     this.getSubscriptionList()
   }
+ 
+ 
   getStates() {
     this.subscriberService.getState().subscribe(
       data => {
@@ -72,7 +72,8 @@ export class ListComponent implements OnInit {
       }
     )
   }
-  changeStates() {
+  
+  changeStates( ) {
     this.distByState = []
     this.subscriberService.getDistrict(this.DistrictForm.value.state).subscribe(
       data => {

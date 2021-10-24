@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KysGuard } from './kys.guard';
+import { kysGuard } from './kys.guard';
 
 describe('KysGuard', () => {
-  let guard: KysGuard;
+  let guard: kysGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(KysGuard);
+    guard = TestBed.inject(kysGuard);
   });
 
   it('should be created', () => {

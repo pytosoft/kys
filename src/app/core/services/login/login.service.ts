@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { apiEndpointUrl } from 'src/app/config/api-endpoins';
+import { LoginRequest } from 'src/app/model/login-req';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,7 +23,7 @@ export class LoginService {
  * @purpose this is  used to  verify user
  * @param username and password
  */
-public login(data: any){
+public login(data: LoginRequest){
   return this._http
   .post(apiEndpointUrl.login(), data, httpOptions)
   .pipe(

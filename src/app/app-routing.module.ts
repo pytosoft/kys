@@ -1,10 +1,9 @@
-import { ManageAdminModule } from './features/manage-admin/manage-admin.module';
-import { LayoutComponent } from './components/layout/layout.component';
-
-import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { KysGuard } from './core/auth/kys.guard';
+import { LayoutComponent } from './components/layout/layout.component';
+import { LoginComponent } from './components/login/login.component';
+import { kysGuard } from './core/auth/kys.guard';
+
 
 const routes: Routes = [
   {
@@ -15,7 +14,7 @@ path:'login', component:LoginComponent
   },
 
   {
-    canActivate:[KysGuard],
+    canActivate:[kysGuard],
     path: 'app',
     component: LayoutComponent,
     children: [
@@ -26,7 +25,7 @@ path:'login', component:LoginComponent
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'subscription',
         loadChildren: () =>
           import('./features/subscription/subscription.module').then(
@@ -35,14 +34,14 @@ path:'login', component:LoginComponent
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'user',
         loadChildren: () =>
           import('./features/user/user.module').then((m) => m.UserModule),
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'dashboard',
         loadChildren: () =>
           import('./features/dashboard/dashboard.module').then(
@@ -51,7 +50,7 @@ path:'login', component:LoginComponent
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'plans',
         loadChildren: () =>
           import('./features/plains/plains.module').then(
@@ -60,7 +59,7 @@ path:'login', component:LoginComponent
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'account',
         loadChildren: () =>
           import('./features/account/account.module').then(
@@ -69,7 +68,7 @@ path:'login', component:LoginComponent
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'admin',
         loadChildren: () =>
           import('./features/manage-admin/manage-admin.module').then(
@@ -78,7 +77,7 @@ path:'login', component:LoginComponent
       },
 
       {
-        canActivate:[KysGuard],
+        canActivate:[kysGuard],
         path: 'profile',
         loadChildren: () =>
           import('./features/profile/profile.module').then(
