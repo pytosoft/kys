@@ -27,36 +27,13 @@ data:any[]=[];
 
   ngOnInit(): void {
     this.getStates();
-<<<<<<< .mine
-    this.DistrictForm = this._fb.group({
-      city: [''],
-      state: ['']
-    })
-
-
-=======
    this.DistrictForm = this._fb.group({
     admin:[''],
     city: ['',Validators.required],
     state: ['',Validators.required]
   });
   this.getAllAdmin()
->>>>>>> .theirs
   }
-<<<<<<< .mine
-
-
-
-
-
-
-
-
-
-
-
-
-=======
   getAllAdmin(){
     this._adminService.getAllAdmin()
     .subscribe(res => {
@@ -69,7 +46,6 @@ data:any[]=[];
     this.DistrictForm.reset();
   }
  
->>>>>>> .theirs
   printPage() {
     html2canvas(document.querySelector("#capture"), {
       onrendered: function (canvas: { toDataURL: (arg0: string) => any; }) {
