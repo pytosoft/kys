@@ -77,6 +77,14 @@ updateSubscriber(data: any){
       catchError(() => throwError('Sorry something went wrong in api'))
     )
   }
+  getAddressList(reqData:any){
+    return this._http
+    .post(apiEndpointUrl.printAddressList(), reqData)
+    .pipe(
+      map((body: any) => body),
+      catchError(() => throwError('Sorry something went wrong in api'))
+    )
+  }
   // getStateList(){
   //   return this._http.get(apiEndpointUrl.getStateList())
   //   .pipe(

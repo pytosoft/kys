@@ -15,27 +15,37 @@
     <div class="card-body">
       <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
         <div class="row">
-          <div class="col-md-4 form-group">
+          <div class="col-md-3 form-group">
             <label for="city" class="label">Admin</label>
-            <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="code" 
-              formControlName="admin">
+            <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="_id" 
+              formControlName="admin" placeholder="Select a Admin">
             </p-dropdown>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-3 form-group">
             <label for="state" class="label">State</label>
             <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
-              (onChange)="changeStates()">
+              (onChange)="changeStates()" placeholder="Select a State">
             </p-dropdown>
          </div>
-         <div class="col-md-4 form-group">
+         <div class="col-md-3 form-group">
             <label for="city" class="label ">District</label>
             <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" 
-              formControlName="city">
+              formControlName="city" placeholder="Select a City">
             </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="city" class="label ">Plan</label>
+            <p-dropdown [options]="plans" optionLabel="name" [filter]="true" optionValue="planId" 
+              formControlName="plan" placeholder="Select a Plan">
+            </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="endDate" class="label ">Before End Date</label>
+            <p-calendar formControlName="endDate"></p-calendar>
           </div>
           <div class="col-md-12" style="text-align: end;">
             <button type="button"  (click)=" resetForm()" style="background-color: black;" class="btn btn-secondary">Reset</button>
-            <button type="button" style="margin-left: 10px" (click)="getSubscriptionList()" class="btn btn-primary" [disabled]="!DistrictForm.valid">Search</button>
+            <button type="button" style="margin-left: 10px" (click)="getAddressList()" class="btn btn-primary" >Search</button>
   
           </div>
         </div>
@@ -53,16 +63,15 @@
 
           <div class="blog grid-blog">
             <div class="blog-content">
-              <h3 class="blog-title"><a href="#">{{item?.name +' ('+item?.mobile+')'}}</a></h3>
-              <p class="mb-0">{{item?.address}}</p>
-              <p class="mb-0">{{item?.landmark}}</p>
+              <h3 class="blog-title" style="    line-height: 1;
+              min-height: 0;"><a href="#">{{item?.name}} {{item?.fatherName ? ' S/O '+item?.fatherName : '' }}</a></h3>
               <p class="mb-0">{{item?.locality}}</p>
-            </div>
-            <div class="row pt-3">
-              <div class="col"><a class="text-success"> PinCode: {{item?.pinCode}}</a></div>
-
-              <div class="col text-right"><a href="javascript:void(0);" class="text-danger" data-toggle="modal"
-                  data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i> State: {{item?.state}}</a></div>
+              <p class="mb-0">{{item?.landmark}}</p>
+              <p class="mb-0">{{item?.address}}</p>
+              <p class="mb-0">Dist./City - {{item?.city}}</p>
+              <p class="mb-0">State - {{item?.state}}</p>
+              <p class="mb-0">Phone - {{item?.mobile}}</p>
+              <p class="mb-0">Pin Code - {{item?.pinCode}}</p>
             </div>
           </div>
 

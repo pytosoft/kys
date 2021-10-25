@@ -73,7 +73,7 @@ export class BooksComponent implements OnInit {
    *******************************/
   addNewBook() {
     this.submitted = true;
-    let reqData : BooksDetail = new BooksDetails();
+    let reqData : BooksDetail = this.bookForm.value;
     if(reqData.bookName == '' || reqData.pricing == 0 || reqData.category == ''){
       return
     }

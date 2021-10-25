@@ -62,8 +62,11 @@ export class ConfirmComponent implements OnInit {
     }
     this.seletedPlans.forEach(element => {
       element.deliveryAddress = this.deliverForm.value
+      element.deliveryAddress.fatherName = this.subcriberInfo.fatherName
       element.subscriberId = this.subscriberId
       element.createdBy = localStorage.getItem('userID')
+      element.city = this.deliverForm.value.city;
+      element.state = this.deliverForm.value.state;
     });
     const reqData = {
       "subscriberId": this.subscriberId,

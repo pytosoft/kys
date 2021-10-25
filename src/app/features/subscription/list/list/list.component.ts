@@ -6,6 +6,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { subscriberService } from 'src/app/core/services/user.service';
 import { SelectItemDropdown} from 'src/app/model/user';
 import { AdminService } from 'src/app/core/services/admin/admin.service';
+import { MessageService } from 'primeng/api';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 
 @Component({
@@ -22,24 +24,36 @@ data:any[]=[];
   distByState: SelectItemDropdown[] = [];
 
  admins:any[]=[];
+ plans:any[]=[];
 
-  constructor(private _service: SubcriptionService, private _fb: FormBuilder, private subscriberService: subscriberService, private _adminService:AdminService) { }
+  constructor(private _service: SubcriptionService, private _fb: FormBuilder,
+     private subscriberService: subscriberService, private _adminService:AdminService,
+     private _message: MessageService, private _spinner: LoaderService) { }
 
   ngOnInit(): void {
     this.getStates();
    this.DistrictForm = this._fb.group({
     admin:[''],
     city: ['',Validators.required],
-    state: ['',Validators.required]
+    state: ['',Validators.required],
+    plan:[''],
+    endDate: ['']
   });
-  this.getAllAdmin()
+  this.getDropDownData()
   }
-  getAllAdmin(){
-    this._adminService.getAllAdmin()
+  getDropDownData(){
+    this._spinner.show();
+    this._adminService.getDropDownData()
     .subscribe(res => {
-     this.admins = res.data;
-      this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
-  
+      this._spinner.hide();
+     this.admins = res[0].data;
+     this.plans = res[2].data;
+     for (let i = 0; i <= res[1].data.length; i++) {
+      this.states.push({
+        code: res[1].data[i],
+        name: res[1].data[i]
+      })
+    }
     })
   }
   resetForm(){
@@ -67,7 +81,24 @@ data:any[]=[];
         });
       })
   }
-
+  getAddressList() {
+    this._spinner.show();
+    this._service.getAddressList(this.DistrictForm.value)
+      .subscribe(res => {
+        this._spinner.hide();
+        if(res.data && res.data.length > 0){
+          res.data.forEach((element: { deliveryAddress: any }) => {
+              this.subscriptionList.push(element.deliveryAddress)
+          });  
+        } else{
+          this._message.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'No address found'
+          });
+        }
+      })
+  }
   onSubmit() {
     // this.DistrictForm.value
     this.getSubscriptionList()

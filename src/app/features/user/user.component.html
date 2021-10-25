@@ -5,9 +5,8 @@
     </a>
   </div>
 </nav>
-
-<main class="container-fluid" style="margin-top: -8px;">
-  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
+<main class="container-fluid">
+  <!-- <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
     <div class="lh-1">
       <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
         <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
@@ -16,121 +15,113 @@
     <div class="btn-group me-1 ml-auto">
       <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
     </div>
-  </div>
-  <!--this is admin search bar-->
-  <div class="container address">
-    <p-card [style]="{width: '1346px'}" styleClass="p-card-shadow">
-      <ng-template pTemplate="header">
-        <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <br>
-            <span>
-              <label for="city" class="col-sm-4 label  ">Admin</label>
-              <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="code" style="padding-right: 57px;
-              margin-left: -153px;"
-                formControlName="admin"  (onChange)="getAllAdmin()">
-              </p-dropdown>
-            </span>
-            <span>
-              <label for="state" class="col-sm-4 label" style="    margin-left: 29px;
-              padding-left: 75px;
-          ">State</label>
-              <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  style="padding-left: 40px;
-              margin-left: -129px;" formControlName="state"
-                (onChange)="adminChangeState()">
-              </p-dropdown>
-            </span>
-         
-            <span>
-              <label for="city" class="col-sm-4 label " style="padding-left: 201px">District</label>
-              <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" style="margin-left: 71px;"
-                formControlName="city">
-              </p-dropdown>
-            </span>
-            <span>
-              <label for="Status" class="col-sm-4 label " style="padding-left: 156px" >Status</label>
-              <p-dropdown  optionLabel="name"  [options]="Status"  [filter]="true" optionValue="status" 
-                formControlName="status">
-                <option value="active"> Active</option>
-                <option  value="inactive" > InActive</option>
-              </p-dropdown>
-            </span><br><br>
-            <span>
-              <label for="Start-Date" class="col-sm-4 label date " >Create-Date</label>
-             <p-calendar formControlName="startDate"  ></p-calendar>
-            </span>
-            <span>
-              <label for="End-Date" class="col-sm-4 label dateLabel" >Update-date</label>
-             <p-calendar formControlName="endDate" ></p-calendar>
-            </span>
+  </div> -->
+  <div class="card">
+    <div class="card-header">
+      Search Subscribers
+    </div>
+    <div class="card-body">
+      <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label for="city" class="label">Admin</label>
+            <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="_id" 
+              formControlName="admin" placeholder="Select a Admin">
+            </p-dropdown>
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="state" class="label">State</label>
+            <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
+              (onChange)="changeStates()" placeholder="Select a State">
+            </p-dropdown>
+         </div>
+         <div class="col-md-3 form-group">
+            <label for="city" class="label ">District</label>
+            <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" 
+              formControlName="city" placeholder="Select a City">
+            </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="city" class="label ">Status</label>
+            <p-dropdown  optionLabel="name"  [options]="Status"  [filter]="true" optionValue="status" 
+                  formControlName="status">
+                  <option value="active"> Active</option>
+                  <option  value="inactive" > InActive</option>
+                </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="endDate" class="label ">Start Date</label>
+            <p-calendar formControlName="endDate"></p-calendar>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="endDate" class="label ">End Date</label>
+            <p-calendar formControlName="endDate"></p-calendar>
+          </div>
+          <div class="col-md-12" style="text-align: end;">
+            <button type="button"  style="background-color: black;" class="btn btn-secondary">Reset</button>
+            <button type="button" style="margin-left: 10px" (click)="subscribeAdmin()" class="btn btn-primary" >Search</button>
   
           </div>
-          <span class="container button">
-            <p-button label="Search" type="submit" name="submit" (onClick)="subscribeAdmin" ></p-button>
-            <p-button label="Reset"  styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}">
-            </p-button>
-          </span>
-  
-        </form>
-  
-      </ng-template>
-  
-  
-    </p-card>
-  </div>
-  <!--this is admin search bar-->
+        </div>
+     
+        
 
+      </form>
+    </div>
+      </div>
+      
   <p-table #dt [value]="subscriberDetails" [rows]="10" [paginator]="true" [responsive]="true" reso
-    [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
-    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true">
+  [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+  [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true">
 
-    <ng-template pTemplate="header">
-      <tr>
+  <ng-template pTemplate="header">
+    <tr>
 
-        <th>User Id</th>
-        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-        </th>
-        <th pSortableColumn="fatherName">Father Name
-        </th>
-        <th pSortableColumn="city">District/Village <p-sortIcon field="city"></p-sortIcon>
-        </th>
-        <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
-        </th>
-        <th pSortableColumn="pinCode">Pin Code </th>
+      <th>User Id</th>
+      <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="fatherName">Father Name
+      </th>
+      <th pSortableColumn="city">District/Village <p-sortIcon field="city"></p-sortIcon>
+      </th>
+      <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
+      </th>
+      <th pSortableColumn="pinCode">Pin Code </th>
 
-        <th pSortableColumn="active">Status <p-sortIcon field="active"></p-sortIcon>
-        <th>Action</th>
-      </tr>
-    </ng-template>
+      <th pSortableColumn="active">Status <p-sortIcon field="active"></p-sortIcon>
+      <th>Action</th>
+    </tr>
+  </ng-template>
 
-    <ng-template pTemplate="body" let-subscriberDetails>
-      <tr>
-        <td>{{subscriberDetails.subscriberId}}</td>
-        <td>{{subscriberDetails.name}}</td>
-        <td>{{subscriberDetails.fatherName}}</td>
-        <td>{{subscriberDetails.city}}</td>
-        <td>{{subscriberDetails.mobile}}</td>
-        <td>{{subscriberDetails.pinCode}}</td>
-        <td>
-          <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
-          <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
+  <ng-template pTemplate="body" let-subscriberDetails>
+    <tr>
+      <td>{{subscriberDetails.subscriberId}}</td>
+      <td>{{subscriberDetails.name}}</td>
+      <td>{{subscriberDetails.fatherName}}</td>
+      <td>{{subscriberDetails.city}}</td>
+      <td>{{subscriberDetails.mobile}}</td>
+      <td>{{subscriberDetails.pinCode}}</td>
+      <td>
+        <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
+        <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
 
-        </td>
-        <td>
+      </td>
+      <td>
 
-            <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(subscriberDetails) "> <i
-              class="fa fa-pencil text-light"></i></button>
+          <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(subscriberDetails) "> <i
+            class="fa fa-pencil text-light"></i></button>
 
 
-              <button class="btn btn-success" (click)="profileInfo(subscriberDetails._id) "><i class="fa fa-info rounded-circle" ></i></button>
+            <button class="btn btn-success" (click)="profileInfo(subscriberDetails._id) "><i class="fa fa-info rounded-circle" ></i></button>
 
-        </td>
-      </tr>
-    </ng-template>
+      </td>
+    </tr>
+  </ng-template>
 
-  </p-table>
-</main>
+</p-table>
+      </main>
+
 
 <p-dialog [(visible)]="subscriberDialog" [style]="{width: '450px'}" header="Subscriber Details" [modal]="true"
   styleClass="p-fluid">

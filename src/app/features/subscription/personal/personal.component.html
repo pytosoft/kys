@@ -59,15 +59,16 @@
             <div *ngIf="state?.invalid && submitted" class="invalid-feedback"> -->
 
             </div>
-          </div>
-          <div class="col-4">
-            <label for="zip">Zip</label>
-            <input id="zip" type="text" appNumberOnly maxlength="6" formControlName="pinCode" class="form-control"
-              [ngClass]="{'is-invalid': pinCode?.invalid && submitted, ' is-valid' : pinCode?.valid}">
-            <div *ngIf="pinCode?.invalid && submitted" class="invalid-feedback">
-              Please provide a valid pin code.
+            <div class="col-4">
+              <label for="zip">Zip</label>
+              <input id="zip" type="text" appNumberOnly maxlength="6" formControlName="pinCode" class="form-control"
+                [ngClass]="{'is-invalid': pinCode?.invalid && submitted, ' is-valid' : pinCode?.valid}">
+              <div *ngIf="pinCode?.invalid && submitted" class="invalid-feedback">
+                Please provide a valid pin code.
+              </div>
             </div>
           </div>
+         
         </div>
         <div class="p-field p-col-12">
           <label for="address">Address</label>

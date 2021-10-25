@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
 import { stateList } from './../../../model/states-list';
 import { subscriberService } from 'src/app/core/services/user.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-personal',
@@ -19,7 +20,7 @@ export class PersonalComponent implements OnInit {
   userInformationForm!: FormGroup;
   submitted: boolean = false;
   constructor(private _fb: FormBuilder, private _router: Router, private activeRoute: ActivatedRoute,
-    private _service: SubcriptionService , private subscriberService: subscriberService) { }
+    private _service: SubcriptionService , private subscriberService: subscriberService, private _spinner: LoaderService) { }
  
   subscriberId: string = '';
   ngOnInit(): void {
@@ -93,9 +94,10 @@ export class PersonalComponent implements OnInit {
     this._router.navigate(['app/subscription/user'])
   }
   getSubcriberInfoById(id: string){
+    this._spinner.show();
     this._service.getSubcriberInfoById(id)
     .subscribe(res => {
-      this.userInformationForm.patchValue(res.data._doc)
+      this.updateStates(res);
     })
   }
   getStates(){
@@ -128,4 +130,20 @@ export class PersonalComponent implements OnInit {
      }
    )
    }
+   updateStates(res: any){
+    this.distByState=[]
+      this.subscriberService.getDistrict(res.data._doc.state).subscribe(
+       data =>{
+      data=data.data;
+      for(let i=0; i<=data.length; i++){
+       this.distByState.push({
+         code: data[i],
+         name: data[i]
+       })
+     }   
+     this.userInformationForm.patchValue(res.data._doc)
+     this._spinner.hide();
+       }
+     )
+     }
 }

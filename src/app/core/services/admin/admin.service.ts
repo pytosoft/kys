@@ -2,7 +2,7 @@ import { map, catchError } from 'rxjs/operators';
 import { apiEndpointUrl } from 'src/app/config/api-endpoins';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs'
+import { forkJoin, Observable, throwError } from 'rxjs'
 const httpOptions = {
   headers: new HttpHeaders({
     'content-type': 'application/json'
@@ -25,6 +25,20 @@ export class AdminService {
 public getAllAdmin(){
   return this._http
   .get(apiEndpointUrl.adminList(), httpOptions)
+  .pipe(
+    map((body: any) => body),
+    catchError(() => throwError('Sorry something went wrong in api'))
+  )
+}
+getDropDownData(): Observable<any> {
+  const response1 = this._http.get(apiEndpointUrl.adminNameList());
+  const response2 = this._http.get(apiEndpointUrl.getStateList());
+  const response3 = this._http.get(apiEndpointUrl.getPlanList());
+  return forkJoin([response1, response2, response3]);
+}
+public getAllAdminNames(){
+  return this._http
+  .get(apiEndpointUrl.adminNameList(), httpOptions)
   .pipe(
     map((body: any) => body),
     catchError(() => throwError('Sorry something went wrong in api'))
