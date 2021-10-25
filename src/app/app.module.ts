@@ -28,7 +28,7 @@ import { kysGuard } from './core/auth/kys.guard';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
     
   ],
   providers: [

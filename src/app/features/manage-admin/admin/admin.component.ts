@@ -46,10 +46,12 @@ export class AdminComponent implements OnInit {
       data => {
          data = data.data;
           for(let i=0; i<=data.length; i++){
-            this.states.push({
-              code: data[i],
-              name: data[i]
-            })
+            if(data[i]){
+              this.states.push({
+                code: data[i],
+                name: data[i]
+              })  
+            }
           }   
     
       }

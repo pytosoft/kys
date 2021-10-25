@@ -8,5 +8,20 @@ button{
 
 }
 .label{
-    margin-right: -122px;
+    display: block;
+    font-weight: bold;
+
+}
+.button{
+    margin-left: 1086px;
+
+}
+.address{
+    margin-left:5px
+}
+.admin{
+    width: 160px;
+}
+::ng-deep  .p-dropdown{
+    width: 100%;
 }

@@ -7,40 +7,44 @@
     </div>
   </div>
 </nav>
-<!--form adress-->
-<form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
-  <div class="col-6 col-md-6 ">
-    <div class="form-group">
-      <br>
-      <span>
-        <label for="state" class="col-sm-4 label">State</label>
-        <!-- <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state"> -->
-        <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
-          (onChange)="changeStates()">
-
-        </p-dropdown>
-
-      </span>
-      <span >
-        <label for="city" class="col-sm-4 label ">District</label>
-        <!-- <input type="text" class="form-control" id="city" name="city" formControlName="city"> -->
-        <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"
-          formControlName="city">
-       
-        </p-dropdown>
-
-      </span>
-
-    </div>
-    <span >
-        <button type="submit" name="submit" [disabled]="!DistrictForm.valid"
-          class="btn-primary">Search</button>
-      </span>
-  </div>
- 
-</form>
-<br>
 <main class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      Search Address
+    </div>
+    <div class="card-body">
+      <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <label for="city" class="label">Admin</label>
+            <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="code" 
+              formControlName="admin">
+            </p-dropdown>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="state" class="label">State</label>
+            <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
+              (onChange)="changeStates()">
+            </p-dropdown>
+         </div>
+         <div class="col-md-4 form-group">
+            <label for="city" class="label ">District</label>
+            <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" 
+              formControlName="city">
+            </p-dropdown>
+          </div>
+          <div class="col-md-12" style="text-align: end;">
+            <button type="button"  (click)=" resetForm()" style="background-color: black;" class="btn btn-secondary">Reset</button>
+            <button type="button" style="margin-left: 10px" (click)="getSubscriptionList()" class="btn btn-primary" [disabled]="!DistrictForm.valid">Search</button>
+  
+          </div>
+        </div>
+     
+        
+
+      </form>
+    </div>
+  </div>
   <div class="row" id="capture">
     <div class="col-sm-12">
       <div class="row blog-grid-row">
@@ -95,3 +99,4 @@
     </div>
   </div>
 </main>
+<!-- THIS IS PRIME NG CARD-->

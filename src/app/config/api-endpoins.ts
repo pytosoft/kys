@@ -10,7 +10,7 @@
   subscriberById: (id: string) => `subscriber/getUserProfile/${id}`,
   saveSubcription: () => `subscription`,
   getSubscriptionList: () => `subscription/list`,
-  getAddressList: (dist:string) => `subscription/list?dist=${dist}`,
+  getAddressList: (dist:string) => `subscription/list?dist=${dist}?admin=user/list`,
   subscriberByMobile: (id: string) => `subscriber/getSubcriberByMobile/${id}`,
   adminList: () => `user/list`,
   saveAdmin: () => `user`,
