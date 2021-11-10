@@ -2,9 +2,6 @@
   <div class="container-fluid">
     <a class="navbar-brand">Manage Address
     </a>
-    <div class="btn-group me-1 ml-auto">
-      <button type="button" (click)="printPage()" class="btn btn-primary btn-sm">Download</button>
-    </div>
   </div>
 </nav>
 <main class="container-fluid">
@@ -15,7 +12,7 @@
     <div class="card-body">
       <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
         <div class="row">
-          <div class="col-md-3 form-group">
+          <div *ngIf="isSuperAdmin" class="col-md-3 form-group">
             <label for="city" class="label">Admin</label>
             <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="_id" 
               formControlName="admin" placeholder="Select a Admin">
@@ -38,10 +35,6 @@
             <p-dropdown [options]="plans" optionLabel="name" [filter]="true" optionValue="planId" 
               formControlName="plan" placeholder="Select a Plan">
             </p-dropdown>
-          </div>
-          <div class="col-md-3 form-group">
-            <label for="endDate" class="label ">Before End Date</label>
-            <p-calendar formControlName="endDate"></p-calendar>
           </div>
           <div class="col-md-12" style="text-align: end;">
             <button type="button"  (click)=" resetForm()" style="background-color: black;" class="btn btn-secondary">Reset</button>

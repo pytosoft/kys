@@ -83,6 +83,15 @@ path:'login', component:LoginComponent
           import('./features/profile/profile.module').then(
             (m) => m.ProfileModule
           ),
+      },
+      
+      {
+        canActivate:[kysGuard],
+        path: 'upload',
+        loadChildren: () =>
+          import('./features/upload/upload.module').then(
+            (m) => m.UploadModule
+          ),
       }
     ]
   }

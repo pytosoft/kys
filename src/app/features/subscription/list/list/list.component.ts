@@ -8,6 +8,8 @@ import { SelectItemDropdown} from 'src/app/model/user';
 import { AdminService } from 'src/app/core/services/admin/admin.service';
 import { MessageService } from 'primeng/api';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import * as FileSaver from 'file-saver';
+import { ProfileService } from 'src/app/core/services/profile/profile.service';
 
 
 @Component({
@@ -25,10 +27,14 @@ data:any[]=[];
 
  admins:any[]=[];
  plans:any[]=[];
-
+ isSuperAdmin: boolean = false;
   constructor(private _service: SubcriptionService, private _fb: FormBuilder,
-     private subscriberService: subscriberService, private _adminService:AdminService,
-     private _message: MessageService, private _spinner: LoaderService) { }
+     private subscriberService: subscriberService, private _adminService:AdminService, private _profile: ProfileService,
+     private _message: MessageService, private _spinner: LoaderService) { 
+      this._profile.isSuperAdmin.subscribe(res => {
+        this.isSuperAdmin = res;
+      })
+     }
 
   ngOnInit(): void {
     this.getStates();
@@ -36,8 +42,7 @@ data:any[]=[];
     admin:[''],
     city: ['',Validators.required],
     state: ['',Validators.required],
-    plan:[''],
-    endDate: ['']
+    plan:['']
   });
   this.getDropDownData()
   }
@@ -83,21 +88,30 @@ data:any[]=[];
   }
   getAddressList() {
     this._spinner.show();
-    this._service.getAddressList(this.DistrictForm.value)
-      .subscribe(res => {
-        this._spinner.hide();
-        if(res.data && res.data.length > 0){
-          res.data.forEach((element: { deliveryAddress: any }) => {
-              this.subscriptionList.push(element.deliveryAddress)
-          });  
-        } else{
-          this._message.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'No address found'
-          });
-        }
+    if(!this.isSuperAdmin){
+      this.DistrictForm.patchValue({
+        admin: localStorage.getItem("userID")
       })
+    }
+    this._service.getAddressList(this.DistrictForm.value)
+    .subscribe(res => {
+      FileSaver.saveAs(res, 'address.pdf');
+      this._spinner.hide();
+    })
+      // .subscribe(res => {
+      //   this._spinner.hide();
+      //   if(res.data && res.data.length > 0){
+      //     res.data.forEach((element: { deliveryAddress: any }) => {
+      //         this.subscriptionList.push(element.deliveryAddress)
+      //     });  
+      //   } else{
+      //     this._message.add({
+      //       severity: 'success',
+      //       summary: 'Success',
+      //       detail: 'No address found'
+      //     });
+      //   }
+      // })
   }
   onSubmit() {
     // this.DistrictForm.value

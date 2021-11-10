@@ -5,6 +5,8 @@ import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { AdminService } from './../../../core/services/admin/admin.service';
 import { stateList } from './../../../model/states-list';
 import { subscriberService } from 'src/app/core/services/user.service'
+import { ProfileService } from 'src/app/core/services/profile/profile.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -19,8 +21,13 @@ export class AdminComponent implements OnInit {
   editMode: boolean = false;
   admins: any[] = [];
   distByState:any[]=[];
-  constructor(private _service: AdminService, private _spinner: LoaderService,
-     private _fb: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private subscriberService: subscriberService) { }
+  isSuperAdmin: boolean = false;
+  constructor(private _service: AdminService, private _spinner: LoaderService,private _profile: ProfileService,
+     private _fb: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private subscriberService: subscriberService) { 
+       this._profile.isSuperAdmin.subscribe(res => {
+         this.isSuperAdmin = res;
+       })
+     }
 
   ngOnInit(): void {
     this.initilization();
@@ -38,6 +45,13 @@ export class AdminComponent implements OnInit {
      .subscribe(res => {
       this.admins = res.data;
        this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
+       this.data.forEach(element => {
+         if(element.image){
+           element.image = environment.serverUrl+element.image;
+         } else{
+           element.image = "../../../../assets/img/profiles/tansingh-ji.jpg"
+         }
+       });
        this._spinner.hide();
      })
    }

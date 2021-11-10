@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription.component';
@@ -30,6 +30,7 @@ import { CardModule, } from 'primeng/card';
     SharedModule,
     DropdownModule,
     CardModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class SubscriptionModule { }

@@ -63,6 +63,7 @@
           <th pSortableColumn="AdminId">
             Id <p-sortIcon field="AdminId"></p-sortIcon>
           </th>
+          <th></th>
           <th pSortableColumn="name">
             Name <p-sortIcon field="name"></p-sortIcon>
           </th>
@@ -81,6 +82,9 @@
       <ng-template pTemplate="body" let-adminDetails>
         <tr>
           <td>{{ adminDetails.id }}</td>
+          <td>
+            <img [src]="adminDetails.image" style="height: 50px;width: 50px;border-radius: 100px;">
+          </td>
           <td>
             <button
               class="link"

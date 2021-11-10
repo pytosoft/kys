@@ -147,33 +147,40 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+          </div>
+          </form>
+            <div  class="col-md-12">
               <h4 class="card-title">Plans</h4>
-              <div class="row" *ngFor="let item of seletedPlans">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Name:</label>
-                    <input type="text" class="form-control" [value]="item?.name" disabled>
+              <div  *ngFor="let plan of seletedPlans; let i = index">
+                <div  class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Name:</label>
+                      <input type="text" class="form-control" [(ngModel)]="plan.name" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Price:</label>
+                      <input type="text" class="form-control"  [(ngModel)]="plan.price" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="display: block">Start Date:</label>
+                      <p-calendar [(ngModel)]="plan.startDate" (onSelect)="updateDate(i)" [minDate]="minDateValue" dateFormat="dd.mm.yy"></p-calendar>
+
+                      <!-- <input type="date" class="form-control" (change)="updateDate(i)"   [(ngModel)]="plan.startDate"> -->
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label style="display: block">End Date:</label>
+                      <p-calendar [(ngModel)]="plan.endDate" [minDate]="minDateValue" dateFormat="dd.mm.yy" ></p-calendar>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Price:</label>
-                    <input type="text" class="form-control" [value]="item?.price" disabled>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Start Date:</label>
-                    <input type="text" class="form-control" [value]="item?.startDate | date" disabled>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>End Date:</label>
-                    <input type="text" class="form-control" [value]="item?.endDate | date" disabled>
-                  </div>
-                </div>
+               
 
               </div>
               <div class="row" >
@@ -185,7 +192,6 @@
                 </div>
               </div>
             </div>
-          </div>
           <div class="row">
             <div class="col-md-6 text-left">
               <button  (click)="prevPage()" class="btn btn-primary">Back</button>
@@ -194,8 +200,6 @@
               <button type="submit" (click)="complete()"   class="btn btn-primary">Submit</button>
             </div>
           </div>
-
-        </form>
       </div>
     </div>
   </div>

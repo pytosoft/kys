@@ -2,12 +2,13 @@ import { map, catchError } from 'rxjs/operators';
 import { apiEndpointUrl } from 'src/app/config/api-endpoins';
 import { HttpService } from './../../http/interceptor/http-service.service';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs'
+import { Subject, Subscription, throwError } from 'rxjs'
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
+  public isSuperAdmin = new Subject<boolean>();
   constructor(private _http: HttpService) { }
 
     /**
@@ -45,6 +46,22 @@ public getProfileById(id: string){
         catchError(() => throwError('Sorry something went wrong in api'))
       )
     }
+    uploadPic(data: any){
+      return this._http
+      .post(apiEndpointUrl.uploadPic(), data)
+      .pipe(
+        map((body: any) => body),
+        catchError(() => throwError('Sorry something went wrong in api'))
+      )
+    }
+    uploadFile(data: any){
+      return this._http
+      .post(apiEndpointUrl.uploadSubscriber(), data)
+      .pipe(
+        map((body: any) => body),
+        catchError(() => throwError('Sorry something went wrong in api'))
+      )
+    }
     verifyAmount(data: any){
       return this._http
       .post(apiEndpointUrl.verifyAmount(), data)
@@ -60,5 +77,8 @@ public getProfileById(id: string){
         map((body: any) => body),
         catchError(() => throwError('Sorry something went wrong in api'))
       )
+    }
+    setSuperAdmin(val: boolean){
+      this.isSuperAdmin.next(val)
     }
 }

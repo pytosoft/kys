@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from './../../../core/services/profile/profile.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   form!: FormGroup;
   resetPasswordForm!: FormGroup;
   submitted: boolean = false;
-
+  userId: string = '';
   constructor(private _service: ProfileService, private _route: ActivatedRoute,
     private _fb: FormBuilder, private messageService: MessageService, private _spinner: LoaderService) { }
 
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
         const userId  = localStorage.getItem('userID');
         if (typeof userId === 'string') {
           id = userId
+          this.userId = id;
         }
       }
       this.getProfile(id)
@@ -45,7 +47,27 @@ export class ProfileComponent implements OnInit {
     })
 
   }
-
+  onFileChange(event: any) {
+  if (event.target.files.length > 0) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('userID', this.userId);
+    this._spinner.show();
+    this._service.uploadPic(formData)
+    .subscribe(res => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: res.message,
+        life: 3000,
+      });
+      this.getProfile(this.userId)
+      this._spinner.hide();
+      this.form.reset();
+    })
+  }
+}
   getProfile(id: string){
     this._service.getProfileById(id)
     .subscribe(res => {
@@ -119,5 +141,13 @@ public get confirmPassword() : boolean {
     return true;
   return false;
 }
+
+public get image() : string {
+  if(this.profile && this.profile.image){
+    return environment.serverUrl+this.profile.image; 
+  }
+  return "../../../../assets/img/profiles/tansingh-ji.jpg";
+}
+
 
 }

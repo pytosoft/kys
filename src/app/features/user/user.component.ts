@@ -1,13 +1,10 @@
-import { stateList } from './../../model/states-list';
-import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { subscriberService } from 'src/app/core/services/user.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AdminService } from 'src/app/core/services/admin/admin.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { subscriberService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -31,12 +28,12 @@ export class UserComponent implements OnInit {
   subscribers: any[] = [];
   admins: any[]=[];
   data: any[]=[];
-  DistrictForm!: FormGroup;
+  searchForm!: FormGroup;
   Status = []=[{
     name: 'Active',
-  label: 'Active'},{
+  value: 'Active'},{
     name:'InActive',
-    label:'InActive'
+   value :'InActive'
   }]
   
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
@@ -50,41 +47,34 @@ export class UserComponent implements OnInit {
     if(typeof id === 'string'){
       this.userId =  id;
     }
-    this.getAllsubscriber()
     this.addsubscriberForm()
-    this.getStates()
     this.getAllAdmin()
-    this.DistrictForm = this.fb.group({
+    this.searchForm = this.fb.group({
       admin:[''],
-      city: ['',Validators.required],
-      state: ['',Validators.required],
+      city: [''],
+      state: [''],
       status:[''],
-     startDate:[''],
+      startDate:[''],
       endDate:['']
     });
+    this.searchForm.patchValue({
+      admin: this.userId
+    })
   }
   getAllAdmin(){
     this._adminService.getAllAdmin()
     .subscribe(res => {
      this.admins = res.data;
       this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
-  
+      this.getStates()
     })
   }
-  onSubmit(){
-this.DistrictForm.value
-  }
-  subscribeAdmin(){
-    // let reqData : AdminRequestI = new AdminRequest();
-    // reqData.subscriberId = this.subscriberDetails.value.username;
-    // reqData.password = this.loginForm.value.password
+  reset(){}
 
-  }
   
 
   addsubscriberForm() {
     this.subscriberForm = this.fb.group({
-
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       fatherName: ['', [Validators.required]],
@@ -100,10 +90,12 @@ this.DistrictForm.value
       data => {
          data = data.data;
           for(let i=0; i<=data.length; i++){
-            this.states.push({
-              code: data[i],
-              name: data[i]
-            })
+            if(data[i]){
+              this.states.push({
+                code: data[i],
+                name: data[i]
+              })  
+            }
           }   
     
       }
@@ -113,14 +105,17 @@ this.DistrictForm.value
  //this.distByState=0
   changeStates(){
   this.distByState = []
-   this.subscriberService.getDistrict(this.subscriberForm.value.state).subscribe(
+   this.subscriberService.getDistrict(this.searchForm.value.state).subscribe(
     data =>{
    data=data.data;
    for(let i=0; i<=data.length; i++){
-    this.distByState.push({
-      code: data[i],
-      name: data[i]
-    })
+     if(data[i]){
+      this.distByState.push({
+        code: data[i],
+        name: data[i]
+      })
+  
+     }
   }   
    
     }
@@ -128,7 +123,7 @@ this.DistrictForm.value
   }
   adminChangeState(){
     this.distByState = []
-     this.subscriberService.getDistrict(this.DistrictForm.value.state).subscribe(
+     this.subscriberService.getDistrict(this.searchForm.value.state).subscribe(
       data =>{
      data=data.data;
      for(let i=0; i<=data.length; i++){
@@ -171,14 +166,27 @@ this.DistrictForm.value
 
 
 
-  getAllsubscriber() {
+  search() {
     this.subscriberDialog = false;
     this._loader.show();
-    this.subscriberService.subscriberGet(this.userId).subscribe(subscriber => {
+    const reqData = this.searchForm.value;
+    reqData.status = reqData.status === "InActive" ? false : true;
+    reqData.startDate = new Date(reqData.startDate).getTime();
+    reqData.endDate = new Date(reqData.endDate).getTime();
+    this.subscriberService.subscriberGet(this.searchForm.value).subscribe(subscriber => {
       this._loader.hide();
-      this.subscriberDetails = subscriber.data
-      this.subscribers = subscriber.data;
-
+      if(subscriber.data && subscriber.data.length > 0){
+        this.subscriberDetails = subscriber.data
+        this.subscribers = subscriber.data; 
+      } else {
+        this.subscriberDetails = [];
+    this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: " No Results Found.",
+          life: 3000,
+        });
+      }
     })
   }
 //this is post api for post subscriber
@@ -186,10 +194,10 @@ this.DistrictForm.value
   postAllsubscriber(){
  
  const reqData ={
-  name: this.DistrictForm.value.name,
-  state: this.DistrictForm.value.state,
-  city:this.DistrictForm.value.city,
- date:this.DistrictForm.value.date,
+  name: this.searchForm.value.name,
+  state: this.searchForm.value.state,
+  city:this.searchForm.value.city,
+ date:this.searchForm.value.date,
  updateDate:this.subscriberForm.value.updateDate
  }
  this.subscriberService.postSubscriber(reqData).subscribe(arg=>{
@@ -219,7 +227,6 @@ this.router.navigate(["app/user/profile/"+id])
           detail: arg.message,
           life: 3000,
         });
-        this.getAllsubscriber();
       })
     }
 else{
@@ -243,7 +250,6 @@ else{
       detail: arg.message,
       life: 3000,
     });
-    this.getAllsubscriber();
   });
 }
 
@@ -254,9 +260,6 @@ else{
     this.subscriberDialog = true;
     this.subscriberForm.addControl('_id', new FormControl(''));
     this.subscriberForm.patchValue(data);
-    this.subscriberForm.controls['email'].disable()  
-    
-
   }
 
   openNew() {

@@ -79,7 +79,7 @@ updateSubscriber(data: any){
   }
   getAddressList(reqData:any){
     return this._http
-    .post(apiEndpointUrl.printAddressList(), reqData)
+    .post(apiEndpointUrl.printAddressList(), reqData, { responseType: 'blob' })
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))

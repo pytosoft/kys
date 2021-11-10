@@ -33,7 +33,7 @@
             <p><span class="mr-2 mt-4">Pin Code:</span><strong>{{profileDetails?.pinCode}}</strong></p>
             <p><span class="mr-2 mt-4">Email:</span><strong>{{profileDetails?.email}}</strong></p>
 
-            <p><span class="mr-2 mt-4">Status:</span><strong>Active</strong></p>
+            <p><span class="mr-2 mt-4">Status:</span><strong>{{profileDetails?.active ? 'Active' : 'Deactive'}}</strong></p>
         </div>
     </div>
 
@@ -58,6 +58,7 @@
                 <th>End Date</th>
                 <th>Price</th>
                 <th>Delivery Address</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody >
@@ -70,7 +71,9 @@
     <td>{{item?.endDate | date:'mediumDate'}}</td>
     <td>{{item?.price}}</td>
     <td>{{item?.deliveryAddress.address}}({{item?.deliveryAddress.city}})
-
+    </td>
+    <td>
+        <button class="btn btn-danger" (click)="deactivateSubcription(item._id) "><i class="fa fa-info rounded-circle" ></i></button>
     </td>
             </tr>
             <tr *ngIf="activeSubcriptions.length === 0">

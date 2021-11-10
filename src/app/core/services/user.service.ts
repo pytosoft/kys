@@ -18,9 +18,9 @@ export class subscriberService {
 
   constructor( private _http: HttpClient ) { }
 
-  public subscriberGet(id: string){
+  public subscriberGet(reqData: any){
     return this._http
-    .get(`subscriber/list/${id}`)
+    .post(`subscriber/search`, reqData)
     .pipe(
       map((body: any) => body),
       catchError(() => throwError('Sorry something went wrong in api'))
@@ -61,6 +61,14 @@ postSubscriber(data:any){
     catchError(() => throwError('Sorry something went wrong in api'))
   )
 }
+deactivateSubcription(data:any){
+  return this._http
+  .post(apiEndpointUrl.deactivateSubcription(),data,httpOptions )
+  .pipe(
+    map((body: any) => body),
+    catchError(() => throwError('Sorry something went wrong in api'))
+  )
+}
   public profileGet(id:any) {
     return this._http.get(apiEndpointUrl.profile(id)).pipe(
       map((body: any) => body),
@@ -74,7 +82,7 @@ postSubscriber(data:any){
     )
 
   }
-  public getDistrict(data:any){
+  public getDistrict(data:string){
     return this._http.get(apiEndpointUrl.getDistList(data)).pipe(
       map((body:any)=>body),
       catchError(()=>throwError('sorry something went wrong with the api'))

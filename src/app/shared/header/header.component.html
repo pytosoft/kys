@@ -21,18 +21,19 @@
         <a class="nav-link top-menu" [routerLink]="['/app/subscription/list']" routerLinkActive="active"  aria-current="page">Manage Address</a>
         <a class="nav-link top-menu" *ngIf="isSuperAdmin" [routerLink]="['/app/plans']" routerLinkActive="active"  aria-current="page">Plans</a>
         <a class="nav-link top-menu" *ngIf="isSuperAdmin" [routerLink]="['/app/books']" routerLinkActive="active"  aria-current="page">Books</a>
+		<a class="nav-link top-menu" *ngIf="isSuperAdmin" [routerLink]="['/app/upload']" routerLinkActive="active"  aria-current="page">Upload</a>
         	<!-- Header Right Menu -->
 				<ul class="nav user-menu">
 
 					<!-- User Menu -->
 					<li class="nav-item dropdown has-arrow">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img class="rounded-circle" src="assets/img/profiles/tansingh-ji.jpg" width="31" alt="Ryan Taylor"></span>
+							<span class="user-img"><img class="rounded-circle" [src]="image" width="31" alt="Tan Singh"></span>
 						</a>
 						<div class="dropdown-menu">
 							<div class="user-header">
 								<div class="avatar avatar-sm">
-									<img src="assets/img/profiles/tansingh-ji.jpg" alt="User Image" class="avatar-img rounded-circle">
+									<img [src]="image" alt="User Image" class="avatar-img rounded-circle">
 								</div>
 								<div class="user-text">
 									<h6>{{profile?.name}}</h6>
