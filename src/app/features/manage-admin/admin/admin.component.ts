@@ -4,6 +4,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { AdminService } from './../../../core/services/admin/admin.service';
 import { stateList } from './../../../model/states-list';
+import { subscriberService } from 'src/app/core/services/user.service'
+import { ProfileService } from 'src/app/core/services/profile/profile.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -14,29 +17,74 @@ export class AdminComponent implements OnInit {
   adminDialog: boolean = false;
   submitted: boolean = false;
   adminForm:any;
-  states: any[] = stateList;
+  states: any[] = [];
   editMode: boolean = false;
   admins: any[] = [];
-
-  constructor(private _service: AdminService, private _spinner: LoaderService,
-     private _fb: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  distByState:any[]=[];
+  isSuperAdmin: boolean = false;
+  constructor(private _service: AdminService, private _spinner: LoaderService,private _profile: ProfileService,
+     private _fb: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private subscriberService: subscriberService) { 
+       this._profile.isSuperAdmin.subscribe(res => {
+         this.isSuperAdmin = res;
+       })
+     }
 
   ngOnInit(): void {
-    console.log(this.getAllAdmin())
     this.initilization();
     this.getAllAdmin();
+    this.getStates()
   }
+
   /**
    * getAllAdmin
    */
+  
    getAllAdmin(){
      this._spinner.show();
      this._service.getAllAdmin()
      .subscribe(res => {
       this.admins = res.data;
        this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
+       this.data.forEach(element => {
+         if(element.image){
+           element.image = environment.serverUrl+element.image;
+         } else{
+           element.image = "../../../../assets/img/profiles/tansingh-ji.jpg"
+         }
+       });
        this._spinner.hide();
      })
+   }
+   getStates(){
+    this.subscriberService.getState().subscribe(
+      data => {
+         data = data.data;
+          for(let i=0; i<=data.length; i++){
+            if(data[i]){
+              this.states.push({
+                code: data[i],
+                name: data[i]
+              })  
+            }
+          }   
+    
+      }
+    )
+   }
+   changeStates(){
+ this.distByState=[]
+    this.subscriberService.getDistrict(this.adminForm.value.state).subscribe(
+     data =>{
+    data=data.data;
+    for(let i=0; i<=data.length; i++){
+     this.distByState.push({
+       code: data[i],
+       name: data[i]
+     })
+   }   
+    
+     }
+   )
    }
 
   showAddAdmin(){

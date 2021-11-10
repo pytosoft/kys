@@ -34,7 +34,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
    */
   private customErrorHandler( res: HttpErrorResponse): Observable<HttpEvent<any>> {
     this._loader.hide();
-    console.log(res);
+    this.messageService.clear();
     if (res.status === 404) {
       this.messageService.add({
         severity: 'error',

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin/admin.component';
 import { SharedModule } from '../../shared/shared.module';
-
+import {DropdownModule} from 'primeng/dropdown';
 
 const routes: Routes = [
   {

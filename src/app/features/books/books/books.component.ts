@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from '../../../core/services/loader/loader.service';
 import { BookServiceService } from '../book.service';
+import{BooksDetail,BooksDetails} from 'src/app/model/books'
 
 @Component({
   selector: 'app-books',
@@ -44,6 +45,10 @@ export class BooksComponent implements OnInit {
     this.getData();
     this.addbookForm();
   }
+  /********************************
+   * Form :This is Books form
+   * @purpose : this is used to add books
+   *******************************/
 
   addbookForm() {
     this.bookForm = this.fb.group({
@@ -61,11 +66,15 @@ export class BooksComponent implements OnInit {
     this.editMode = false;
     this.productDialog = true;
   }
-
+/********************************
+   * New Books  name
+   * @param ,bookName,pricing,category
+   * @purpose : this is used for add new books
+   *******************************/
   addNewBook() {
     this.submitted = true;
-    let reqData = this.bookForm.value;
-    if(reqData.bookName == '' || reqData.pricing == '' || reqData.category == ''){
+    let reqData : BooksDetail = this.bookForm.value;
+    if(reqData.bookName == '' || reqData.pricing == 0 || reqData.category == ''){
       return
     }
     else if (this.editMode) {
@@ -125,9 +134,6 @@ export class BooksComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        //   this.products = this.products.filter((val:any) => !this.selectedProducts.includes(val));
-        //   this.selectedProducts = null;
-        // const id = this.booksDetail[i]._id;
         this.BooksService.bookDelete(book._id).subscribe((res) => {
           this.messageService.add({
             severity: 'success',
@@ -140,7 +146,7 @@ export class BooksComponent implements OnInit {
       },
     });
   }
-  //thhis is update
+
   editBook(data: any) {
     this.editMode = true;
     this.productDialog = true;

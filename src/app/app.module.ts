@@ -13,6 +13,8 @@ import { LoaderService } from './core/services/loader/loader.service';
 import { LoginService } from './core/services/login/login.service';
 import { SharedService } from './core/services/shared/shared.service';
 import { SharedModule } from './shared/shared.module';
+import { kysGuard } from './core/auth/kys.guard';
+
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule
+    
   ],
   providers: [
     {
@@ -34,7 +37,7 @@ import { SharedModule } from './shared/shared.module';
       useClass: HttpService
     },
     LoaderService, LoginService, SharedService,
-    ConfirmationService, MessageService,AuthguardService
+    ConfirmationService, MessageService,AuthguardService,kysGuard
   ],
   bootstrap: [AppComponent]
 })

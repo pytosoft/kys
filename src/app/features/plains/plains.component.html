@@ -82,7 +82,7 @@
         <div class="p-field">
             <label for="name">Duration</label>
             <input type="text" appNumberOnly maxlength="5" pInputText id="duration" [(ngModel)]="plan.duration" required autofocus />
-            <small class="p-error" *ngIf="submitted && !plan.duration">Duration is required.</small>
+            <small class="p-error" *ngIf="submitted && !plan.duration">Duration(Months) is required.</small>
         </div>
         <div class="p-field">
             <label for="name">Book</label>

@@ -1,0 +1,12 @@
+a img:last-child {
+  cursor: pointer;
+    display: none;  
+  }
+  a:hover img:last-child {
+    cursor: pointer;
+    display: block;  
+  }
+  a:hover img:first-child {
+    cursor: pointer;
+    display: none;  
+}

@@ -1,11 +1,10 @@
-import { stateList } from './../../model/states-list';
-import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { subscriberService } from 'src/app/core/services/user.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { AdminService } from 'src/app/core/services/admin/admin.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { subscriberService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -13,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+    
+ productDialog?: boolean;
+  distByState:any[]=[];
   subscriberDetails: any;
   submitted?: boolean;
   statuses?: any[];
@@ -22,11 +24,21 @@ export class UserComponent implements OnInit {
   panelOpenState = false;
   selected!: number;
   userId: string = '';
-  states: any[] = stateList;
+  states: any[] = [];
   subscribers: any[] = [];
+  admins: any[]=[];
+  data: any[]=[];
+  searchForm!: FormGroup;
+  Status = []=[{
+    name: 'Active',
+  value: 'Active'},{
+    name:'InActive',
+   value :'InActive'
+  }]
+  
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
-    private router:Router
+    private router:Router, private _adminService:AdminService
   ) { }
 
   ngOnInit(): void {
@@ -35,14 +47,34 @@ export class UserComponent implements OnInit {
     if(typeof id === 'string'){
       this.userId =  id;
     }
-    this.getAllsubscriber()
     this.addsubscriberForm()
+    this.getAllAdmin()
+    this.searchForm = this.fb.group({
+      admin:[''],
+      city: [''],
+      state: [''],
+      status:[''],
+      startDate:[''],
+      endDate:['']
+    });
+    this.searchForm.patchValue({
+      admin: this.userId
+    })
   }
+  getAllAdmin(){
+    this._adminService.getAllAdmin()
+    .subscribe(res => {
+     this.admins = res.data;
+      this.data = res.data.filter((admin:any) => !admin.isSuperAdmin);
+      this.getStates()
+    })
+  }
+  reset(){}
 
+  
 
   addsubscriberForm() {
     this.subscriberForm = this.fb.group({
-
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       fatherName: ['', [Validators.required]],
@@ -53,7 +85,57 @@ export class UserComponent implements OnInit {
       state: ['', [Validators.required]]
     })
   }
+  getStates(){
+    this.subscriberService.getState().subscribe(
+      data => {
+         data = data.data;
+          for(let i=0; i<=data.length; i++){
+            if(data[i]){
+              this.states.push({
+                code: data[i],
+                name: data[i]
+              })  
+            }
+          }   
+    
+      }
+    )
+  }
 
+ //this.distByState=0
+  changeStates(){
+  this.distByState = []
+   this.subscriberService.getDistrict(this.searchForm.value.state).subscribe(
+    data =>{
+   data=data.data;
+   for(let i=0; i<=data.length; i++){
+     if(data[i]){
+      this.distByState.push({
+        code: data[i],
+        name: data[i]
+      })
+  
+     }
+  }   
+   
+    }
+  )
+  }
+  adminChangeState(){
+    this.distByState = []
+     this.subscriberService.getDistrict(this.searchForm.value.state).subscribe(
+      data =>{
+     data=data.data;
+     for(let i=0; i<=data.length; i++){
+      this.distByState.push({
+        code: data[i],
+        name: data[i]
+      })
+    }   
+     
+      }
+    )
+    }
   get name() {
     return this.subscriberForm.get('name');
   }
@@ -84,20 +166,47 @@ export class UserComponent implements OnInit {
 
 
 
-  getAllsubscriber() {
+  search() {
     this.subscriberDialog = false;
     this._loader.show();
-    this.subscriberService.subscriberGet(this.userId).subscribe(subscriber => {
+    const reqData = this.searchForm.value;
+    reqData.status = reqData.status === "InActive" ? false : true;
+    reqData.startDate = new Date(reqData.startDate).getTime();
+    reqData.endDate = new Date(reqData.endDate).getTime();
+    this.subscriberService.subscriberGet(this.searchForm.value).subscribe(subscriber => {
       this._loader.hide();
-      this.subscriberDetails = subscriber.data
-      this.subscribers = subscriber.data;
-
+      if(subscriber.data && subscriber.data.length > 0){
+        this.subscriberDetails = subscriber.data
+        this.subscribers = subscriber.data; 
+      } else {
+        this.subscriberDetails = [];
+    this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: " No Results Found.",
+          life: 3000,
+        });
+      }
     })
   }
+//this is post api for post subscriber
+
+  postAllsubscriber(){
+ 
+ const reqData ={
+  name: this.searchForm.value.name,
+  state: this.searchForm.value.state,
+  city:this.searchForm.value.city,
+ date:this.searchForm.value.date,
+ updateDate:this.subscriberForm.value.updateDate
+ }
+ this.subscriberService.postSubscriber(reqData).subscribe(arg=>{
+   console.log(arg)
+ })
+  }
+
 
   profileInfo(id:string) {
-
-
 this.router.navigate(["app/user/profile/"+id])
   }
 
@@ -118,7 +227,6 @@ this.router.navigate(["app/user/profile/"+id])
           detail: arg.message,
           life: 3000,
         });
-        this.getAllsubscriber();
       })
     }
 else{
@@ -127,7 +235,7 @@ else{
     "email": this.subscriberForm.value.email,
     "fatherName": this.subscriberForm.value.fatherName,
     "address": this.subscriberForm.value.address,
-    "city": this.subscriberForm.value.city,
+    "distByState": this.subscriberForm.value.city,
     "mobile": this.subscriberForm.value.mobile,
     "pinCode": this.subscriberForm.value.pinCode,
     "state": this.subscriberForm.value.state,
@@ -142,7 +250,6 @@ else{
       detail: arg.message,
       life: 3000,
     });
-    this.getAllsubscriber();
   });
 }
 

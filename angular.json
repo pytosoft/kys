@@ -42,7 +42,11 @@
 
             ],
             "scripts": [
-              "src/assets/plugins/slimscroll/jquery.slimscroll.min.js"
+              "src/assets/plugins/slimscroll/jquery.slimscroll.min.js",
+              "node_modules/chart.js/dist/Chart.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "chart.js"
             ]
           },
           "configurations": {

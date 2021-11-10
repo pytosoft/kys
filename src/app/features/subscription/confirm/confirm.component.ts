@@ -1,9 +1,10 @@
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SubcriptionService } from './../../../core/services/subcription/subcription.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-confirm',
@@ -19,11 +20,13 @@ export class ConfirmComponent implements OnInit {
   today = new Date();
   deliverForm!: FormGroup;
   submitted: boolean = false;
+  minDateValue = new Date();
   constructor(private _router: Router,  private activeRoute: ActivatedRoute, private _fb: FormBuilder,
-     private _service: SubcriptionService, private messageService: MessageService, private spinner: LoaderService) { }
+     private _service: SubcriptionService, private messageService: MessageService, private spinner: LoaderService,
+     private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-        this.activeRoute.params.subscribe(query => {
+    this.activeRoute.params.subscribe(query => {
     if(query.subsId){
       this.subscriberId = query.subsId;
       this.getSubcriberInfoById()
@@ -38,8 +41,8 @@ export class ConfirmComponent implements OnInit {
       var dt = new Date();
       dt.setMonth( dt.getMonth() + element.duration );
       element.new = true;
-      element.startDate = this.today.getTime();
-      element.endDate = dt.getTime(); ​
+      element.startDate =  new Date();
+      element.endDate = dt; ​
       element.active = true;
       delete element.books;
       delete element._id;
@@ -62,8 +65,13 @@ export class ConfirmComponent implements OnInit {
     }
     this.seletedPlans.forEach(element => {
       element.deliveryAddress = this.deliverForm.value
+      element.deliveryAddress.fatherName = this.subcriberInfo.fatherName
       element.subscriberId = this.subscriberId
       element.createdBy = localStorage.getItem('userID')
+      element.city = this.deliverForm.value.city;
+      element.state = this.deliverForm.value.state;
+      element.startDate = new Date(element.startDate).getTime();
+      element.endDate = new Date(element.endDate).getTime();
     });
     const reqData = {
       "subscriberId": this.subscriberId,
@@ -130,6 +138,13 @@ export class ConfirmComponent implements OnInit {
 
   public get locality() {
     return this.deliverForm.get('locality');
+  }
+  
+  updateDate(i: number){
+     const dt = this.seletedPlans[i].startDate;
+     let temp = new Date(dt);
+      temp.setMonth( dt.getMonth() + this.seletedPlans[i].duration );
+      this.seletedPlans[i].endDate = temp; ​
   }
 
 }

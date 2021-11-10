@@ -46,6 +46,8 @@ public bookDelete(id:any){
     catchError(()=> throwError('Sorry something went wrong in api'))
   )
 }
+
+// this is for update books
  updateBook(data:any){
   return this._http
   .post(apiEndpointUrl.updateBook(), data)

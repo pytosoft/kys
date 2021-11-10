@@ -1,6 +1,7 @@
 import { ProfileService } from './../../core/services/profile/profile.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,14 @@ export class HeaderComponent implements OnInit {
       this._service.getProfileById(id).subscribe((res) => {
         this.profile = res.data;
         this.isSuperAdmin = res.data.isSuperAdmin;
+        this._service.setSuperAdmin(this.isSuperAdmin)
       });
     }
+  }
+  public get image() : string {
+    if(this.profile && this.profile.image){
+      return environment.serverUrl+this.profile.image; 
+    }
+    return "../../../../assets/img/profiles/tansingh-ji.jpg";
   }
 }

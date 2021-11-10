@@ -1,73 +1,117 @@
-<nav class="navbar navbar-light header-page">
+<nav
+ class="navbar navbar-light header-page">
   <div class="container-fluid">
     <a class="navbar-brand">Manage Subscribers
     </a>
   </div>
 </nav>
+<main class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      Search Subscribers
+    </div>
+    <div class="card-body">
+      <form [formGroup]="searchForm">
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label for="city" class="label">Admin</label>
+            <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="_id" 
+              formControlName="admin" placeholder="Select a Admin">
+            </p-dropdown>
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="state" class="label">State</label>
+            <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
+              (onChange)="changeStates()" placeholder="Select a State">
+            </p-dropdown>
+         </div>
+         <div class="col-md-3 form-group">
+            <label for="city" class="label ">District</label>
+            <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" 
+              formControlName="city" placeholder="Select a City">
+            </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="city" class="label ">Status</label>
+            <p-dropdown  optionLabel="name"  [options]="Status"   optionValue="value" 
+                  formControlName="status">
+                </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="startDate" class="label ">Start Date</label>
+            <p-calendar formControlName="startDate"></p-calendar>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="endDate" class="label ">End Date</label>
+            <p-calendar formControlName="endDate"></p-calendar>
+          </div>
+          <div class="col-md-12" style="text-align: end;">
+            <button type="button"  style="background-color: black;" (click)="reset()" class="btn btn-secondary">Reset</button>
+            <button type="button" style="margin-left: 10px" (click)="search()" class="btn btn-primary" >Search</button>
+  
+          </div>
+        </div>
+     
+        
 
-<main class="container-fluid" style="margin-top: -8px;">
-  <div class="d-flex align-items-center p-2 my-2 text-white rounded shadow-sm bg-primary">
-    <div class="lh-1">
-      <form class="col-12 col-lg-auto mb-1 mb-lg-0 me-lg-auto">
-        <input type="search" #search (keyup)="filterByName(search.value)" class="form-control search-height" placeholder="Search..." aria-label="Search">
       </form>
     </div>
-    <div class="btn-group me-1 ml-auto">
-      <button type="button" (click)="openNew()" class="btn btn-primary btn-sm">Add New</button>
-    </div>
-  </div>
+      </div>
+      <div *ngIf="subscriberDetails && subscriberDetails.length > 0">
+        <p-table #dt [value]="subscriberDetails" [rows]="10" [paginator]="true" [responsive]="true" reso
+        [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+      
+        <ng-template pTemplate="header">
+          <tr>
+      
+            <th>User Id</th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fatherName">Father Name
+            </th>
+            <th pSortableColumn="city">District/City <p-sortIcon field="city"></p-sortIcon>
+            </th>
+            <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
+            </th>
+            <th pSortableColumn="pinCode">Pin Code </th>
+      
+            <th pSortableColumn="active">Status <p-sortIcon field="active"></p-sortIcon>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+      
+        <ng-template pTemplate="body" let-subscriberDetails>
+          <tr>
+            <td>{{subscriberDetails.subscriberId}}</td>
+            <td>{{subscriberDetails.name}}</td>
+            <td>{{subscriberDetails.fatherName}}</td>
+            <td>{{subscriberDetails.city}}</td>
+            <td>{{subscriberDetails.mobile}}</td>
+            <td>{{subscriberDetails.pinCode}}</td>
+            <td>
+              <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
+              <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
+      
+            </td>
+            <td>
+      
+                <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(subscriberDetails) "> <i
+                  class="fa fa-pencil text-light"></i></button>
+      
+      
+                  <button class="btn btn-success" (click)="profileInfo(subscriberDetails._id) "><i class="fa fa-info rounded-circle" ></i></button>
+      
+            </td>
+          </tr>
+        </ng-template>
+      
+      </p-table>
+      </div>
 
-  <p-table #dt [value]="subscriberDetails" [rows]="10" [paginator]="true" [responsive]="true" reso
-    [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
-    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true">
+      </main>
 
-    <ng-template pTemplate="header">
-      <tr>
-
-        <th>User Id</th>
-        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-        </th>
-        <th pSortableColumn="fatherName">Father Name
-        </th>
-        <th pSortableColumn="city">City/Village <p-sortIcon field="city"></p-sortIcon>
-        </th>
-        <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
-        </th>
-        <th pSortableColumn="pinCode">Pin Code </th>
-
-        <th pSortableColumn="active">Status <p-sortIcon field="active"></p-sortIcon>
-        <th>Action</th>
-      </tr>
-    </ng-template>
-
-    <ng-template pTemplate="body" let-subscriberDetails>
-      <tr>
-        <td>{{subscriberDetails.subscriberId}}</td>
-        <td>{{subscriberDetails.name}}</td>
-        <td>{{subscriberDetails.fatherName}}</td>
-        <td>{{subscriberDetails.city}}</td>
-        <td>{{subscriberDetails.mobile}}</td>
-        <td>{{subscriberDetails.pinCode}}</td>
-        <td>
-          <span *ngIf="subscriberDetails.active" class="badge badge-pill bg-success inv-badge">Active</span>
-          <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
-
-        </td>
-        <td>
-
-            <button class="btn btn-primary  rounded-circle mr-2" (click)="subscriberEdit(subscriberDetails) "> <i
-              class="fa fa-pencil text-light"></i></button>
-
-
-              <button class="btn btn-success" (click)="profileInfo(subscriberDetails._id) "><i class="fa fa-info rounded-circle" ></i></button>
-
-        </td>
-      </tr>
-    </ng-template>
-
-  </p-table>
-</main>
 
 <p-dialog [(visible)]="subscriberDialog" [style]="{width: '450px'}" header="Subscriber Details" [modal]="true"
   styleClass="p-fluid">
@@ -87,7 +131,7 @@
       <div class="form-group row">
         <label for="email" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" name="email" formControlName="email">
+          <input type="text" class="form-control" id="email" name="email" formControlName="email"> 
           <div *ngIf="email && submitted" class="alert alert-danger">
               Email is required.
           </div>
@@ -123,29 +167,31 @@
           </div>
         </div>
       </div>
-
-      <div class="form-group row">
-        <label for="city" class="col-sm-2 col-form-label">City</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="city" name="city" formControlName="city">
-          <div *ngIf="city.invalid && submitted" class="alert alert-danger">
-            <div *ngIf="city.errors?.required">
-              city is required.
-            </div>
-
-          </div>
-        </div>
-      </div>
-
       <div class="form-group row">
         <label for="state" class="col-sm-2 col-form-label">State</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state">
+          <!-- <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state"> -->
+          <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  formControlName="state" (onChange)="changeStates()">
+            <option value="">Select States</option>
+          </p-dropdown>
           <div *ngIf="state.invalid &&  submitted" class="alert alert-danger">
             <div *ngIf="state.errors?.required">
               State is required.
             </div>
-
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="city" class="col-sm-2 col-form-label">District</label>
+        <div class="col-sm-10">
+          <!-- <input type="text" class="form-control" id="city" name="city" formControlName="city"> -->
+          <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"  formControlName="city">
+            <option value="">Select country...</option>
+          </p-dropdown>
+          <div *ngIf="city.invalid && submitted" class="alert alert-danger">
+            <div *ngIf="city.errors?.required">
+              District is required.
+            </div>
           </div>
         </div>
       </div>
@@ -180,13 +226,7 @@
         </div>
       </div>
       </div>
-
-
-
       <br>
-
-
-
     </form>
   </ng-template>
 

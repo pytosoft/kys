@@ -1,1 +1,74 @@
+.label{
+    margin-right: -221px;
+    font-weight: bold;
 
+}
+.button{
+    margin-left: 1086px;
+
+}
+.address{
+    margin-left:-15px
+}
+.admin{
+    width: 160px;
+    margin-left: -45px;
+}
+.date{
+    // margin-left: -107px;
+    width:10px;
+    width: 133px;
+    margin-right: 3px;
+    margin-left: -3px;
+
+}
+.dateLabel{margin-right: -5px;
+width: 132px;}
+button{
+    
+    border: 2px;
+    // margin-left: 19px;
+    background-color: #DE651A;
+    color: white;
+    padding: 3px 10px;
+
+}
+.label{
+    display: block;
+    font-weight: bold;
+
+}
+.button{
+    margin-left: 1086px;
+
+}
+.address{
+    margin-left:5px
+}
+.admin{
+    width: 160px;
+}
+::ng-deep  .p-dropdown{
+    width: 100%;
+}
+.mb-0{
+    font-weight: bolder;
+}
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    text-align: left;
+    padding: .5rem;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 1px 0;
+    font-weight: 600;
+    color: #495057;
+    background: #f8f9fa;
+    transition: box-shadow 0.2s;
+    font-size: 14px;
+}
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 1px 0;
+    padding: 5px;
+    font-size: 14px;
+}

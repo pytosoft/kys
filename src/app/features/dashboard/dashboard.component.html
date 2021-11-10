@@ -8,8 +8,42 @@
     <div class="content container-fluid">
 
 <div class="row">
+  <div class="col-xl-6 col-sm-6 col-12">
+    <div  class="card">
+      <div class="card-body">
+        <div style="display: block;">
+          <canvas baseChart 
+            [data]="pieChartData" 
+            [labels]="pieChartLabels" 
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+            [colors]="pieChartColor">
+          </canvas>
+        </div>
+  </div>
+  </div>
+  </div>
+  <div *ngIf="currentUser?.isSuperAdmin" class="col-xl-6 col-sm-6 col-12">
+    <div  class="card">
+      <div class="card-body">
+        <div style="display: block;">
+          <canvas baseChart 
+            [data]="pieChartDataPayment" 
+            [labels]="pieChartLabelsPayment" 
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+            [colors]="pieChartColor">
+          </canvas>
+        </div>
+  </div>
+  </div>
+  </div>
 <div class="col-xl-3 col-sm-6 col-12">
-  <div routerLink="user" class="card">
+  <div  class="card">
     <div class="card-body">
       <div class="dash-widget-header">
         <span class="dash-widget-icon text-primary border-primary">
@@ -28,7 +62,7 @@
     </div>
   </div>
 </div>
-<div class="col-xl-3 col-sm-6 col-12">
+<!-- <div class="col-xl-3 col-sm-6 col-12">
   <div routerLink="user" class="card">
     <div class="card-body">
       <div class="dash-widget-header">
@@ -67,7 +101,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div *ngIf="currentUser?.isSuperAdmin" class="col-xl-3 col-sm-6 col-12">
   <div class="card">
     <div class="card-body">
@@ -160,11 +194,18 @@
   <!-- Recent Orders -->
   <div class="card card-table">
     <div class="card-header">
-      <h4 class="card-title">Accounts</h4>
+      <h4 class="card-title">Accounts
+        <a style="cursor: pointer" (click)="exportexcel()">
+      
+          <button type="button"   cloud_download class="btn btn-primary btn-sm dnloadbtn">Download</button>
+            <!-- <mat-icon>cloud_download</mat-icon> -->
+          </a>
+      </h4>
+      
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-hover table-center mb-0">
+        <table class="table table-hover table-center mb-0"  id="excel-table">
           <thead>
             <tr>
               <th>Admin Name</th>
@@ -200,6 +241,51 @@
     </div>
   </div>
   <!-- /Recent Orders -->
+  <!--prime ng tabel-->
+  <!-- <p-table #dt   selectionMode="multiple"  responsiveLayout="scroll">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+            <h4 class="card-title">Accounts</h4>
+            <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+          
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Admin Name</th>
+            <th>Region</th>
+            <th>City/Village</th>
+            <th>Status</th>
+            <th class="text-right">Pending Amount</th>
+          </tr>
+          <tr *ngFor="let item of data?.admins">
+              <td>
+                <h5 class="table-avatar">
+                  <a >{{item?.name}}</a>
+                </h5>
+              </td>
+              <td>{{item?.region}}</td>
+              <td>{{item?.city}}</td>
+              <td>
+                <div class="status-toggle">
+                  <input type="checkbox" [(ngModel)]="item.active"  id="status_1" class="check" checked>
+                  <label for="status_1" class="checktoggle">checkbox</label>
+                </div>
+              </td>
+              <td class="text-right">
+                {{item.pendingAmount}}
+              </td>
+            </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table> -->
+   <!--prime ng tabel-->
 
 </div>
 </div>
