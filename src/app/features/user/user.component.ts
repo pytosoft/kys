@@ -35,11 +35,14 @@ export class UserComponent implements OnInit {
     name:'InActive',
    value :'InActive'
   }]
-  
+  plans: any[] = [];
+  books: any[] = [];  
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService,
     private subscriberService: subscriberService, private fb: FormBuilder, private _loader: LoaderService,
     private router:Router, private _adminService:AdminService
-  ) { }
+  ) { 
+    this.getPlansAndBooks();
+  }
 
   ngOnInit(): void {
 
@@ -55,7 +58,9 @@ export class UserComponent implements OnInit {
       state: [''],
       status:[''],
       startDate:[''],
-      endDate:['']
+      endDate:[''],
+      planId: [''],
+      bookId: ['']
     });
     this.searchForm.patchValue({
       admin: this.userId
@@ -69,9 +74,16 @@ export class UserComponent implements OnInit {
       this.getStates()
     })
   }
-  reset(){}
+  reset(){
+    this.searchForm.reset( {admin: this.userId})
+  }
 
-  
+  getPlansAndBooks() {
+    this._adminService.getPlansAndBooks().subscribe((book) => {
+      this.books = book[0].data;
+      this.plans = book[1].data;
+    });
+  }
 
   addsubscriberForm() {
     this.subscriberForm = this.fb.group({
@@ -176,7 +188,7 @@ export class UserComponent implements OnInit {
     this.subscriberService.subscriberGet(this.searchForm.value).subscribe(subscriber => {
       this._loader.hide();
       if(subscriber.data && subscriber.data.length > 0){
-        this.subscriberDetails = subscriber.data
+        this.subscriberDetails = subscriber.data.sort((a: { createDate: number; },b: { createDate: number; }) => b.createDate - a.createDate)
         this.subscribers = subscriber.data; 
       } else {
         this.subscriberDetails = [];

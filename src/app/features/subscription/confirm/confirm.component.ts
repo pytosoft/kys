@@ -72,6 +72,7 @@ export class ConfirmComponent implements OnInit {
       element.state = this.deliverForm.value.state;
       element.startDate = new Date(element.startDate).getTime();
       element.endDate = new Date(element.endDate).getTime();
+      element.updateDate = new Date().getTime();
     });
     const reqData = {
       "subscriberId": this.subscriberId,

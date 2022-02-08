@@ -12,7 +12,7 @@
     <div class="card-body">
       <form [formGroup]="DistrictForm" (ngSubmit)="onSubmit()">
         <div class="row">
-          <div *ngIf="isSuperAdmin" class="col-md-3 form-group">
+          <div class="col-md-3 form-group">
             <label for="city" class="label">Admin</label>
             <p-dropdown [options]="admins" optionLabel="name" [filter]="true" optionValue="_id" 
               formControlName="admin" placeholder="Select a Admin">
@@ -31,10 +31,18 @@
             </p-dropdown>
           </div>
           <div class="col-md-3 form-group">
-            <label for="city" class="label ">Plan</label>
-            <p-dropdown [options]="plans" optionLabel="name" [filter]="true" optionValue="planId" 
-              formControlName="plan" placeholder="Select a Plan">
+            <label for="city" class="label ">Book</label>
+            <p-dropdown [options]="plans" optionLabel="bookName" [filter]="true" optionValue="_id" 
+              formControlName="bookId" placeholder="Select a Book">
             </p-dropdown>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="startDate" class="label">Start Date</label>
+            <p-calendar formControlName="startDate"></p-calendar>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="endDate" class="label">End Date</label>
+            <p-calendar formControlName="endDate"></p-calendar>
           </div>
           <div class="col-md-12" style="text-align: end;">
             <button type="button"  (click)=" resetForm()" style="background-color: black;" class="btn btn-secondary">Reset</button>

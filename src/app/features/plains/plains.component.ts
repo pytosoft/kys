@@ -131,7 +131,8 @@ export class PlainsComponent implements OnInit {
 
   }
   updateBook(value: any){
-    const bookPrice = this.books.filter(res => res.bookName === this.plan.books)
-    this.plan.price = bookPrice[0].pricing*this.plan.duration
+    const book = this.books.find(res => res.bookName === this.plan.books)
+    this.plan.price = book.pricing*this.plan.duration
+    this.plan.bookId = book._id
   }
 }

@@ -239,6 +239,7 @@
         </table>
       </div>
     </div>
+    
   </div>
   <!-- /Recent Orders -->
   <!--prime ng tabel-->
@@ -289,7 +290,8 @@
 
 </div>
 </div>
-<div class="row" *ngIf="currentUser?.isSuperAdmin">
+
+<div *ngIf="currentUser?.isSuperAdmin" class="row">
   <div class="col-md-12">
   
     <!-- Recent Orders -->
@@ -298,45 +300,50 @@
         <h4 class="card-title">Deposit Request</h4>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-hover table-center mb-0">
-            <thead>
-              <tr>
-                <th>Admin Name</th>
-                <th>Notes</th>
-                <th>Status</th>
-                <th>Amount</th>
-                <th class="text-right">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of currentUser?.depositAmountRequest">
-                <td>
-                  <h2 class="table-avatar">
-                    <a >{{item?.name}}</a>
-                  </h2>
-                </td>
-                <td>{{item?.note}}</td>
-                <td>
-                  <span *ngIf="!item?.isVerifyed" (click)="verify(item)" style="cursor: pointer;" class="badge badge-pill bg-info inv-badge">Not Verifiyed</span>
-                  <span *ngIf="item?.isVerifyed" class="badge badge-pill bg-success inv-badge"> Verifiyed</span>
-                </td>
-                <td>
-                  {{item.depositAmount}}
-                </td>
-                <td class="text-right">
-                  {{item.date | date}}
-                </td>
-              </tr>
-              
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- /Recent Orders -->
-  
-  </div>
-  </div>
+  <p-table
+  #dt
+  [value]="currentUser?.depositAmountRequest"
+  [rows]="10"
+  [paginator]="true"
+  [responsive]="true"
+  [rowHover]="true"
+  dataKey="id"
+  styleClass="p-datatable-striped"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name">
+        Admin Name <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="note">
+        Notes <p-sortIcon field="note"></p-sortIcon>
+      </th>
+      <th pSortableColumn="isVerifyed">Status</th>
+      <th pSortableColumn="depositAmount">Amount</th>
+      <th pSortableColumn="date">Date</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-adminDetails>
+    <tr>
+      <td>{{ adminDetails.name }}</td>
+      <td>
+          {{ adminDetails.note }}
+      </td>
 
+      <td>
+        <span *ngIf="!adminDetails?.isVerifyed" (click)="verify(adminDetails)" style="cursor: pointer;" class="badge badge-pill bg-info inv-badge">Not Verifiyed</span>
+        <span *ngIf="adminDetails?.isVerifyed" class="badge badge-pill bg-success inv-badge"> Verifiyed</span>
+
+      </td>
+      <td>{{ adminDetails.depositAmount }}</td>
+      <td> {{adminDetails.date | date}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+</div>
+</div>
+</div>
+</div>
 </div>
