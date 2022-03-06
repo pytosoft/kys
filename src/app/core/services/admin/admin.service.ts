@@ -33,8 +33,13 @@ public getAllAdmin(){
 getDropDownData(): Observable<any> {
   const response1 = this._http.get(apiEndpointUrl.adminNameList());
   const response2 = this._http.get(apiEndpointUrl.getStateList());
-  const response3 = this._http.get(apiEndpointUrl.getPlanList());
+  const response3 = this._http.get(apiEndpointUrl.books());
   return forkJoin([response1, response2, response3]);
+}
+getPlansAndBooks(): Observable<any> {
+  const response1 = this._http.get(apiEndpointUrl.books());
+  const response2 = this._http.get(apiEndpointUrl.getPlanList());
+  return forkJoin([response1, response2]);
 }
 public getAllAdminNames(){
   return this._http

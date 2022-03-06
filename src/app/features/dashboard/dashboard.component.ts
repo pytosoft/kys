@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
         ]
     }
 ]
+
   constructor(private _service: ProfileService, private _spinner: LoaderService, 
     private messageService: MessageService) { 
     }
@@ -81,6 +82,10 @@ export class DashboardComponent implements OnInit {
     .subscribe(res => {
       this._spinner.hide();
       this.data = res.data;
+
+
+
+
       if(res.data.admins){
         this.currentUser = res.data.admins.filter((admin:any) => admin.isSuperAdmin === true && admin._id === this.userId)[0];
         this.data.admins = this.data.admins.filter((admin:any) => !admin.isSuperAdmin);

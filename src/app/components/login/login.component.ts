@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { LoginService } from 'src/app/core/services/login/login.service';
@@ -17,12 +17,11 @@ export class LoginComponent implements OnInit {
     private _fb: FormBuilder,
     private _loader: LoaderService,
     private _service: LoginService
-  ) {
-  }
+  ) {  }
 
   ngOnInit(): void {
     this.loginForm = this._fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required]],
       password: ['', Validators.required],
     });
   }
@@ -43,4 +42,12 @@ export class LoginComponent implements OnInit {
       this._loader.hide();
     });
   }
+}
+
+/** A hero's name can't match the given regular expression */
+export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? {forbiddenName: {value: control.value}} : null;
+  };
 }

@@ -42,7 +42,9 @@ data:any[]=[];
     admin:[''],
     city: ['',Validators.required],
     state: ['',Validators.required],
-    plan:['']
+    bookId:[''],
+    startDate: [''],
+    endDate: ['']
   });
   this.getDropDownData()
   }
@@ -87,13 +89,18 @@ data:any[]=[];
       })
   }
   getAddressList() {
-    this._spinner.show();
     if(!this.isSuperAdmin){
       this.DistrictForm.patchValue({
         admin: localStorage.getItem("userID")
       })
     }
-    this._service.getAddressList(this.DistrictForm.value)
+    let reqData = this.DistrictForm.value
+    if(reqData.startDate && reqData.endDate){
+      reqData.startDate = new Date(reqData.startDate).getTime();
+      reqData.endDate = new Date(reqData.endDate).getTime();
+    }
+    this._spinner.show();
+    this._service.getAddressList(reqData)
     .subscribe(res => {
       FileSaver.saveAs(res, 'address.pdf');
       this._spinner.hide();
@@ -123,6 +130,7 @@ data:any[]=[];
     this.subscriberService.getState().subscribe(
       data => {
         data = data.data;
+        this.states = [];
         for (let i = 0; i <= data.length; i++) {
           this.states.push({
             code: data[i],
