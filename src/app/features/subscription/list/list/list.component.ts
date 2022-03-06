@@ -89,15 +89,15 @@ data:any[]=[];
       })
   }
   getAddressList() {
-    if(!this.isSuperAdmin){
-      this.DistrictForm.patchValue({
-        admin: localStorage.getItem("userID")
-      })
-    }
+    // if(!this.isSuperAdmin){
+    //   this.DistrictForm.patchValue({
+    //     admin: localStorage.getItem("userID")
+    //   })
+    // }
     let reqData = this.DistrictForm.value
     if(reqData.startDate && reqData.endDate){
-      reqData.startDate = new Date(reqData.startDate).getTime();
-      reqData.endDate = new Date(reqData.endDate).getTime();
+      reqData.startDate = reqData.startDate;
+      reqData.endDate = reqData.endDate;
     }
     this._spinner.show();
     this._service.getAddressList(reqData)

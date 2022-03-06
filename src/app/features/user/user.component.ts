@@ -60,7 +60,8 @@ export class UserComponent implements OnInit {
       startDate:[''],
       endDate:[''],
       planId: [''],
-      bookId: ['']
+      bookId: [''],
+      mobile: ['']
     });
     this.searchForm.patchValue({
       admin: this.userId
@@ -190,6 +191,9 @@ export class UserComponent implements OnInit {
       if(subscriber.data && subscriber.data.length > 0){
         this.subscriberDetails = subscriber.data.sort((a: { createDate: number; },b: { createDate: number; }) => b.createDate - a.createDate)
         this.subscribers = subscriber.data; 
+        this.subscribers.forEach(element => {
+          element.createdByName = this.admins.find(res => res._id === element.createdBy).name;
+        });
       } else {
         this.subscriberDetails = [];
     this.messageService.add({

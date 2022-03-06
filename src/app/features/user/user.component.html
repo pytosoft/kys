@@ -57,6 +57,10 @@
               formControlName="bookId" placeholder="Select a Book">
             </p-dropdown>
           </div>
+          <div class="col-md-3 form-group">
+            <label for="mobile" class="label ">Mobile</label>
+            <input type="text" class="form-control" formControlName="mobile">
+          </div>
           <div class="col-md-12" style="text-align: end;">
             <button type="button"  style="background-color: black;" (click)="reset()" class="btn btn-secondary">Reset</button>
             <button type="button" style="margin-left: 10px" (click)="search()" class="btn btn-primary" >Search</button>
@@ -83,6 +87,9 @@
             </th>
             <th pSortableColumn="fatherName">Father Name
             </th>
+            <th>
+              Admin Name
+            </th>
             <th pSortableColumn="city">District/City <p-sortIcon field="city"></p-sortIcon>
             </th>
             <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon>
@@ -100,6 +107,7 @@
             <td>{{subscriberDetails.subscriberId}}</td>
             <td>{{subscriberDetails.name}}</td>
             <td>{{subscriberDetails.fatherName}}</td>
+            <td>{{subscriberDetails.createdByName}}</td>
             <td>{{subscriberDetails.city}}</td>
             <td>{{subscriberDetails.mobile}}</td>
             <td>{{subscriberDetails.pinCode}}</td>

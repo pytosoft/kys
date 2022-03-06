@@ -74,6 +74,7 @@
     </td>
     <td>
         <button class="btn btn-danger" (click)="deactivateSubcription(item._id) "><i class="fa fa-info rounded-circle" ></i></button>
+        <button class="btn btn-success" (click)="EditPlan(item.planId) "><i class="fa fa-pencil rounded-circle" ></i></button>
     </td>
             </tr>
             <tr *ngIf="activeSubcriptions.length === 0">
@@ -119,4 +120,27 @@
 
 
   </table>
+  <p-dialog [(visible)]="display" [style]="{width: '50vw'}" header="Update Plan" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content" >
+    <form style="min-height: 50vh;">
+      <div class="form-group row">
+        <label for="state" class="col-sm-2 col-form-label">Select Plan</label>
+        <div class="col-sm-10">
+          <!-- <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state"> -->
+          <p-dropdown [options]="plans" optionLabel="name" [filter]="true" name="newPlan" optionValue="planId"  [(ngModel)]="newPlan">
+            <option value="">Select Plan</option>
+          </p-dropdown>
+        </div>
+      </div>
+      <br>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pRipple class="btn btn-danger" (click)="display=false">Cancel</button>
+    <button pRipple label="Save"  (click)="changePlan()" type="submit"
+      class="btn btn-success">Change Plan</button>
+  </ng-template>
+</p-dialog>
 </div>
