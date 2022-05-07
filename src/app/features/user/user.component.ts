@@ -61,7 +61,9 @@ export class UserComponent implements OnInit {
       endDate:[''],
       planId: [''],
       bookId: [''],
-      mobile: ['']
+      mobile: [''],
+      voucherNumber: [''],
+      maker: ['']
     });
     this.searchForm.patchValue({
       admin: this.userId
@@ -89,7 +91,7 @@ export class UserComponent implements OnInit {
   addsubscriberForm() {
     this.subscriberForm = this.fb.group({
       name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [''],
       fatherName: ['', [Validators.required]],
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],

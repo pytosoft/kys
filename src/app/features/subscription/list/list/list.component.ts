@@ -55,11 +55,14 @@ data:any[]=[];
       this._spinner.hide();
      this.admins = res[0].data;
      this.plans = res[2].data;
+     this.states = [];
      for (let i = 0; i <= res[1].data.length; i++) {
-      this.states.push({
-        code: res[1].data[i],
-        name: res[1].data[i]
-      })
+       if(res[1].data[i]){
+        this.states.push({
+          code: res[1].data[i],
+          name: res[1].data[i]
+        })
+       }
     }
     })
   }
@@ -95,6 +98,12 @@ data:any[]=[];
     //   })
     // }
     let reqData = this.DistrictForm.value
+    if(reqData.state){
+      reqData.state = reqData.state.join(',')
+    }
+    if(reqData.city){
+      reqData.city = reqData.city.join(',')
+    }
     if(reqData.startDate && reqData.endDate){
       reqData.startDate = reqData.startDate;
       reqData.endDate = reqData.endDate;
@@ -148,10 +157,12 @@ data:any[]=[];
       data => {
         data = data.data;
         for (let i = 0; i <= data.length; i++) {
-          this.distByState.push({
-            code: data[i],
-            name: data[i]
-          })
+          if(data[i]){
+            this.distByState.push({
+              code: data[i],
+              name: data[i]
+            })
+          }
         }
 
       }

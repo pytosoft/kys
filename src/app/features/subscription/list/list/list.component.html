@@ -20,15 +20,18 @@
         </div>
         <div class="col-md-3 form-group">
             <label for="state" class="label">State</label>
-            <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
+            <!-- <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code" formControlName="state"
               (onChange)="changeStates()" placeholder="Select a State">
-            </p-dropdown>
+            </p-dropdown> -->
+            <p-multiSelect [options]="states" placeholder="Select a State" (onChange)="changeStates()" formControlName="state" optionLabel="name" optionValue="code"></p-multiSelect>
+
          </div>
          <div class="col-md-3 form-group">
             <label for="city" class="label ">District</label>
-            <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" 
+            <p-multiSelect [options]="distByState"  formControlName="city" optionLabel="name" placeholder="Select a City" optionValue="code"></p-multiSelect>
+            <!-- <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code" 
               formControlName="city" placeholder="Select a City">
-            </p-dropdown>
+            </p-dropdown> -->
           </div>
           <div class="col-md-3 form-group">
             <label for="city" class="label ">Book</label>

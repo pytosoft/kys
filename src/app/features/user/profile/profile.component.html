@@ -34,7 +34,10 @@
             <p><span class="mr-2 mt-4">Email:</span><strong>{{profileDetails?.email}}</strong></p>
 
             <p><span class="mr-2 mt-4">Status:</span><strong>{{profileDetails?.active ? 'Active' : 'Deactive'}}</strong></p>
-        </div>
+            <p><span class="mr-2 mt-4">Voucher Number:</span><strong>{{profileDetails?.voucherNumber}}</strong></p>
+            <p><span class="mr-2 mt-4">Maker:</span><strong>{{profileDetails?.maker}}</strong></p>
+
+          </div>
     </div>
 
 
@@ -74,7 +77,7 @@
     </td>
     <td>
         <button class="btn btn-danger" (click)="deactivateSubcription(item._id) "><i class="fa fa-info rounded-circle" ></i></button>
-        <button class="btn btn-success" (click)="EditPlan(item.planId) "><i class="fa fa-pencil rounded-circle" ></i></button>
+        <button class="btn btn-success" (click)="editPlan(item) "><i class="fa fa-pencil rounded-circle" ></i></button>
     </td>
             </tr>
             <tr *ngIf="activeSubcriptions.length === 0">
@@ -123,18 +126,123 @@
   <p-dialog [(visible)]="display" [style]="{width: '50vw'}" header="Update Plan" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content" >
-    <form style="min-height: 50vh;">
-      <div class="form-group row">
-        <label for="state" class="col-sm-2 col-form-label">Select Plan</label>
-        <div class="col-sm-10">
-          <!-- <input type="text" class="form-control" id="pinCode" name="state"  formControlName="state"> -->
-          <p-dropdown [options]="plans" optionLabel="name" [filter]="true" name="newPlan" optionValue="planId"  [(ngModel)]="newPlan">
+    <form autocomplete="off" [formGroup]="editSubscriptionForm" >
+        <div class="p-field">
+          <label for="name">Select Plan</label>
+          <p-dropdown [options]="plans" optionLabel="name" [filter]="true" name="plan" optionValue="planId"  formControlName="plan">
             <option value="">Select Plan</option>
           </p-dropdown>
-        </div>
+       </div>
+       <div class="p-field">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          pInputText
+          id="price"
+          formControlName="name"
+          required
+          autofocus
+        />
+        <small
+          class="p-error"
+          *ngIf="submitted && editSubscriptionForm.controls['name'].invalid"
+          >Name is required.</small
+        >
       </div>
-      <br>
-    </form>
+        <div class="p-field">
+          <label for="name">Father's Name</label>
+          <input
+            type="text"
+            pInputText
+            id="fName"
+            formControlName="fatherName"
+            autofocus
+          />
+        </div>
+        <div class="p-field">
+          <label for="name">Locality</label>
+          <input
+            type="text"
+            pInputText
+            id="region"
+            formControlName="locality"
+            autofocus
+          />
+        </div>
+        <div class="p-field">
+          <label for="name">Contact No.</label>
+          <input
+            type="text"
+            maxlength="10"
+            pInputText
+            id="mobile" appNumberOnly
+            formControlName="mobile"
+            required
+            autofocus
+          />
+          <small
+            class="p-error"
+            *ngIf="submitted && editSubscriptionForm.controls['mobile'].invalid"
+            >Mobile is required.</small
+          >
+        </div>
+      
+        <div class="p-field">
+          <label for="name">State</label>
+          <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"  formControlName="state" (onChange)="changeStates()" >
+            <option value="">Select States</option>
+          </p-dropdown>
+          <small
+            class="p-error"
+            *ngIf="submitted && editSubscriptionForm.controls['state'].invalid"
+            >State is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="name">District</label>
+          <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"  formControlName="city">
+              <option value="">Select country...</option>
+            </p-dropdown>
+          <small
+            class="p-error"
+            *ngIf="submitted && editSubscriptionForm.controls['city'].invalid"
+            >City/Village is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="name">Pin Code</label>
+          <input
+          type="text"
+          maxlength="6"
+          pInputText
+          id="pinCode" appNumberOnly
+          formControlName="pinCode"
+          required
+          autofocus
+        />
+          <small
+            class="p-error"
+            *ngIf="submitted && editSubscriptionForm.controls['pinCode'].invalid"
+            >Pin Code is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="description">Address</label>
+          <textarea
+            id="description"
+            pInputTextarea
+            formControlName="address"
+            required
+            rows="3"
+            cols="20"
+          ></textarea>
+          <small
+            class="p-error"
+            *ngIf="submitted && editSubscriptionForm.controls['address'].invalid"
+            >Address is required.</small
+          >
+        </div>
+      </form>
   </ng-template>
 
   <ng-template pTemplate="footer">

@@ -61,6 +61,14 @@
             <label for="mobile" class="label ">Mobile</label>
             <input type="text" class="form-control" formControlName="mobile">
           </div>
+          <div class="col-md-3 form-group">
+            <label for="mobile" class="label ">Maker</label>
+            <input type="text" class="form-control" formControlName="maker">
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="voucherNumber" class="label ">Voucher Number</label>
+            <input type="text" class="form-control" formControlName="voucherNumber">
+          </div>
           <div class="col-md-12" style="text-align: end;">
             <button type="button"  style="background-color: black;" (click)="reset()" class="btn btn-secondary">Reset</button>
             <button type="button" style="margin-left: 10px" (click)="search()" class="btn btn-primary" >Search</button>
@@ -97,6 +105,7 @@
             <th pSortableColumn="pinCode">Pin Code </th>
       
             <th pSortableColumn="active">Status <p-sortIcon field="active"></p-sortIcon>
+              <th pSortableColumn="voucherNumber">Voucher Number <p-sortIcon field="voucherNumber"></p-sortIcon>
             <th pSortableColumn="createDate">Creation Date</th>
             <th>Action</th>
           </tr>
@@ -116,6 +125,7 @@
               <span *ngIf="!subscriberDetails.active" class="badge badge-pill bg-danger inv-badge">InActive</span>
       
             </td>
+            <td>{{subscriberDetails.voucherNumber}}</td>
             <td>{{subscriberDetails.createDate | date}}</td>
             <td>
       

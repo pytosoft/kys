@@ -74,6 +74,7 @@ export class ConfirmComponent implements OnInit {
       element.endDate = new Date(element.endDate).getTime();
       element.updateDate = new Date();
       element.createDate = new Date();
+      element.displayId = this.subcriberInfo.subscriberId;
     });
     const reqData = {
       "subscriberId": this.subscriberId,
@@ -111,7 +112,7 @@ export class ConfirmComponent implements OnInit {
       name: ['', Validators.required],
       mobile: ['', Validators.required],
       pinCode: ['', Validators.required],
-      locality: ['', Validators.required],
+      locality: [''],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],

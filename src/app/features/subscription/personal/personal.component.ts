@@ -41,11 +41,13 @@ export class PersonalComponent implements OnInit {
       name: [ '', Validators.required],
       mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       email: [''],
-      fatherName: ['', Validators.required],
+      fatherName: [''],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      pinCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
+      pinCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      voucherNumber: [''],
+      maker: ['']
     })
   }
   nextPage(){

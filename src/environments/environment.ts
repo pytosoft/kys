@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://3.131.115.30:3002/',
-  publicUrl: 'http://3.131.115.30:3002/'
+  serverUrl: 'http://localhost:3002/',
+  publicUrl: 'http://localhost:3002/'
 };
 
 /*

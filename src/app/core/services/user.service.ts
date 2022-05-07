@@ -69,6 +69,14 @@ deactivateSubcription(data:any){
     catchError(() => throwError('Sorry something went wrong in api'))
   )
 }
+updateSubcription(data:any){
+  return this._http
+  .post(apiEndpointUrl.updateSubcription(),data,httpOptions )
+  .pipe(
+    map((body: any) => body),
+    catchError(() => throwError('Sorry something went wrong in api'))
+  )
+}
   public profileGet(id:any) {
     return this._http.get(apiEndpointUrl.profile(id)).pipe(
       map((body: any) => body),

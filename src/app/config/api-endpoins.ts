@@ -10,6 +10,7 @@
   subscriberById: (id: string) => `subscriber/getUserProfile/${id}`,
   saveSubcription: () => `subscription`,
   deactivateSubcription: () => `subscription/deactive`,
+  updateSubcription: () => `subscription/update`,
   getSubscriptionList: () => `subscription/list`,
   getAddressList: (dist:string) => `subscription/list?dist=${dist}`,
   printAddressList: ()=> `subscription/list/address`,

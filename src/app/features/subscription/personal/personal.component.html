@@ -8,7 +8,7 @@
       <form [formGroup]="userInformationForm">
         <div class="p-fluid p-formgrid p-grid">
           <div class="row">
-            <div class="col-4">
+            <div class="col-3">
               <label for="firstname">Name</label>
               <input id="firstname" formControlName="name" type="text" class="form-control"
                 [ngClass]="{'is-invalid': name?.invalid && submitted, ' is-valid' : name?.valid}">
@@ -17,15 +17,11 @@
               </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-3">
               <label for="lastname">Father's Name</label>
-              <input id="lastname" type="text" formControlName="fatherName" class="form-control"
-                [ngClass]="{'is-invalid': fatherName?.invalid && submitted, ' is-valid' : fatherName?.valid}">
-              <div *ngIf="fatherName?.invalid && submitted" class="invalid-feedback">
-                Please provide a valid name.
-              </div>
+              <input id="lastname" type="text" formControlName="fatherName" class="form-control">
             </div>
-            <div class="col-4">
+            <div class="col-3">
               <label for="mobile">Mobile</label>
               <input id="mobile" maxlength="10" appNumberOnly type="text" formControlName="mobile" class="form-control"
                 [ngClass]="{'is-invalid': mobile?.invalid && submitted, ' is-valid' : mobile?.valid}">
@@ -33,9 +29,15 @@
                 Please provide a valid mobile number.
               </div>
             </div>
+            <div class="col-3">
+              <label for="email">Email</label>
+              <input id="email" type="text" formControlName="email" class="form-control"
+                >
+             
+            </div>
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col-3">
                 <label for="state">State</label>
                 <p-dropdown [options]="states" optionLabel="name" [filter]="true" optionValue="code"
                   formControlName="state" (onChange)="changeStates()">
@@ -48,7 +50,7 @@
 
                 <!-- </div> -->
             </div>
-            <div class="col-4">
+            <div class="col-3">
               <label for="city">City</label>
               <p-dropdown [options]="distByState" optionLabel="name" [filter]="true" optionValue="code"
                 formControlName="city">
@@ -59,7 +61,7 @@
             <div *ngIf="state?.invalid && submitted" class="invalid-feedback"> -->
 
             </div>
-            <div class="col-4">
+            <div class="col-3">
               <label for="zip">Zip</label>
               <input id="zip" type="text" appNumberOnly maxlength="6" formControlName="pinCode" class="form-control"
                 [ngClass]="{'is-invalid': pinCode?.invalid && submitted, ' is-valid' : pinCode?.valid}">
@@ -67,10 +69,21 @@
                 Please provide a valid pin code.
               </div>
             </div>
-          </div>
+          
          
-        </div>
-        <div class="p-field p-col-12">
+          <div class="col-3">
+            <label for="maker">Maker</label>
+            <input id="maker" formControlName="maker" type="text" class="form-control">
+           
+          </div>
+          <div class="col-3">
+            <label for="voucherNumber"> Voucher Number</label>
+            <input id="voucherNumber" formControlName="voucherNumber" type="text" class="form-control"
+            >
+        
+          </div>
+         </div>
+           <div class="p-field p-col-12">
           <label for="address">Address</label>
           <textarea id="address" type="text" formControlName="address" rows="4" class="form-control"
             [ngClass]="{'is-invalid': address?.invalid && submitted, ' is-valid' : address?.valid}"></textarea>
@@ -78,7 +91,7 @@
             Please provide a valid address.
           </div>
         </div>
-
+        </div>
       </form>
     </ng-template>
     <ng-template pTemplate="footer">

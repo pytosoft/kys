@@ -32,6 +32,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 @NgModule({
   imports: [
@@ -86,9 +87,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
    ToolbarModule,
    SharedModule,
    FormsModule,
-   MatExpansionModule
-   
-
+   MatExpansionModule,
+   MultiSelectModule,
     
   ],
   exports: [
@@ -143,8 +143,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
   ToolbarModule,
   SharedModule,
   FormsModule,
-  MatExpansionModule
-
+  MatExpansionModule,
+  MultiSelectModule
   ],
   providers: [
   
